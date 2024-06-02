@@ -16,14 +16,14 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 83cf9ea79a10ddf4f94c85b990580bed, type: 2}
     - {fileID: 11400000, guid: 106f47a772dcd114fa74626e603b85b6, type: 2}
+    - {fileID: 11400000, guid: 83cf9ea79a10ddf4f94c85b990580bed, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: m_stats
+    - Name: Stats
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[_Scripts.Schemas.SchemaStat,
         Assembly-CSharp],[System.Int32, mscorlib]], mscorlib

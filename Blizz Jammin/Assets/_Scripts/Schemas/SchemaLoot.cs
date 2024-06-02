@@ -1,4 +1,3 @@
-using _Scripts.Gameplay;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,19 +7,23 @@ namespace _Scripts.Schemas
     public class SchemaLoot : Schema
     {
         /// <summary>
-        /// The monster's name to be displayed in UI.
+        /// The loot's name to be displayed in UI.
         /// </summary>
         [BoxGroup("Visuals")]
         public string Name;
+
+        /// <summary>
+        /// The loot's description to be displayed in UI.
+        /// </summary>
+        [BoxGroup("Visuals")] 
+        public string Description;
         
         /// <summary>
         /// The sprite used when shown in the world/UI.
         /// </summary>
         [BoxGroup("Visuals")]
         [PreviewField(100)]
-        public Sprite m_sprite;
-        
-        //  TODO: Stats, etc
+        public Sprite Sprite;
     }
 
     

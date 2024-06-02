@@ -30,7 +30,7 @@ namespace _Scripts.Schemas
         /// <summary>
         /// The monster's base stats.
         /// </summary>
-        public Dictionary<SchemaStat, int> m_stats = new Dictionary<SchemaStat, int>();
+        public Dictionary<SchemaStat, int> Stats = new Dictionary<SchemaStat, int>();
         
         
         [Button("Add All Stats")]
@@ -41,12 +41,12 @@ namespace _Scripts.Schemas
             {
                 string assetPath = AssetDatabase.GUIDToAssetPath(statGuid);
                 SchemaStat stat = AssetDatabase.LoadAssetAtPath<SchemaStat>(assetPath);
-                if (m_stats.ContainsKey(stat))
+                if (Stats.ContainsKey(stat))
                 {
                     continue;
                 }
 
-                m_stats.Add(stat, 1);
+                Stats.Add(stat, 1);
             }
         }
     }

@@ -12,8 +12,6 @@ namespace _Scripts.Schemas
         /// </summary>
         [BoxGroup("Visuals")]
         public string Name;
-
-        //  TODO: Stats, etc
     }
 
     
