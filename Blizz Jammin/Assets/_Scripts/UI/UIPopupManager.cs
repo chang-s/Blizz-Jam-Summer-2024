@@ -45,6 +45,16 @@ namespace _Scripts.UI
             }
         }
 
+        public UIPopup GetPopup(PopupType type)
+        {
+            if (!m_instances.ContainsKey(type))
+            {
+                return null;
+            }
+
+            return m_instances[type];
+        }
+        
         public void RequestPopup(PopupType type)
         {
             m_queue.Add(type);

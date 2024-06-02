@@ -42,6 +42,9 @@ namespace _Scripts.Gameplay
 
         private void OnMouseDown()
         {
+            UIPopup popup = ServiceLocator.Instance.UIPopupManager.GetPopup(UIPopupManager.PopupType.MonsterDetails);
+            UIMonsterDetails monsterDetails = popup.GetComponent<UIMonsterDetails>();
+            monsterDetails.SetData(m_data);
             ServiceLocator.Instance.UIPopupManager.RequestPopup(UIPopupManager.PopupType.MonsterDetails);
         }
 

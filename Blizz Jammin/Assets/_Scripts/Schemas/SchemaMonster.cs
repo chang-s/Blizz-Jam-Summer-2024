@@ -15,6 +15,12 @@ namespace _Scripts.Schemas
         public string Name;
         
         /// <summary>
+        /// The monster's description to be displayed in UI.
+        /// </summary>
+        [BoxGroup("Visuals")]
+        public string Description;
+        
+        /// <summary>
         /// The sprite used when shown in the world/UI.
         /// </summary>
         [BoxGroup("Visuals")]
