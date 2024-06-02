@@ -67,6 +67,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: Chris
+  Name: Cthulu
   Scale: {x: 1.5, y: 1.5, z: 1.5}
   Sprite: {fileID: 21300000, guid: a6bffb85522f0694dbf4017c1b8183ae, type: 3}

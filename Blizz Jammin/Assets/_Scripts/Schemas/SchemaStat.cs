@@ -1,4 +1,3 @@
-using _Scripts.Gameplay;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,10 +17,6 @@ namespace _Scripts.Schemas
         /// </summary>
         [BoxGroup("Visuals")]
         [PreviewField(100)]
-        public Sprite m_sprite;
-        
-        //  TODO: Stats, etc
+        public Sprite Sprite;
     }
-
-    
 }

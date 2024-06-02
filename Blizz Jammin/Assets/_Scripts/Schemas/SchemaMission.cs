@@ -13,6 +13,4 @@ namespace _Scripts.Schemas
         [BoxGroup("Visuals")]
         public string Name;
     }
-
-    
 }

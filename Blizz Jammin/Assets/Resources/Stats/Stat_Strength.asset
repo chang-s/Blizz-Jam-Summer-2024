@@ -22,4 +22,4 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Name: Strength
-  m_sprite: {fileID: 21300000, guid: 54fadd703aa03e64a96d25208e840561, type: 3}
+  Sprite: {fileID: 21300000, guid: db7b2294fee7ac54c9ff469b008b6b77, type: 3}
