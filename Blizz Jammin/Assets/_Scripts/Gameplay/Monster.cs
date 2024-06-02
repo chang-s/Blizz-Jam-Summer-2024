@@ -1,5 +1,6 @@
 using System;
 using _Scripts.Schemas;
+using _Scripts.UI;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace _Scripts.Gameplay
 {
     public class Monster : MonoBehaviour, ISchemaController
     {
+        public SchemaMonster Data => m_data;
+
         [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private TextMeshPro m_nameLabel;
         
@@ -34,10 +37,15 @@ namespace _Scripts.Gameplay
 
             m_nameLabel.SetText(data.Name);
 
-            m_spriteRenderer.transform.localScale = data.m_scale;
-            m_spriteRenderer.sprite = data.m_sprite;
+            m_spriteRenderer.transform.localScale = data.Scale;
+            m_spriteRenderer.sprite = data.Sprite;
         }
-        
+
+        private void OnMouseDown()
+        {
+            ServiceLocator.Instance.UIPopupManager.RequestPopup(UIPopupManager.PopupType.MonsterDetails);
+        }
+
         private void OnValidate()
         {
             if (m_data != null)

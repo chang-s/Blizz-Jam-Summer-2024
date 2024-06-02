@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEditor;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace _Scripts.Schemas
@@ -19,14 +18,14 @@ namespace _Scripts.Schemas
         /// The sprite used when shown in the world/UI.
         /// </summary>
         [BoxGroup("Visuals")]
-        public Vector3 m_scale;
+        public Vector3 Scale;
         
         /// <summary>
         /// The sprite used when shown in the world/UI.
         /// </summary>
         [BoxGroup("Visuals")]
         [PreviewField(100)]
-        public Sprite m_sprite;
+        public Sprite Sprite;
 
         /// <summary>
         /// The monster's base stats.
