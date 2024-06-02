@@ -391,6 +391,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6132684615092858141, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
+      propertyPath: m_text
+      value: Klumzy
+      objectReference: {fileID: 0}
     - target: {fileID: 7981157418185556846, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
       propertyPath: m_data
       value: 
@@ -439,6 +443,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 403efdf202345424f9185959b7893f66, type: 3}
+    - target: {fileID: 8926094266326532247, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926094266326532247, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926094266326532247, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -543,10 +559,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6132684615092858141, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
+      propertyPath: m_text
+      value: Klumzy
+      objectReference: {fileID: 0}
     - target: {fileID: 7981157418185556846, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
       propertyPath: m_data
       value: 
-      objectReference: {fileID: 11400000, guid: 556af6b0f432bdc4bb230e95a13e0b5a, type: 2}
+      objectReference: {fileID: 11400000, guid: f7f5e2b25726bad4bad173a117aabb02, type: 2}
     - target: {fileID: 8310895661266778129, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.03
@@ -590,7 +610,19 @@ PrefabInstance:
     - target: {fileID: 8708361092341791348, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 403efdf202345424f9185959b7893f66, type: 3}
+      objectReference: {fileID: 21300000, guid: a6bffb85522f0694dbf4017c1b8183ae, type: 3}
+    - target: {fileID: 8926094266326532247, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926094266326532247, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926094266326532247, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

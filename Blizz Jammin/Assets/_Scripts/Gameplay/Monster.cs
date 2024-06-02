@@ -33,6 +33,8 @@ namespace _Scripts.Gameplay
             }
 
             m_nameLabel.SetText(data.Name);
+
+            m_spriteRenderer.transform.localScale = data.m_scale;
             m_spriteRenderer.sprite = data.m_sprite;
         }
         
