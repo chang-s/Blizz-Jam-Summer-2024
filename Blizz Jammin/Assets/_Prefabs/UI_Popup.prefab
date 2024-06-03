@@ -60,13 +60,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1133049116841477828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7225809ce2411745873fd9310d4056e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b2d43d88b740324680f8f09767ca8ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_canvasGroup: {fileID: 7813108826725578711}
+  m_canvasGroup: {fileID: 0}
   m_content: {fileID: 0}
-  m_closeButtons:
-  - {fileID: 7933304286446236969}
+  m_closeButtons: []
 --- !u!1 &2331447134514783414
 GameObject:
   m_ObjectHideFlags: 0
