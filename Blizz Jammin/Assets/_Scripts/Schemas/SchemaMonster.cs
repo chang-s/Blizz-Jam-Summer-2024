@@ -33,12 +33,12 @@ namespace _Scripts.Schemas
         [PreviewField(100)]
         public Sprite Sprite;
 
+        // TODO: Expand this per-level, probably an intermediate ScriptableObject
         /// <summary>
         /// The monster's base stats.
         /// </summary>
         [BoxGroup("Behavior")]
         public Dictionary<SchemaStat, int> Stats = new Dictionary<SchemaStat, int>();
-        
         
         [Button("Add All Stats")]
         public void AddAllStats()

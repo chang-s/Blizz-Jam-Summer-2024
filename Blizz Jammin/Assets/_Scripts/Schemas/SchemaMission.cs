@@ -12,5 +12,13 @@ namespace _Scripts.Schemas
         /// </summary>
         [BoxGroup("Visuals")]
         public string Name;
+
+        [BoxGroup("Behavior")] 
+        public float InfamyScalar;
+        
+        [BoxGroup("Behavior")] 
+        public float XpScalar;
+
+        // TODO: Loot Table
     }
 }
