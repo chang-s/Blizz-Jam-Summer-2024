@@ -12,6 +12,7 @@ namespace _Scripts.UI
         [SerializeField] private Image m_icon;
         
         // Party
+        [SerializeField] private Sprite m_addMonster;
         [SerializeField] private Button[] m_monsterButtons;
         
         // Rewards

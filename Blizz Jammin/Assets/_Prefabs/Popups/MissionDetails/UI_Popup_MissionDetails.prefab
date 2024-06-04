@@ -1625,6 +1625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: {fileID: 8212291503489609136}
   m_icon: {fileID: 8154212023272488431}
+  m_addMonster: {fileID: 21300000, guid: 6477e4b11aa0d7642a225c1241ffa8eb, type: 3}
   m_monsterButtons:
   - {fileID: 2031797070718745638}
   - {fileID: 6854140738957436326}
