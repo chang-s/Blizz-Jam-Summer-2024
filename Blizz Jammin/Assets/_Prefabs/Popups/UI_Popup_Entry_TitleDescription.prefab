@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 3692657418216985134}
   - component: {fileID: 3575742283764376609}
   m_Layer: 0
-  m_Name: UI_Popup_VerticalGroup_Entry_TitleDescription
+  m_Name: UI_Popup_Entry_TitleDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

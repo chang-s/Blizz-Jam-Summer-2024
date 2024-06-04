@@ -12,7 +12,23 @@ namespace _Scripts.Schemas
         /// </summary>
         [BoxGroup("Visuals")]
         public string Name;
+        
+        [BoxGroup("Visuals")]
+        [PreviewField(100)]
+        public Sprite Icon;
 
+        [BoxGroup("Behavior")]
+        public int Health;
+        
+        [BoxGroup("Behavior")]
+        public int Days;
+
+        [BoxGroup("Behavior")] 
+        public int MinCapacity;
+        
+        [BoxGroup("Behavior")] 
+        public int MaxCapacity;
+        
         [BoxGroup("Behavior")] 
         public float InfamyScalar;
         

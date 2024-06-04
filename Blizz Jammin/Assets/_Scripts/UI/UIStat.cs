@@ -5,22 +5,16 @@ using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
-    public class UIStat : MonoBehaviour, ISchemaController
+    public class UIStat : MonoBehaviour, ISchemaController<SchemaStat>
     {
         [SerializeField] private Image m_icon;
         [SerializeField] private TMP_Text m_amount;
         
-        public void SetData(Schema schema)
+        public void SetData(SchemaStat data)
         {
-            SchemaStat data = schema as SchemaStat;
-            if (data == null)
-            {
-                return;
-            }
-
             m_icon.sprite = data.Sprite;
         }
-
+        
         public void SetAmount(int amount)
         {
             m_amount.SetText(amount.ToString());

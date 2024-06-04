@@ -1,3 +1,4 @@
+using _Scripts.Gameplay.Camera;
 using _Scripts.UI;
 using Utility;
 
@@ -9,6 +10,7 @@ namespace _Scripts.Gameplay
     /// </summary>
     public class ServiceLocator : SingletonMonoBehaviour<ServiceLocator>
     {
+        public CameraManager CameraManager { get; private set; }
         public UIPopupManager UIPopupManager { get; private set; }
 
         protected override void Awake()
@@ -16,6 +18,7 @@ namespace _Scripts.Gameplay
             base.Awake();
 
             // Find all MonoBehaviour game systems.
+            CameraManager = FindObjectOfType<CameraManager>();
             UIPopupManager = FindObjectOfType<UIPopupManager>();
         }
     }

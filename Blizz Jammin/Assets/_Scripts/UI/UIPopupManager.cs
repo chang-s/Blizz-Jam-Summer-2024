@@ -1,28 +1,25 @@
 using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Scripts.UI
 {
-    public class UIPopupManager : MonoBehaviour
+    public class UIPopupManager : SerializedMonoBehaviour
     {
-        [Serializable]
-        public struct PopupConfig
-        {
-            public PopupType m_type;
-            public UIPopup m_prefab;
-        }
-        
         public enum PopupType
         {
             MonsterDetails,
+            MissionDetails,
         }
         
         [SerializeField] private GameObject m_sharedBG;
         [SerializeField] private Transform m_root;
-        [SerializeField] private List<PopupConfig> m_configs = new List<PopupConfig>();
+        [SerializeField] private Dictionary<PopupType, UIPopup> m_configs;
         
-        // For some reason, Unity doesn't want to serialize this dictionary. PopupConfig is a struct intermediate.
+        /// <summary>
+        /// All the popup instances for the game.
+        /// </summary>
         private Dictionary<PopupType, UIPopup> m_instances = new Dictionary<PopupType, UIPopup>();
         
         /// <summary>
@@ -37,14 +34,15 @@ namespace _Scripts.UI
 
         private void Start()
         {
-            foreach (var config in m_configs)
+            foreach (var (type, prefab) in m_configs)
             {
-                UIPopup instance = Instantiate(config.m_prefab, m_root);
+                UIPopup instance = Instantiate(prefab, m_root);
                 instance.Hide();
-                m_instances.Add(config.m_type, instance);
+                m_instances.Add(type, instance);
             }
         }
 
+        // TODO: Type this better, so we don't incur boxing
         public UIPopup GetPopup(PopupType type)
         {
             if (!m_instances.ContainsKey(type))

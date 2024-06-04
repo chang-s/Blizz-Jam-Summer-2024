@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Scripts.Gameplay
 {
-    public class Monster : MonoBehaviour, ISchemaController
+    public class Monster : MonoBehaviour, ISchemaController<SchemaMonster>
     {
         public SchemaMonster Data => m_data;
 
@@ -14,7 +14,7 @@ namespace _Scripts.Gameplay
         
         
         /// <summary>
-        /// A Monster can be serialized with a specific instance of data on startup.
+        /// TEMP: A Monster can be serialized with a specific instance of data on startup.
         /// </summary>
         [SerializeField] private SchemaMonster m_data;
 
@@ -26,14 +26,8 @@ namespace _Scripts.Gameplay
             }
         }
 
-        public void SetData(Schema schema)
+        public void SetData(SchemaMonster data)
         {
-            SchemaMonster data = schema as SchemaMonster;
-            if (data == null)
-            {
-                return;
-            }
-
             m_nameLabel.SetText(data.Name);
 
             m_spriteRenderer.transform.localScale = data.Scale;
@@ -45,6 +39,7 @@ namespace _Scripts.Gameplay
             UIPopup popup = ServiceLocator.Instance.UIPopupManager.GetPopup(UIPopupManager.PopupType.MonsterDetails);
             UIMonsterDetails monsterDetails = popup.GetComponent<UIMonsterDetails>();
             monsterDetails.SetData(m_data);
+            
             ServiceLocator.Instance.UIPopupManager.RequestPopup(UIPopupManager.PopupType.MonsterDetails);
         }
 

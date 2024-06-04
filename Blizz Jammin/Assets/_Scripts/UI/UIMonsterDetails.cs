@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace _Scripts.UI
 {
     [RequireComponent(typeof(UIPopup))]
-    public class UIMonsterDetails : MonoBehaviour, ISchemaController
+    public class UIMonsterDetails : MonoBehaviour, ISchemaController<SchemaMonster>
     {
         [SerializeField] private Transform m_statRoot;
         [SerializeField] private TMP_Text m_name;
@@ -18,14 +18,8 @@ namespace _Scripts.UI
 
         private List<UIStat> m_statInstances = new List<UIStat>();
 
-        public void SetData(Schema schema)
+        public void SetData(SchemaMonster data)
         {
-            SchemaMonster data = schema as SchemaMonster;
-            if (data == null)
-            {
-                return;
-            }
-
             // Handle the image
             m_icon.sprite = data.Sprite;
             
