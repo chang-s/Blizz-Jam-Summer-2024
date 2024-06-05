@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 2649346156919225784}
   - component: {fileID: 1683541763954327715}
   m_Layer: 0
-  m_Name: UI_Stat
+  m_Name: UI_MonsterStat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

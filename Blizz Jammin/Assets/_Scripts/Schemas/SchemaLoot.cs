@@ -24,7 +24,7 @@ namespace _Scripts.Schemas
         /// </summary>
         [BoxGroup("Visuals")]
         [PreviewField(100)]
-        public Sprite Sprite;
+        public Sprite Icon;
         
         /// <summary>
         /// The stats this loot provides.

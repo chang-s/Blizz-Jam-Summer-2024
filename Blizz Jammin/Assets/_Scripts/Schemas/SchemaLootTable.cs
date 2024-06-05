@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace _Scripts.Schemas
@@ -12,11 +14,30 @@ namespace _Scripts.Schemas
         {
             public float RequiredMissionRewardScalar;
             public int Rolls;
+            public SchemaLoot[] RequiredLoot;
             public SchemaLoot[] PossibleLoot;
         }
         
         public LootTableEntry[] LootTable;
         
+        /// <summary>
+        /// Returns all unique loot entries that are possible with this loot table.
+        /// </summary>
+        /// <returns></returns>
+        public HashSet<SchemaLoot> GetAllPossibleLoot()
+        {
+            HashSet<SchemaLoot> allLoot = new HashSet<SchemaLoot>();
+            foreach (var lootTableEntry in LootTable)
+            {
+                allLoot.AddRange(lootTableEntry.RequiredLoot);
+                allLoot.AddRange(lootTableEntry.PossibleLoot);
+            }
+            return allLoot;
+        }
+        
+        /// <summary>
+        /// Helper function for setting up data in edit time.
+        /// </summary>
         [Button("Set Basic Loot Table (Empty)")]
         public void SetupBasicLootTable()
         {
@@ -25,18 +46,21 @@ namespace _Scripts.Schemas
                 {
                     Rolls = 2,
                     RequiredMissionRewardScalar = 1.0f,
+                    RequiredLoot = new SchemaLoot[] {},
                     PossibleLoot = new SchemaLoot[] {}
                 },
                 new LootTableEntry()
                 {
                     Rolls = 1,
                     RequiredMissionRewardScalar = 0.75f,
+                    RequiredLoot = new SchemaLoot[] {},
                     PossibleLoot = new SchemaLoot[] {}
                 },
                 new LootTableEntry()
                 {
                     Rolls = 1,
                     RequiredMissionRewardScalar = 0.5f,
+                    RequiredLoot = new SchemaLoot[] {},
                     PossibleLoot = new SchemaLoot[] {}
                 },
             };

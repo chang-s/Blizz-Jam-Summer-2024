@@ -29,11 +29,18 @@ namespace _Scripts.Gameplay
         
         private void OnMouseDown()
         {
-            UIPopup popup = ServiceLocator.Instance.UIPopupManager.GetPopup(UIPopupManager.PopupType.MissionDetails);
+            // If we're already showing something, then disregard the click
+            var popupManager = ServiceLocator.Instance.UIPopupManager;
+            if (popupManager.HasActivePopup())
+            {
+                return;
+            }
+            
+            UIPopup popup = popupManager.GetPopup(UIPopupManager.PopupType.MissionDetails);
             UIMissionDetails missionDetails = popup.GetComponent<UIMissionDetails>();
             missionDetails.SetData(m_data);
             
-            ServiceLocator.Instance.UIPopupManager.RequestPopup(UIPopupManager.PopupType.MissionDetails);
+            popupManager.RequestPopup(UIPopupManager.PopupType.MissionDetails);
         }
 
         

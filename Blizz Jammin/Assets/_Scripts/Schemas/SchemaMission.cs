@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using _Scripts.Gameplay;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -19,13 +17,15 @@ namespace _Scripts.Schemas
         public Sprite Icon;
 
         [BoxGroup("Requirements")] 
+        [Range(1, 6)]
         public int MinCapacity;
         
         [BoxGroup("Requirements")] 
+        [Range(1, 6)]
         public int MaxCapacity;
         
         [BoxGroup("Simulation")]
-        public int Health;
+        public int Endurance;
         
         [BoxGroup("Simulation")]
         public int Days;

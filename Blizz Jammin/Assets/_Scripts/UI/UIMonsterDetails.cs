@@ -1,20 +1,19 @@
 using System.Collections.Generic;
 using _Scripts.Schemas;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
-    [RequireComponent(typeof(UIPopup))]
     public class UIMonsterDetails : MonoBehaviour, ISchemaController<SchemaMonster>
     {
         [SerializeField] private Transform m_statRoot;
         [SerializeField] private TMP_Text m_name;
-        [SerializeField] private TMP_Text m_description;
+        [SerializeField] [CanBeNull] private TMP_Text m_description;
         [SerializeField] private Image m_icon;
         [SerializeField] private UIStat m_prefab;
-        [SerializeField] private UIPopup m_popup;
 
         private List<UIStat> m_statInstances = new List<UIStat>();
 
@@ -25,7 +24,7 @@ namespace _Scripts.UI
             
             // Handle texts
             m_name.SetText(data.Name);
-            m_description.SetText(data.Description);
+            m_description?.SetText(data.Description);
 
             // Handle stats
             // todo: recycle/pool elements. for now, just delete and remake
@@ -37,7 +36,7 @@ namespace _Scripts.UI
 
             foreach (var (statSchema, value) in data.Stats)
             {
-                UIStat instance = Instantiate(m_prefab, m_statRoot).GetComponent<UIStat>();
+                UIStat instance = Instantiate(m_prefab, m_statRoot);
                 instance.SetData(statSchema);
                 instance.SetAmount(value);
                 m_statInstances.Add(instance);

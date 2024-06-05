@@ -28,19 +28,27 @@ namespace _Scripts.Gameplay
 
         public void SetData(SchemaMonster data)
         {
+            m_data = data;
+            
             m_nameLabel.SetText(data.Name);
-
             m_spriteRenderer.transform.localScale = data.Scale;
             m_spriteRenderer.sprite = data.Sprite;
         }
 
         private void OnMouseDown()
         {
-            UIPopup popup = ServiceLocator.Instance.UIPopupManager.GetPopup(UIPopupManager.PopupType.MonsterDetails);
+            // If we're already showing something, then disregard the click
+            var popupManager = ServiceLocator.Instance.UIPopupManager;
+            if (popupManager.HasActivePopup())
+            {
+                return;
+            }
+            
+            UIPopup popup = popupManager.GetPopup(UIPopupManager.PopupType.MonsterDetails);
             UIMonsterDetails monsterDetails = popup.GetComponent<UIMonsterDetails>();
             monsterDetails.SetData(m_data);
             
-            ServiceLocator.Instance.UIPopupManager.RequestPopup(UIPopupManager.PopupType.MonsterDetails);
+            popupManager.RequestPopup(UIPopupManager.PopupType.MonsterDetails);
         }
 
         private void OnValidate()

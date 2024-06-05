@@ -25,8 +25,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 35721ec0702cb3f45bf1d8610ef54c7c, type: 3}
   MinCapacity: 1
   MaxCapacity: 6
-  Health: 5
-  Days: 5
-  LootTable: {fileID: 11400000, guid: f8ce2eccc32df6144ba8152ca7139879, type: 2}
+  Endurance: 15
+  Days: 10
+  LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}
   Infamy: 1
   Xp: 5

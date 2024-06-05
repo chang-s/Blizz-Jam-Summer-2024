@@ -11,6 +11,7 @@ namespace _Scripts.Gameplay
     public class ServiceLocator : SingletonMonoBehaviour<ServiceLocator>
     {
         public CameraManager CameraManager { get; private set; }
+        public MonsterManager MonsterManager { get; private set; }
         public UIPopupManager UIPopupManager { get; private set; }
 
         protected override void Awake()
@@ -19,6 +20,7 @@ namespace _Scripts.Gameplay
 
             // Find all MonoBehaviour game systems.
             CameraManager = FindObjectOfType<CameraManager>();
+            MonsterManager = FindObjectOfType<MonsterManager>();
             UIPopupManager = FindObjectOfType<UIPopupManager>();
         }
     }

@@ -74,6 +74,11 @@ namespace _Scripts.UI
             ProcessQueue();
         }
 
+        public bool HasActivePopup()
+        {
+            return m_currentPopup != null;
+        }
+        
         private void ProcessQueue()
         {
             if (m_currentPopup != null)

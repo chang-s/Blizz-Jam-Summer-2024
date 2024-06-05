@@ -31,6 +31,7 @@ namespace _Scripts.Gameplay
             m_agent.SetDestination(randomNavPosition);
         }
         
+        // TODO: Write a Utility class/function for this
         private Vector3 GetRandomNavMeshLocation(float radius) {
             Vector3 randomDirection = Random.insideUnitSphere * radius;
             randomDirection += transform.position;
