@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3286994744945923378}
   - component: {fileID: 4943056716735386559}
+  - component: {fileID: 4902611760067982941}
   m_Layer: 0
   m_Name: TestMonster_Albert
   m_TagString: Untagged
@@ -84,3 +85,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4902611760067982941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8931486126668167979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c32e693761d4b7590478f25d41549b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseMovementSpeed: 1
+  _scale: 1
