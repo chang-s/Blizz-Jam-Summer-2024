@@ -33,6 +33,8 @@ namespace _Scripts.Schemas
         [PreviewField(100)]
         public Sprite Sprite;
 
+        // TODO: Quirk System
+        
         // TODO: Expand this per-level, probably an intermediate ScriptableObject
         /// <summary>
         /// The monster's base stats.

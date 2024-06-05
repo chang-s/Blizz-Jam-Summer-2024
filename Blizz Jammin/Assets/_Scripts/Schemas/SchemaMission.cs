@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using _Scripts.Gameplay;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,24 +18,27 @@ namespace _Scripts.Schemas
         [PreviewField(100)]
         public Sprite Icon;
 
-        [BoxGroup("Behavior")]
-        public int Health;
-        
-        [BoxGroup("Behavior")]
-        public int Days;
-
-        [BoxGroup("Behavior")] 
+        [BoxGroup("Requirements")] 
         public int MinCapacity;
         
-        [BoxGroup("Behavior")] 
+        [BoxGroup("Requirements")] 
         public int MaxCapacity;
         
-        [BoxGroup("Behavior")] 
-        public float InfamyScalar;
+        [BoxGroup("Simulation")]
+        public int Health;
         
-        [BoxGroup("Behavior")] 
-        public float XpScalar;
-
-        // TODO: Loot Table
+        [BoxGroup("Simulation")]
+        public int Days;
+        
+        [BoxGroup("Rewards")] 
+        public SchemaLootTable LootTable;
+        
+        // TODO: Quirk System
+        
+        [BoxGroup("Rewards")] 
+        public float Infamy;
+        
+        [BoxGroup("Rewards")] 
+        public float Xp;
     }
 }
