@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
@@ -44,6 +43,10 @@ namespace _Scripts.UI
         [SerializeField] private GameObject m_addMonsterState;
         [BoxGroup("Add Monster State")]
         [SerializeField] private UIMonsterDetails m_monsterDetails;
+        [BoxGroup("Add Monster State")] 
+        [SerializeField] private Button m_addButton;
+
+        private int? m_lastButtonPressedIndex;
         
         private void Awake()
         {
@@ -55,18 +58,69 @@ namespace _Scripts.UI
                     HandleButtonClicked(capturedIndex);
                 });
             }
+
+            m_addButton.onClick.AddListener(OnAddButtonClicked);
         }
 
         private void HandleButtonClicked(int buttonIndex)
         {
-            // TODO:
-            m_missionState.SetActive(!m_missionState.activeInHierarchy);
-            m_addMonsterState.SetActive(!m_addMonsterState.activeInHierarchy);
-
-            var monster = ServiceLocator.Instance.MonsterManager.GetMonster(buttonIndex);
-            m_monsterDetails.SetData(monster.Data);
+            // TODO: Save state better
+            bool wasAddingMonster = m_addMonsterState.activeInHierarchy;
+            bool isReClick = buttonIndex == m_lastButtonPressedIndex;
+            bool isAddingMonster = !wasAddingMonster || !isReClick;
+            m_lastButtonPressedIndex = buttonIndex;
+            
+            m_missionState.SetActive(!isAddingMonster);
+            m_addMonsterState.SetActive(isAddingMonster);
+            
+            if (!isAddingMonster)
+            {
+                return;
+            }
+            
+            // Assume at least one monster
+            var monsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
+            if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
+            {
+                return;
+            }
+            
+            // TODO: Check for out of bounds
+            m_monsterDetails.SetData(monsters[buttonIndex].Data);
         }
 
+        private void OnAddButtonClicked()
+        {
+            // Something went terribly wrong, we cna early out
+            if (!m_lastButtonPressedIndex.HasValue)
+            {
+                return;
+            }
+            
+            // If for some reason we were able to click the button without being in the 
+            // adding monster state, we can ignore the click
+            bool wasAddingMonster = m_addMonsterState.activeInHierarchy;
+            if (!wasAddingMonster)
+            {
+                return;
+            }
+            
+            // Assume at least one monster
+            var monsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
+            if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
+            {
+                return;
+            }
+            
+            // Add this monster to the party
+            // TODO: Save this/creat party system, for now it just changes the icon
+            m_monsterButtons[m_lastButtonPressedIndex.Value].image.sprite = monsters[m_lastButtonPressedIndex.Value].Data.Sprite;
+            
+            // Go back to the mission screen
+            m_missionState.SetActive(true);
+            m_addMonsterState.SetActive(false);
+        }
+        
         public void SetData(SchemaMission data)
         {
             // Mission details

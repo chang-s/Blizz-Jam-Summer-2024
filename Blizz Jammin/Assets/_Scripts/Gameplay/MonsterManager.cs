@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using _Scripts.Schemas;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,22 +9,37 @@ namespace _Scripts.Gameplay
 {
     public class MonsterManager : MonoBehaviour
     {
+        private enum Status
+        {
+            InShop,
+            Owned,
+            InCombat
+        }
+        
         [SerializeField] private SchemaMonster[] m_startingMonsters;
         [SerializeField] private Monster m_monsterPrefab;
         [SerializeField] private Transform m_monsterRoot;
 
-        private List<Monster> m_monsters = new List<Monster>();
+        // TODO: Better system for tracking
+        private Dictionary<Status, List<Monster>> m_monsters = new Dictionary<Status, List<Monster>>();
         
         private void Awake()
         {
+            m_monsters.Add(Status.InShop, new List<Monster>());
+            m_monsters.Add(Status.InCombat, new List<Monster>());
+
+            // TEMP: We own the starting monsters
+            var owned = new List<Monster>();
             foreach (var monsterSchema in m_startingMonsters)
             {
                 var randomLocationInNavMesh = GetRandomNavMeshLocation(7.5f);
                 Monster monster = Instantiate(m_monsterPrefab, randomLocationInNavMesh, Quaternion.identity);
                 monster.transform.SetParent(m_monsterRoot);
                 monster.SetData(monsterSchema);
-                m_monsters.Add(monster);
+                
+                owned.Add(monster);
             }
+            m_monsters.Add(Status.Owned, owned);
         }
         
         // TODO: Write a Utility class/function for this
@@ -39,10 +56,11 @@ namespace _Scripts.Gameplay
             return finalPosition;
         }
 
-        // TODO: protect this
-        public Monster GetMonster(int index)
+        // TODO: TEMP
+        [CanBeNull]
+        public List<Monster> GetOwnedMonsters()
         {
-            return m_monsters[index];
+            return m_monsters[Status.Owned];
         }
     }
 }
