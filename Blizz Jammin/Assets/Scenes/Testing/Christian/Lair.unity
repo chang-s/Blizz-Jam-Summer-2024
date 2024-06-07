@@ -1535,13 +1535,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3e9a18f190e78c148b01da96e7c48d00, type: 2}
   - {fileID: 11400000, guid: 556af6b0f432bdc4bb230e95a13e0b5a, type: 2}
   - {fileID: 11400000, guid: f7f5e2b25726bad4bad173a117aabb02, type: 2}
-  - {fileID: 11400000, guid: 3e9a18f190e78c148b01da96e7c48d00, type: 2}
-  - {fileID: 11400000, guid: 3e9a18f190e78c148b01da96e7c48d00, type: 2}
-  - {fileID: 11400000, guid: 3e9a18f190e78c148b01da96e7c48d00, type: 2}
-  - {fileID: 11400000, guid: 3e9a18f190e78c148b01da96e7c48d00, type: 2}
-  - {fileID: 11400000, guid: 3e9a18f190e78c148b01da96e7c48d00, type: 2}
-  - {fileID: 11400000, guid: 3e9a18f190e78c148b01da96e7c48d00, type: 2}
-  - {fileID: 11400000, guid: 3e9a18f190e78c148b01da96e7c48d00, type: 2}
+  - {fileID: 11400000, guid: 58a4644e1e68fe44685feb096cee8d47, type: 2}
+  - {fileID: 11400000, guid: b8a1ddd4c4214484cb976228d276050a, type: 2}
+  - {fileID: 11400000, guid: 8d0cece0928f11c409b509fac2ae4e1e, type: 2}
+  - {fileID: 11400000, guid: 80803e3b33f9fa8459fc261bde651297, type: 2}
   m_monsterPrefab: {fileID: 7981157418185556846, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
   m_monsterRoot: {fileID: 329796723}
 --- !u!4 &1642283451

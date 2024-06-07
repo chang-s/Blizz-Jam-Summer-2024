@@ -46,7 +46,22 @@ namespace _Scripts.UI
         [BoxGroup("Add Monster State")] 
         [SerializeField] private Button m_addButton;
 
+        // TODO: Make this some sort of reusable UI component, for item inventory or other uses
+        //       Something like "UIPages"
+        [BoxGroup("Add Monster State")] 
+        [SerializeField] private Button m_leftButton;
+        [BoxGroup("Add Monster State")] 
+        [SerializeField] private Button m_rightButton;
+
+        /// <summary>
+        /// This is the index of the last party button that was pressed. Null if no press has occurred yet.
+        /// </summary>
         private int? m_lastButtonPressedIndex;
+
+        /// <summary>
+        /// This is the index of the last shown owned monster.
+        /// </summary>
+        private int m_shownMonsterIndex = 0;
         
         private void Awake()
         {
@@ -60,6 +75,8 @@ namespace _Scripts.UI
             }
 
             m_addButton.onClick.AddListener(OnAddButtonClicked);
+            m_leftButton.onClick.AddListener(DecrementMonsterChoice);
+            m_rightButton.onClick.AddListener(IncrementMonsterChoice);
         }
 
         private void HandleButtonClicked(int buttonIndex)
@@ -80,18 +97,18 @@ namespace _Scripts.UI
             
             // Assume at least one monster
             var monsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
-            if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
+            if (monsters == null || monsters.Count < m_shownMonsterIndex)
             {
                 return;
             }
             
             // TODO: Check for out of bounds
-            m_monsterDetails.SetData(monsters[buttonIndex].Data);
+            m_monsterDetails.SetData(monsters[m_shownMonsterIndex].Data);
         }
 
         private void OnAddButtonClicked()
         {
-            // Something went terribly wrong, we cna early out
+            // Something went terribly wrong
             if (!m_lastButtonPressedIndex.HasValue)
             {
                 return;
@@ -105,7 +122,6 @@ namespace _Scripts.UI
                 return;
             }
             
-            // Assume at least one monster
             var monsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
             if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
             {
@@ -114,11 +130,45 @@ namespace _Scripts.UI
             
             // Add this monster to the party
             // TODO: Save this/creat party system, for now it just changes the icon
-            m_monsterButtons[m_lastButtonPressedIndex.Value].image.sprite = monsters[m_lastButtonPressedIndex.Value].Data.Sprite;
+            m_monsterButtons[m_lastButtonPressedIndex.Value].image.sprite = monsters[m_shownMonsterIndex].Data.Sprite;
             
             // Go back to the mission screen
             m_missionState.SetActive(true);
             m_addMonsterState.SetActive(false);
+        }
+        
+        private void IncrementMonsterChoice()
+        {
+            // Assume at least one monster
+            var monsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
+            if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
+            {
+                return;
+            }
+
+            m_shownMonsterIndex++;
+            if (m_shownMonsterIndex == monsters.Count)
+            {
+                m_shownMonsterIndex = 0;
+            }
+            m_monsterDetails.SetData(monsters[m_shownMonsterIndex].Data);
+        }
+
+        private void DecrementMonsterChoice()
+        {
+            // Assume at least one monster
+            var monsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
+            if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
+            {
+                return;
+            }
+            
+            m_shownMonsterIndex--;
+            if (m_shownMonsterIndex < 0)
+            {
+                m_shownMonsterIndex = monsters.Count - 1;
+            }
+            m_monsterDetails.SetData(monsters[m_shownMonsterIndex].Data);
         }
         
         public void SetData(SchemaMission data)
