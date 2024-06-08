@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using _Scripts.Schemas;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,27 +7,30 @@ namespace _Scripts.Gameplay
 {
     public class MonsterManager : MonoBehaviour
     {
-        private enum Status
+        private enum MonsterStatus
         {
-            InShop,
-            Owned,
-            InCombat
+            Locked,         // Cannot purchase yet
+            Purchasable,      // Is in the shop
+            Purchased,          // Is bought and owned
+            Busy            // Is owned, but is currently busy in combat or otherwise
+        }
+
+        private struct MonsterInfo
+        {
+            public Monster m_worldInstance;
+            public MonsterStatus m_status;
         }
         
         [SerializeField] private SchemaMonster[] m_startingMonsters;
         [SerializeField] private Monster m_monsterPrefab;
         [SerializeField] private Transform m_monsterRoot;
 
-        // TODO: Better system for tracking
-        private Dictionary<Status, List<Monster>> m_monsters = new Dictionary<Status, List<Monster>>();
+        private List<MonsterInfo> m_monsterInfos;
         
         private void Awake()
         {
-            m_monsters.Add(Status.InShop, new List<Monster>());
-            m_monsters.Add(Status.InCombat, new List<Monster>());
-
             // TEMP: We own the starting monsters
-            var owned = new List<Monster>();
+            m_monsterInfos = new List<MonsterInfo>();
             foreach (var monsterSchema in m_startingMonsters)
             {
                 var randomLocationInNavMesh = GetRandomNavMeshLocation(7.5f);
@@ -36,9 +38,12 @@ namespace _Scripts.Gameplay
                 monster.transform.SetParent(m_monsterRoot);
                 monster.SetData(monsterSchema);
                 
-                owned.Add(monster);
+                m_monsterInfos.Add(new MonsterInfo()
+                {
+                    m_worldInstance = monster,
+                    m_status = MonsterStatus.Purchasable
+                });
             }
-            m_monsters.Add(Status.Owned, owned);
         }
         
         // TODO: Write a Utility class/function for this
@@ -56,10 +61,32 @@ namespace _Scripts.Gameplay
         }
 
         // TODO: TEMP
-        [CanBeNull]
         public List<Monster> GetOwnedMonsters()
         {
-            return m_monsters[Status.Owned];
+            List<Monster> results = new List<Monster>();
+            foreach (MonsterInfo info in m_monsterInfos)
+            {
+                if (info.m_status is MonsterStatus.Purchased or MonsterStatus.Busy)
+                {
+                    results.Add(info.m_worldInstance);
+                }
+            }
+
+            return results;
+        }
+        
+        public List<Monster> GetMonstersAvailableForMission()
+        {
+            List<Monster> results = new List<Monster>();
+            foreach (MonsterInfo info in m_monsterInfos)
+            {
+                if (info.m_status == MonsterStatus.Purchased)
+                {
+                    results.Add(info.m_worldInstance);
+                }
+            }
+
+            return results;
         }
     }
 }

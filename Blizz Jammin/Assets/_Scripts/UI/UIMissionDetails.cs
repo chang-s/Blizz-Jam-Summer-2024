@@ -45,6 +45,8 @@ namespace _Scripts.UI
         [SerializeField] private UIMonsterDetails m_monsterDetails;
         [BoxGroup("Add Monster State")] 
         [SerializeField] private Button m_addButton;
+        [BoxGroup("Add Monster State")] 
+        [SerializeField] private Button m_removeButton;
 
         // TODO: Make this some sort of reusable UI component, for item inventory or other uses
         //       Something like "UIPages"
@@ -75,6 +77,7 @@ namespace _Scripts.UI
             }
 
             m_addButton.onClick.AddListener(OnAddButtonClicked);
+            m_removeButton.onClick.AddListener(OnRemoveButtonClicked);
             m_leftButton.onClick.AddListener(DecrementMonsterChoice);
             m_rightButton.onClick.AddListener(IncrementMonsterChoice);
         }
@@ -95,8 +98,7 @@ namespace _Scripts.UI
                 return;
             }
             
-            // Assume at least one monster
-            var monsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
+            var monsters = ServiceLocator.Instance.MonsterManager.GetMonstersAvailableForMission();
             if (monsters == null || monsters.Count < m_shownMonsterIndex)
             {
                 return;
@@ -122,7 +124,7 @@ namespace _Scripts.UI
                 return;
             }
             
-            var monsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
+            var monsters = ServiceLocator.Instance.MonsterManager.GetMonstersAvailableForMission();
             if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
             {
                 return;
@@ -136,11 +138,24 @@ namespace _Scripts.UI
             m_missionState.SetActive(true);
             m_addMonsterState.SetActive(false);
         }
+
+        private void OnRemoveButtonClicked()
+        {
+            // Something went terribly wrong
+            if (!m_lastButtonPressedIndex.HasValue)
+            {
+                return;
+            }
+            
+            // Remove this monster to the party
+            // TODO: Save this/creat party system, for now it just changes the icon
+            m_monsterButtons[m_lastButtonPressedIndex.Value].image.sprite = m_addMonsterSprite;
+        }
         
         private void IncrementMonsterChoice()
         {
             // Assume at least one monster
-            var monsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
+            var monsters = ServiceLocator.Instance.MonsterManager.GetMonstersAvailableForMission();
             if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
             {
                 return;
@@ -157,7 +172,7 @@ namespace _Scripts.UI
         private void DecrementMonsterChoice()
         {
             // Assume at least one monster
-            var monsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
+            var monsters = ServiceLocator.Instance.MonsterManager.GetMonstersAvailableForMission();
             if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
             {
                 return;
