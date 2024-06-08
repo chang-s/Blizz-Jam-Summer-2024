@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using _Scripts.Gameplay.Camera;
+using _Scripts.Schemas;
 using _Scripts.UI;
+using UnityEngine;
 using Utility;
 
 namespace _Scripts.Gameplay
@@ -10,9 +13,15 @@ namespace _Scripts.Gameplay
     /// </summary>
     public class ServiceLocator : SingletonMonoBehaviour<ServiceLocator>
     {
+        // MonoBehavior systems 
         public CameraManager CameraManager { get; private set; }
         public MonsterManager MonsterManager { get; private set; }
         public UIPopupManager UIPopupManager { get; private set; }
+
+        // Schema collections
+        public SchemaMission[] AllMissions { get; private set; }
+        public SchemaMonster[] AllMonsters { get; private set; }
+        public SchemaLoot[] AllLoot { get; private set; }
 
         protected override void Awake()
         {
@@ -22,6 +31,10 @@ namespace _Scripts.Gameplay
             CameraManager = FindObjectOfType<CameraManager>();
             MonsterManager = FindObjectOfType<MonsterManager>();
             UIPopupManager = FindObjectOfType<UIPopupManager>();
+
+            AllLoot = Resources.LoadAll<SchemaLoot>("Loot");
+            AllMissions = Resources.LoadAll<SchemaMission>("Missions");
+            AllMonsters = Resources.LoadAll<SchemaMonster>("Monsters");
         }
     }
 }

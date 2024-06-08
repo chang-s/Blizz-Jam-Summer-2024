@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using _Scripts.Schemas;
 using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
