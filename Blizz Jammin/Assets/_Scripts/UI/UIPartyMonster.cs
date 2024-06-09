@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,34 +9,46 @@ namespace _Scripts.UI
     public class UIPartyMonster : SerializedMonoBehaviour, ISchemaController<SchemaMonster>
     {
         [Serializable]
-        public enum PartyState
+        public enum State
         {
-            Available,
+            // Used in the party 
+            Normal,
             Selected,
-            InParty,
-            InCombat
         }
+
+        public Button Button => m_button;
+        public SchemaMonster MonsterData => m_monsterData;
         
         [SerializeField] private UIMonsterDetails m_monsterDetails;
         [SerializeField] private Button m_button;
-        [SerializeField] private Dictionary<PartyState, GameObject> m_stateControllers;
         
-        public void SetData(SchemaMonster data)
+        [SerializeField] private GameObject m_noMonsterObject;
+        [SerializeField] private GameObject m_hasMonsterObject;
+        [SerializeField] private GameObject m_selectedObject;
+        
+
+        private SchemaMonster m_monsterData;
+
+        public void SetState(State state)
         {
-            m_monsterDetails.SetData(data);
+            switch (state)
+            {
+                case State.Normal:
+                    m_selectedObject.SetActive(false);
+                    return;
+                case State.Selected:
+                    m_selectedObject.SetActive(true);
+                    return;
+            }
         }
-
-        public void SetState(PartyState state)
+        
+        public void SetData(SchemaMonster monster)
         {
-            if (!m_stateControllers.ContainsKey(state))
-            {
-                return;
-            }
-
-            foreach (var (partyState, partyObject) in m_stateControllers)
-            {
-                partyObject.SetActive(partyState == state);
-            }
+            m_monsterData = monster;
+            m_monsterDetails.SetData(monster);
+            
+            m_noMonsterObject.SetActive(m_monsterData == null);
+            m_hasMonsterObject.SetActive(m_monsterData != null);
         }
     }
 }

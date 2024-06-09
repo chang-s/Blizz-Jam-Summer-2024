@@ -19,6 +19,11 @@ namespace _Scripts.UI
 
         public void SetData(SchemaMonster data)
         {
+            if (data == null)
+            {
+                return;
+            }
+            
             // Handle the image
             if (m_icon != null)
             {
