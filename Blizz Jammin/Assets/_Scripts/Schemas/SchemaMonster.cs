@@ -34,8 +34,14 @@ namespace _Scripts.Schemas
         public Sprite Sprite;
 
         // TODO: Quirk System
+
+        /// <summary>
+        /// Determines if the player gets this monster at the start of the game.
+        /// </summary>
+        [BoxGroup("Behavior")]
+        public bool IsStarter = false;
         
-        // TODO: Expand this per-level, probably an intermediate ScriptableObject
+        // TODO: Expand this per-level, probably an intermediate ScriptableObject?
         /// <summary>
         /// The monster's base stats.
         /// </summary>

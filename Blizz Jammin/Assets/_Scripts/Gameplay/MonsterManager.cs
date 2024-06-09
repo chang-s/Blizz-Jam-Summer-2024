@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using _Scripts.Schemas;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,45 +21,36 @@ namespace _Scripts.Gameplay
             public MonsterStatus m_status;
         }
         
-        [SerializeField] private SchemaMonster[] m_startingMonsters;
+        [BoxGroup("Lair")]
         [SerializeField] private Monster m_monsterPrefab;
+        [BoxGroup("Lair")]
         [SerializeField] private Transform m_monsterRoot;
-
+        [BoxGroup("Lair")] [SerializeField] 
+        private Vector3 m_gap;
+        
         private List<MonsterInfo> m_monsterInfos;
         
         private void Awake()
         {
-            // TEMP: We own the starting monsters
+            Vector3 offset = Vector3.zero;
             m_monsterInfos = new List<MonsterInfo>();
-            foreach (var monsterSchema in m_startingMonsters)
+            foreach (var monsterSchema in ServiceLocator.Instance.AllMonsters)
             {
-                var randomLocationInNavMesh = GetRandomNavMeshLocation(7.5f);
-                Monster monster = Instantiate(m_monsterPrefab, randomLocationInNavMesh, Quaternion.identity);
-                monster.transform.SetParent(m_monsterRoot);
+                
+                Monster monster = Instantiate(m_monsterPrefab, m_monsterRoot);
+                monster.transform.localPosition += offset;
                 monster.SetData(monsterSchema);
                 
                 m_monsterInfos.Add(new MonsterInfo()
                 {
                     m_worldInstance = monster,
-                    m_status = MonsterStatus.Purchasable
+                    m_status = monsterSchema.IsStarter ? MonsterStatus.Purchased : MonsterStatus.Locked
                 });
+
+                offset += m_gap;
             }
         }
         
-        // TODO: Write a Utility class/function for this
-        private Vector3 GetRandomNavMeshLocation(float radius) {
-            Vector3 randomDirection = Random.insideUnitSphere * radius;
-            randomDirection += transform.position;
-            
-            NavMeshHit hit;
-            Vector3 finalPosition = Vector3.zero;
-            if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1)) {
-                finalPosition = hit.position;            
-            }
-            
-            return finalPosition;
-        }
-
         // TODO: TEMP
         public List<Monster> GetOwnedMonsters()
         {

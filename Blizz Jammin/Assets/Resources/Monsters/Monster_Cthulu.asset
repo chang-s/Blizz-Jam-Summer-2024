@@ -108,5 +108,6 @@ MonoBehaviour:
       Data: 
   Name: Cthulu
   Description: He's just a cute little green dude!
-  Scale: {x: 1.5, y: 1.5, z: 1.5}
+  Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: a6bffb85522f0694dbf4017c1b8183ae, type: 3}
+  IsStarter: 1

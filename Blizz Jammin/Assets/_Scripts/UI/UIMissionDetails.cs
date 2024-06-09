@@ -16,8 +16,6 @@ namespace _Scripts.UI
         private const string c_xpFormat = "XP: {0}";
         
         [BoxGroup("Mission State")] 
-        [SerializeField] private GameObject m_missionState;
-        [BoxGroup("Mission State")] 
         [SerializeField] private TMP_Text m_name;
         [BoxGroup("Mission State")] 
         [SerializeField] private TMP_Text m_endurance;
@@ -34,160 +32,48 @@ namespace _Scripts.UI
         [BoxGroup("Mission State")] 
         [SerializeField] private Transform m_lootRoot;
         
-        [BoxGroup("Monsters")]
+        [BoxGroup("Party")]
         [SerializeField] private Sprite m_addMonsterSprite;
-        [BoxGroup("Monsters")]
-        [SerializeField] private Button[] m_monsterButtons;
+        [BoxGroup("Party")] 
+        [SerializeField] private UIPartyMonster[] m_partyMembers;
         
-        [BoxGroup("Add Monster State")]
-        [SerializeField] private GameObject m_addMonsterState;
-        [BoxGroup("Add Monster State")]
-        [SerializeField] private UIMonsterDetails m_monsterDetails;
-        [BoxGroup("Add Monster State")] 
-        [SerializeField] private Button m_addButton;
-        [BoxGroup("Add Monster State")] 
-        [SerializeField] private Button m_removeButton;
-
-        // TODO: Make this some sort of reusable UI component, for item inventory or other uses
-        //       Something like "UIPages"
-        [BoxGroup("Add Monster State")] 
-        [SerializeField] private Button m_leftButton;
-        [BoxGroup("Add Monster State")] 
-        [SerializeField] private Button m_rightButton;
+        [BoxGroup("Roster")] 
+        [SerializeField] private Transform m_monstersRoot;
+        [BoxGroup("Roster")] 
+        [SerializeField] private UIPartyMonster m_monsterPrefab;
 
         /// <summary>
         /// This is the index of the last party button that was pressed. Null if no press has occurred yet.
         /// </summary>
         private int? m_lastButtonPressedIndex;
 
-        /// <summary>
-        /// This is the index of the last shown owned monster.
-        /// </summary>
-        private int m_shownMonsterIndex = 0;
-        
-        private void Awake()
+        private Dictionary<Monster, UIPartyMonster> m_monsterPartyInstances = new Dictionary<Monster, UIPartyMonster>();
+
+        public void UpdateRoster()
         {
-            for (var i = 0; i < m_monsterButtons.Length; i++)
+            var allMonsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
+            var availableMonsters = ServiceLocator.Instance.MonsterManager.GetMonstersAvailableForMission();
+            
+            // Make an entry for all monsters. Try to recycle them if they exist already
+            foreach (Monster monster in allMonsters)
             {
-                var capturedIndex = i;
-                m_monsterButtons[i].onClick.AddListener(() =>
+                if (!m_monsterPartyInstances.ContainsKey(monster))
                 {
-                    HandleButtonClicked(capturedIndex);
-                });
+                    UIPartyMonster partyMonster = Instantiate(m_monsterPrefab, m_monstersRoot);
+                    partyMonster.SetData(monster.Data);
+                    
+                    m_monsterPartyInstances.Add(monster, partyMonster);
+                }
+                
+                // TODO: Set state for in party/selected/available. Need party system
             }
-
-            m_addButton.onClick.AddListener(OnAddButtonClicked);
-            m_removeButton.onClick.AddListener(OnRemoveButtonClicked);
-            m_leftButton.onClick.AddListener(DecrementMonsterChoice);
-            m_rightButton.onClick.AddListener(IncrementMonsterChoice);
-        }
-
-        private void HandleButtonClicked(int buttonIndex)
-        {
-            // TODO: Save state better
-            bool wasAddingMonster = m_addMonsterState.activeInHierarchy;
-            bool isReClick = buttonIndex == m_lastButtonPressedIndex;
-            bool isAddingMonster = !wasAddingMonster || !isReClick;
-            m_lastButtonPressedIndex = buttonIndex;
-            
-            m_missionState.SetActive(!isAddingMonster);
-            m_addMonsterState.SetActive(isAddingMonster);
-            
-            if (!isAddingMonster)
-            {
-                return;
-            }
-            
-            var monsters = ServiceLocator.Instance.MonsterManager.GetMonstersAvailableForMission();
-            if (monsters == null || monsters.Count < m_shownMonsterIndex)
-            {
-                return;
-            }
-            
-            // TODO: Check for out of bounds
-            m_monsterDetails.SetData(monsters[m_shownMonsterIndex].Data);
-        }
-
-        private void OnAddButtonClicked()
-        {
-            // Something went terribly wrong
-            if (!m_lastButtonPressedIndex.HasValue)
-            {
-                return;
-            }
-            
-            // If for some reason we were able to click the button without being in the 
-            // adding monster state, we can ignore the click
-            bool wasAddingMonster = m_addMonsterState.activeInHierarchy;
-            if (!wasAddingMonster)
-            {
-                return;
-            }
-            
-            var monsters = ServiceLocator.Instance.MonsterManager.GetMonstersAvailableForMission();
-            if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
-            {
-                return;
-            }
-            
-            // Add this monster to the party
-            // TODO: Save this/creat party system, for now it just changes the icon
-            m_monsterButtons[m_lastButtonPressedIndex.Value].image.sprite = monsters[m_shownMonsterIndex].Data.Sprite;
-            
-            // Go back to the mission screen
-            m_missionState.SetActive(true);
-            m_addMonsterState.SetActive(false);
-        }
-
-        private void OnRemoveButtonClicked()
-        {
-            // Something went terribly wrong
-            if (!m_lastButtonPressedIndex.HasValue)
-            {
-                return;
-            }
-            
-            // Remove this monster to the party
-            // TODO: Save this/creat party system, for now it just changes the icon
-            m_monsterButtons[m_lastButtonPressedIndex.Value].image.sprite = m_addMonsterSprite;
-        }
-        
-        private void IncrementMonsterChoice()
-        {
-            // Assume at least one monster
-            var monsters = ServiceLocator.Instance.MonsterManager.GetMonstersAvailableForMission();
-            if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
-            {
-                return;
-            }
-
-            m_shownMonsterIndex++;
-            if (m_shownMonsterIndex == monsters.Count)
-            {
-                m_shownMonsterIndex = 0;
-            }
-            m_monsterDetails.SetData(monsters[m_shownMonsterIndex].Data);
-        }
-
-        private void DecrementMonsterChoice()
-        {
-            // Assume at least one monster
-            var monsters = ServiceLocator.Instance.MonsterManager.GetMonstersAvailableForMission();
-            if (monsters == null || monsters.Count <= m_lastButtonPressedIndex)
-            {
-                return;
-            }
-            
-            m_shownMonsterIndex--;
-            if (m_shownMonsterIndex < 0)
-            {
-                m_shownMonsterIndex = monsters.Count - 1;
-            }
-            m_monsterDetails.SetData(monsters[m_shownMonsterIndex].Data);
         }
         
         public void SetData(SchemaMission data)
         {
+            // Populate the roster
+            UpdateRoster();
+            
             // Mission details
             m_name.SetText(data.Name);
             m_endurance.SetText(string.Format(c_enduranceFormat, data.Endurance));
@@ -198,10 +84,10 @@ namespace _Scripts.UI
 
             // Monster party
             // Hide any buttons that can't be used
-            for (int i = 0; i < m_monsterButtons.Length; i++)
+            for (int i = 0; i < m_partyMembers.Length; i++)
             {
                 bool canUseMonster = i < data.MaxCapacity;
-                m_monsterButtons[i].gameObject.SetActive(canUseMonster);
+                m_partyMembers[i].gameObject.SetActive(canUseMonster);
             }
             
             // TODO: Equip/Unequip Monsters to the party

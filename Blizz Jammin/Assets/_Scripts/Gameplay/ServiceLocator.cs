@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using _Scripts.Gameplay.Camera;
 using _Scripts.Schemas;
 using _Scripts.UI;
 using UnityEngine;
@@ -14,7 +13,7 @@ namespace _Scripts.Gameplay
     public class ServiceLocator : SingletonMonoBehaviour<ServiceLocator>
     {
         // MonoBehavior systems 
-        public CameraManager CameraManager { get; private set; }
+        public NavigationManager NavigationManager { get; private set; }
         public MonsterManager MonsterManager { get; private set; }
         public UIPopupManager UIPopupManager { get; private set; }
 
@@ -28,7 +27,7 @@ namespace _Scripts.Gameplay
             base.Awake();
 
             // Find all MonoBehaviour game systems.
-            CameraManager = FindObjectOfType<CameraManager>();
+            NavigationManager = FindObjectOfType<NavigationManager>();
             MonsterManager = FindObjectOfType<MonsterManager>();
             UIPopupManager = FindObjectOfType<UIPopupManager>();
 

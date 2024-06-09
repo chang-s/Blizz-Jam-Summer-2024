@@ -108,5 +108,6 @@ MonoBehaviour:
       Data: 
   Name: MonsterC
   Description: This is MonsterC! <TEMP>
-  Scale: {x: 2, y: 2, z: 2}
+  Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: 35e66a09b83060a429d58cfe73958969, type: 3}
+  IsStarter: 1

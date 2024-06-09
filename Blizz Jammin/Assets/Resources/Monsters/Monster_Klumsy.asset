@@ -108,5 +108,6 @@ MonoBehaviour:
       Data: 
   Name: Klumzy
   Description: He doesn't mean to be evil, it just happens!
-  Scale: {x: 1.5, y: 1.5, z: 1.5}
+  Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: 403efdf202345424f9185959b7893f66, type: 3}
+  IsStarter: 1
