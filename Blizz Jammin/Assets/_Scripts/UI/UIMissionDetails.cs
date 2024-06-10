@@ -72,12 +72,6 @@ namespace _Scripts.UI
             m_infamy.SetText(string.Format(c_infamyFormat, data.Infamy));
             m_xp.SetText(string.Format(c_xpFormat, data.Xp));
             m_icon.sprite = data.Icon;
-            
-            // Populate the monster roster area
-            UpdateRoster();
-            
-            // Populate the monster party area
-            UpdateParty();
 
             // Loot
             // Clear whatever is there, then instantiate new ones.
