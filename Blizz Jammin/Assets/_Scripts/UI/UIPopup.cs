@@ -1,3 +1,4 @@
+using System;
 using _Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,11 +11,15 @@ namespace _Scripts.UI
         [SerializeField] private RectTransform m_content;
         [SerializeField] private Button[] m_closeButtons;
 
+        public Action OnShow;
+        public Action OnHide;
+        
         public void Show()
         {
             m_canvasGroup.alpha = 1.0f;
             m_canvasGroup.blocksRaycasts = true;
-        
+            OnShow?.Invoke();
+            
             LayoutRebuilder.ForceRebuildLayoutImmediate(m_content);
         }
 
@@ -22,6 +27,7 @@ namespace _Scripts.UI
         {
             m_canvasGroup.alpha = 0.0f;
             m_canvasGroup.blocksRaycasts = false;
+            OnHide?.Invoke();
         }
 
         private void Start()

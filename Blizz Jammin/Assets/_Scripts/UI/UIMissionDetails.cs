@@ -15,6 +15,9 @@ namespace _Scripts.UI
         private const string c_timeFormat = "Time: {0}";
         private const string c_infamyFormat = "Infamy: {0}";
         private const string c_xpFormat = "XP: {0}";
+
+        [BoxGroup("Popup")] 
+        [SerializeField] private UIPopup m_popup;
         
         [BoxGroup("Mission State")] 
         [SerializeField] private TMP_Text m_name;
@@ -104,6 +107,14 @@ namespace _Scripts.UI
             }
 
             ServiceLocator.Instance.MonsterManager.OnPartyChanged += OnPartyChanged;
+            m_popup.OnShow += OnShow;
+
+        }
+
+        private void OnShow()
+        {
+            m_lastPartyButtonPressedIndex = null;
+            SetMode(Mode.Normal);
         }
 
         private void OnPartyButtonClicked(int partyIndex)
