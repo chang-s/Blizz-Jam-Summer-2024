@@ -33,12 +33,20 @@ namespace _Scripts.Gameplay
         [BoxGroup("Lair")] [SerializeField] 
         private Vector3 m_gap;
 
+        /// <summary>
+        /// Invoked when a party has changed. Event has the mission for the party that has changed.
+        /// </summary>
         public Action<SchemaMission> OnPartyChanged;
         
+        /// <summary>
+        /// Internal tracking of all monsters in the game.
+        /// </summary>
         private List<MonsterInfo> m_monsterInfos;
-
-        private Dictionary<SchemaMission, MonsterInfo[]> m_missionParties =
-            new Dictionary<SchemaMission, MonsterInfo[]>(); 
+        
+        /// <summary>
+        /// Tracker of a collection of monsters per mission.
+        /// </summary>
+        private Dictionary<SchemaMission, MonsterInfo[]> m_parties = new Dictionary<SchemaMission, MonsterInfo[]>(); 
 
         private void Awake()
         {
@@ -62,17 +70,16 @@ namespace _Scripts.Gameplay
             
             foreach (var mission in ServiceLocator.Instance.AllMissions)
             {
-                m_missionParties.Add(mission, new MonsterInfo[mission.MaxCapacity]);
+                m_parties.Add(mission, new MonsterInfo[mission.MaxCapacity]);
             }
         }
         
-        // TODO: TEMP
         public List<MonsterInfo> GetOwnedMonsters()
         {
             List<MonsterInfo> results = new List<MonsterInfo>();
             foreach (MonsterInfo info in m_monsterInfos)
             {
-                if (info.m_status is MonsterStatus.Purchased or MonsterStatus.Busy)
+                if (info.m_status > MonsterStatus.Purchasable)
                 {
                     results.Add(info);
                 }
@@ -83,22 +90,22 @@ namespace _Scripts.Gameplay
         
         public MonsterInfo[] GetParty(SchemaMission mission)
         {
-            if (!m_missionParties.ContainsKey(mission))
+            if (!m_parties.ContainsKey(mission))
             {
                 return c_emptyParty;
             }
             
-            return m_missionParties[mission];
+            return m_parties[mission];
         }
 
         public bool AddMonsterToParty(SchemaMonster monster, SchemaMission mission, int partyIndex)
         {
-            if (!m_missionParties.ContainsKey(mission))
+            if (!m_parties.ContainsKey(mission))
             {
                 return false;
             }
             
-            var party = m_missionParties[mission];
+            var party = m_parties[mission];
             if (party.Length <= partyIndex)
             {
                 return false;
@@ -150,12 +157,12 @@ namespace _Scripts.Gameplay
 
         public bool RemoveMonsterFromParty(SchemaMonster monster, SchemaMission mission, int partyIndex)
         {
-            if (!m_missionParties.ContainsKey(mission))
+            if (!m_parties.ContainsKey(mission))
             {
                 return false;
             }
 
-            var party = m_missionParties[mission];
+            var party = m_parties[mission];
             if (party.Length <= partyIndex)
             {
                 return false;
