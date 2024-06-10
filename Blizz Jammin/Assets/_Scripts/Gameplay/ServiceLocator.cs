@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using _Scripts.Schemas;
 using _Scripts.UI;
 using UnityEngine;
@@ -14,9 +13,12 @@ namespace _Scripts.Gameplay
     {
         // MonoBehavior systems 
         public NavigationManager NavigationManager { get; private set; }
+        public MissionManager MissionManager { get; private set; }
         public MonsterManager MonsterManager { get; private set; }
+        public TimeManager TimeManager { get; private set; }
         public UIPopupManager UIPopupManager { get; private set; }
 
+        // TODO: Do some basic sorting for our intended purposes
         // Schema collections
         public SchemaMission[] AllMissions { get; private set; }
         public SchemaMonster[] AllMonsters { get; private set; }
@@ -28,7 +30,9 @@ namespace _Scripts.Gameplay
 
             // Find all MonoBehaviour game systems.
             NavigationManager = FindObjectOfType<NavigationManager>();
+            MissionManager = FindObjectOfType<MissionManager>();
             MonsterManager = FindObjectOfType<MonsterManager>();
+            TimeManager = FindObjectOfType<TimeManager>();
             UIPopupManager = FindObjectOfType<UIPopupManager>();
 
             AllLoot = Resources.LoadAll<SchemaLoot>("Loot");

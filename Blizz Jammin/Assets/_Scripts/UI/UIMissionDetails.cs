@@ -3,6 +3,7 @@ using _Scripts.Gameplay;
 using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,6 +44,9 @@ namespace _Scripts.UI
         [SerializeField] private Transform m_rosterRoot;
         [BoxGroup("Roster")] 
         [SerializeField] private UIRosterMonster m_rosterMonsterPrefab;
+
+        [BoxGroup("Simulation")] 
+        [SerializeField] private Button m_start;
 
         private enum Mode
         {
@@ -87,10 +91,23 @@ namespace _Scripts.UI
                 UILoot instance = Instantiate(m_lootPrefab, m_lootRoot);
                 instance.SetData(schemaLoot);
             }
+
+            m_start.interactable = ServiceLocator.Instance.MissionManager.CanStartMission(m_missionData);
         }
         
         private void Awake()
         {
+            m_start.onClick.AddListener(() =>
+            {
+                var missionManager = ServiceLocator.Instance.MissionManager;
+                if (!missionManager.CanStartMission(m_missionData))
+                {
+                    return;
+                }
+
+                missionManager.StartMission(m_missionData);
+            });
+            
             for (var i = 0; i < m_partyMembers.Length; i++)
             {
                 var partyButtonIndex = i;
@@ -101,8 +118,19 @@ namespace _Scripts.UI
             }
 
             ServiceLocator.Instance.MonsterManager.OnPartyChanged += OnPartyChanged;
+            ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
             m_popup.OnShow += OnShow;
+        }
 
+        private void OnMissionStatusChanged(MissionManager.MissionInfo missionInfo)
+        {
+            if (missionInfo.m_mission != m_missionData)
+            {
+                return;
+            }
+            
+            UpdateRoster();
+            UpdateParty();
         }
 
         private void OnShow()
@@ -249,6 +277,8 @@ namespace _Scripts.UI
                         break;
                 }
             }
+            
+            m_start.interactable = ServiceLocator.Instance.MissionManager.CanStartMission(m_missionData);
         }
     }
 }

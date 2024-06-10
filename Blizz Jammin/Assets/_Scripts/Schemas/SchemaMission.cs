@@ -6,9 +6,6 @@ namespace _Scripts.Schemas
     [CreateAssetMenu(menuName = "Schema/Mission")]
     public class SchemaMission : Schema
     {
-        /// <summary>
-        /// The monster's name to be displayed in UI.
-        /// </summary>
         [BoxGroup("Visuals")]
         public string Name;
         
@@ -16,10 +13,6 @@ namespace _Scripts.Schemas
         [PreviewField(100)]
         public Sprite Icon;
 
-        [BoxGroup("Requirements")] 
-        [Range(1, 6)]
-        public int MinCapacity;
-        
         [BoxGroup("Requirements")] 
         [Range(1, 6)]
         public int MaxCapacity;
@@ -33,7 +26,7 @@ namespace _Scripts.Schemas
         [BoxGroup("Rewards")] 
         public SchemaLootTable LootTable;
         
-        // TODO: Quirk System
+        // TODO: Quirk/Type System
         
         [BoxGroup("Rewards")] 
         public float Infamy;

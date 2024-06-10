@@ -1,30 +1,49 @@
+using System;
 using _Scripts.Schemas;
 using _Scripts.UI;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Scripts.Gameplay
 {
     public class Mission : MonoBehaviour, ISchemaController<SchemaMission>
     {
-        /// <summary>
-        /// TEMP: A Mission can be serialized with a specific instance of data on startup.
-        /// </summary>
-        [SerializeField] private SchemaMission m_data;
-
-        private void Awake()
-        {
-            if (m_data != null)
-            {
-                SetData(m_data);
-            }
-        }
-        
+        [BoxGroup("Base")] 
         [SerializeField] private SpriteRenderer m_icon;
-            
+        
+        [BoxGroup("States")] 
+        [SerializeField] private GameObject m_combatGroup;
+        [BoxGroup("States")] 
+        [SerializeField] private GameObject m_completedGroup;
+
+        private SchemaMission m_data;
+        
         public void SetData(SchemaMission data)
         {
             m_data = data;
             m_icon.sprite = data.Icon;
+        }
+        
+        private void Awake()
+        {
+            ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
+        }
+
+        private void OnMissionStatusChanged(MissionManager.MissionInfo missionInfo)
+        {
+            if (missionInfo.m_mission != m_data)
+            {
+                return;
+            }
+            
+            SetStatus(missionInfo.m_status);
+        }
+
+        private void SetStatus(MissionManager.MissionStatus status)
+        {
+            //m_lockedGroup.SetActive(status == MissionManager.MissionStatus.Locked);
+            m_combatGroup.SetActive(status == MissionManager.MissionStatus.InCombat);
+            m_completedGroup.SetActive(status == MissionManager.MissionStatus.Complete);
         }
         
         private void OnMouseDown()
@@ -43,7 +62,6 @@ namespace _Scripts.Gameplay
             popupManager.RequestPopup(UIPopupManager.PopupType.MissionDetails);
         }
 
-        
         private void OnValidate()
         {
             if (m_data != null)
