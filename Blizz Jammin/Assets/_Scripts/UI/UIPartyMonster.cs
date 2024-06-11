@@ -14,6 +14,7 @@ namespace _Scripts.UI
             // Used in the party 
             Normal,
             Selected,
+            Locked,
         }
 
         public Button Button => m_button;
@@ -25,6 +26,7 @@ namespace _Scripts.UI
         [SerializeField] private GameObject m_noMonsterObject;
         [SerializeField] private GameObject m_hasMonsterObject;
         [SerializeField] private GameObject m_selectedObject;
+        [SerializeField] private GameObject m_lockedObject;
         
 
         private SchemaMonster m_monsterData;
@@ -35,9 +37,15 @@ namespace _Scripts.UI
             {
                 case State.Normal:
                     m_selectedObject.SetActive(false);
+                    m_lockedObject.SetActive(false);
                     return;
                 case State.Selected:
                     m_selectedObject.SetActive(true);
+                    m_lockedObject.SetActive(false);
+                    return;
+                case State.Locked:
+                    m_selectedObject.SetActive(false);
+                    m_lockedObject.SetActive(true);
                     return;
             }
         }

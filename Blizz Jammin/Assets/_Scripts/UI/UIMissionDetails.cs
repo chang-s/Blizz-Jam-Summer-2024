@@ -167,6 +167,7 @@ namespace _Scripts.UI
             UpdateParty();
         }
 
+        // TODO: Might not need this?
         private void OnPartyChanged(SchemaMission mission)
         {
             if (mission != m_missionData)
@@ -285,6 +286,7 @@ namespace _Scripts.UI
                     }
                 }
 
+                UpdateRoster();
                 UpdateParty();
             }
         }
@@ -295,10 +297,9 @@ namespace _Scripts.UI
             for (int i = 0; i < m_partyMembers.Length; i++)
             {
                 bool canUseMonster = i < m_missionData.MaxCapacity;
-                m_partyMembers[i].gameObject.SetActive(canUseMonster);
-
                 if (!canUseMonster)
                 {
+                    m_partyMembers[i].SetState(UIPartyMonster.State.Locked);
                     continue;
                 }
                 
