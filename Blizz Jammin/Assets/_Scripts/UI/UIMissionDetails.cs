@@ -3,13 +3,13 @@ using _Scripts.Gameplay;
 using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
     // TODO: Abstract out "Party" into a class and have it self-manage? this class is getting huge
+    // TODO: Major cleanup on monste add flow
     public class UIMissionDetails : MonoBehaviour, ISchemaController<SchemaMission>
     {
         private const string c_enduranceFormat = "Endurance: {0}";
@@ -57,9 +57,9 @@ namespace _Scripts.UI
         private Mode m_mode = Mode.Normal;
         
         /// <summary>
-        /// This is the index of the last party button that was pressed. Null if no press has occurred yet.
+        /// The index of the party that we are currently manipulating. Null if we are not in Add mode.
         /// </summary>
-        private int? m_lastPartyButtonPressedIndex;
+        private int? m_currentPartyIndex;
 
         // TODO: Should the key be schema?
         private Dictionary<Monster, UIRosterMonster> m_rosterInstances = new Dictionary<Monster, UIRosterMonster>();
@@ -135,35 +135,34 @@ namespace _Scripts.UI
 
         private void OnShow()
         {
-            m_lastPartyButtonPressedIndex = null;
             SetMode(Mode.Normal);
         }
 
         private void OnPartyButtonClicked(int partyIndex)
         {
             // On reselection, clear the monster
-            bool isReSelect = m_lastPartyButtonPressedIndex.HasValue && m_lastPartyButtonPressedIndex == partyIndex;
+            bool isReSelect = m_currentPartyIndex.HasValue && m_currentPartyIndex == partyIndex;
             if (isReSelect)
             {
-                ServiceLocator.Instance.MonsterManager.RemoveMonsterFromParty(
-                    m_partyMembers[partyIndex].MonsterData,
-                    m_missionData,
-                    partyIndex
-                );
-                
-                m_lastPartyButtonPressedIndex = null;
                 SetMode(Mode.Normal);
-                
                 return;
             }
             
-            m_lastPartyButtonPressedIndex = partyIndex;
+            m_currentPartyIndex = partyIndex;
             SetMode(Mode.AddingMonster);
         }
 
         private void SetMode(Mode mode)
         {
             m_mode = mode;
+
+            switch (m_mode)
+            {
+                case Mode.Normal:
+                    m_currentPartyIndex = null;
+                    break;
+            }
+            
             UpdateRoster();
             UpdateParty();
         }
@@ -191,24 +190,7 @@ namespace _Scripts.UI
                 {
                     UIRosterMonster rosterMonster = Instantiate(m_rosterMonsterPrefab, m_rosterRoot);
                     rosterMonster.SetData(monsterInfo.m_worldInstance.Data);
-
-                    rosterMonster.Button.onClick.AddListener(() =>
-                    {
-                        if (m_mode != Mode.AddingMonster ||  !m_lastPartyButtonPressedIndex.HasValue)
-                        {
-                            return;
-                        }
-                        
-                        ServiceLocator.Instance.MonsterManager.AddMonsterToParty(
-                            rosterMonster.MonsterData,
-                            m_missionData,
-                            m_lastPartyButtonPressedIndex.Value
-                        );
-
-                        m_lastPartyButtonPressedIndex = null;
-                        SetMode(Mode.Normal);
-                    });
-
+                    rosterMonster.Button.onClick.AddListener(() => OnRosterEntryClicked(rosterMonster));
                     m_rosterInstances.Add(monsterInfo.m_worldInstance, rosterMonster);
                 }
 
@@ -216,10 +198,10 @@ namespace _Scripts.UI
                 bool isAddingMonster = m_mode == Mode.AddingMonster;
                 bool isBusy = monsterInfo.m_status == MonsterManager.MonsterStatus.Busy;
                 bool isInMissionParty = monsterInfo.m_currentMission == m_missionData;
-                bool isCurrentlySelected = m_lastPartyButtonPressedIndex.HasValue &&
-                                           partyMonsters[m_lastPartyButtonPressedIndex.Value] != null &&
+                bool isCurrentlySelected = m_currentPartyIndex.HasValue &&
+                                           partyMonsters[m_currentPartyIndex.Value] != null &&
                                            m_rosterInstances[monsterInfo.m_worldInstance].MonsterData ==
-                                           partyMonsters[m_lastPartyButtonPressedIndex.Value].m_worldInstance.Data;
+                                           partyMonsters[m_currentPartyIndex.Value].m_worldInstance.Data;
                 
                 UIRosterMonster.State state = UIRosterMonster.State.Normal;
                 if (isBusy && !isInMissionParty)
@@ -248,6 +230,65 @@ namespace _Scripts.UI
             }
         }
 
+        private void OnRosterEntryClicked(UIRosterMonster monster)
+        {
+            if (m_mode != Mode.AddingMonster ||  !m_currentPartyIndex.HasValue)
+            {
+                return;
+            }
+            
+            var party = ServiceLocator.Instance.MonsterManager.GetParty(m_missionData);
+            bool isCurrentlySelected = party[m_currentPartyIndex.Value] != null &&
+                                       monster.MonsterData == party[m_currentPartyIndex.Value].m_worldInstance.Data;
+
+            int oldPartyIndex = m_currentPartyIndex.Value;
+            
+            // Remove current entry, do not advance
+            if (isCurrentlySelected)
+            {
+                ServiceLocator.Instance.MonsterManager.RemoveMonsterFromParty(
+                    monster.MonsterData,
+                    m_missionData,
+                    oldPartyIndex
+                );
+            }
+            // Add current entry, advance if possible
+            else
+            {
+                ServiceLocator.Instance.MonsterManager.AddMonsterToParty(
+                    monster.MonsterData,
+                    m_missionData,
+                    oldPartyIndex
+                );
+                
+                // There are no more monsters available, exit out early
+                if (AreNoMonstersAvailable())
+                {
+                    SetMode(Mode.Normal);
+                    return;
+                }
+                
+                // Party is full, exit out early
+                if (IsPartyFull())
+                {
+                    SetMode(Mode.Normal);
+                    return;
+                }
+                
+                // Advance to the next empty index
+                while (party[m_currentPartyIndex.Value] != null)
+                {
+                    m_currentPartyIndex++;
+                    if (m_currentPartyIndex >= m_missionData.MaxCapacity)
+                    {
+                        m_currentPartyIndex = 0;
+                    }
+                }
+
+                UpdateParty();
+            }
+        }
+
         private void UpdateParty()
         {
             var partyMonsters = ServiceLocator.Instance.MonsterManager.GetParty(m_missionData);
@@ -270,7 +311,7 @@ namespace _Scripts.UI
                         break;
                     
                     case Mode.AddingMonster:
-                        m_partyMembers[i].SetState(m_lastPartyButtonPressedIndex.Value == i 
+                        m_partyMembers[i].SetState(m_currentPartyIndex.Value == i 
                             ? UIPartyMonster.State.Selected 
                             : UIPartyMonster.State.Normal
                         );
@@ -279,6 +320,36 @@ namespace _Scripts.UI
             }
             
             m_start.interactable = ServiceLocator.Instance.MissionManager.CanStartMission(m_missionData);
+        }
+        
+        // TODO: Move to MonsterManager?
+        private bool IsPartyFull()
+        {
+            var party = ServiceLocator.Instance.MonsterManager.GetParty(m_missionData);
+            for (var i = 0; i < party.Length; i++)
+            {
+                if (party[i] == null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
+        // TODO: Move to MonsterManager?
+        private bool AreNoMonstersAvailable()
+        {
+            var allMonsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
+            foreach (var monsterInfo in allMonsters)
+            {
+                if (monsterInfo.m_status == MonsterManager.MonsterStatus.Purchased)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
