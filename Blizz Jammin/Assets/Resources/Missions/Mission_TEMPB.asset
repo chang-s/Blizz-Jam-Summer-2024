@@ -23,10 +23,17 @@ MonoBehaviour:
     SerializationNodes: []
   Name: TEMPB
   Icon: {fileID: 21300000, guid: 688351371e1e19342b006165f8ea62eb, type: 3}
-  MinCapacity: 1
   MaxCapacity: 2
   Endurance: 5
   Days: 5
+  ModifierCount: 1
+  Modifiers:
+  - Quirk: {fileID: 11400000, guid: ddadd68466cccd444bb8f13c1d9bc215, type: 2}
+    ModValue: -1
+  - Quirk: {fileID: 11400000, guid: aa5c11d6ca20fe14da88ec2658a3bc4e, type: 2}
+    ModValue: 2
+  - Quirk: {fileID: 11400000, guid: a7f7addcb2702ee46bf9e0cb7c014bf6, type: 2}
+    ModValue: -1
   LootTable: {fileID: 11400000, guid: f8ce2eccc32df6144ba8152ca7139879, type: 2}
   Infamy: 1
   Xp: 5

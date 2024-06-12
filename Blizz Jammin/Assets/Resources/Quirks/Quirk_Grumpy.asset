@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dc65d6288764949a47f2463c2f265e, type: 3}
-  m_Name: Mission_TEMPC
+  m_Script: {fileID: 11500000, guid: 5e4262fcab5d67a44a4571be08e29c32, type: 3}
+  m_Name: Quirk_Grumpy
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,15 +21,5 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Name: TEMPC
-  Icon: {fileID: 21300000, guid: 4c3ee32cd313eb540b77523afb969f3b, type: 3}
-  MaxCapacity: 4
-  Endurance: 10
-  Days: 8
-  ModifierCount: 0
-  Modifiers:
-  - Quirk: {fileID: 0}
-    ModValue: 0
-  LootTable: {fileID: 11400000, guid: 97d657a3a2fda6c4abfcdb83881aafeb, type: 2}
-  Infamy: 1
-  Xp: 5
+  Name: Grumpy
+  Icon: {fileID: 0}

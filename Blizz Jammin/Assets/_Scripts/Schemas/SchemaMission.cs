@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -6,6 +7,15 @@ namespace _Scripts.Schemas
     [CreateAssetMenu(menuName = "Schema/Mission")]
     public class SchemaMission : Schema
     {
+        [Serializable]
+        public struct Modifier
+        {
+            public SchemaQuirk Quirk;
+            
+            [Range(-3, 3)]
+            public int ModValue;
+        }
+        
         [BoxGroup("Visuals")]
         public string Name;
         
@@ -13,7 +23,7 @@ namespace _Scripts.Schemas
         [PreviewField(100)]
         public Sprite Icon;
 
-        [BoxGroup("Requirements")] 
+        [BoxGroup("Simulation")] 
         [Range(1, 6)]
         public int MaxCapacity;
         
@@ -22,12 +32,16 @@ namespace _Scripts.Schemas
         
         [BoxGroup("Simulation")]
         public int Days;
+
+        [BoxGroup("Simulation")] 
+        public int ModifierCount;
+        
+        [BoxGroup("Simulation")] 
+        public Modifier[] Modifiers;
         
         [BoxGroup("Rewards")] 
         public SchemaLootTable LootTable;
-        
-        // TODO: Quirk/Type System
-        
+
         [BoxGroup("Rewards")] 
         public float Infamy;
         
