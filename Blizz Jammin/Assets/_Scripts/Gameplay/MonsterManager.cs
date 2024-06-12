@@ -97,7 +97,7 @@ namespace _Scripts.Gameplay
             
             return m_parties[mission];
         }
-
+        
         public bool AddMonsterToParty(SchemaMonster monster, SchemaMission mission, int partyIndex)
         {
             if (!m_parties.ContainsKey(mission))

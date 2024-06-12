@@ -1,3 +1,4 @@
+using System.Linq;
 using _Scripts.Schemas;
 using _Scripts.UI;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace _Scripts.Gameplay
         public SchemaMission[] AllMissions { get; private set; }
         public SchemaMonster[] AllMonsters { get; private set; }
         public SchemaLoot[] AllLoot { get; private set; }
+        public SchemaStat[] AllStats { get; private set; }
 
         protected override void Awake()
         {
@@ -38,6 +40,13 @@ namespace _Scripts.Gameplay
             AllLoot = Resources.LoadAll<SchemaLoot>("Loot");
             AllMissions = Resources.LoadAll<SchemaMission>("Missions");
             AllMonsters = Resources.LoadAll<SchemaMonster>("Monsters");
+            AllStats = Resources.LoadAll<SchemaStat>("Stats");
+        }
+
+        // TODO: Better lookups, might have to introduce an enum
+        public SchemaStat GetStat(string statName)
+        {
+            return AllStats.First(s => s.Name == statName);
         }
     }
 }

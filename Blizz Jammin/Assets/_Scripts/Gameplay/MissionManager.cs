@@ -47,6 +47,8 @@ namespace _Scripts.Gameplay
             /// The end score result of the mission.
             /// </summary>
             public float m_score;
+            
+            // TODO: Cache loot results too?
         }
 
         [BoxGroup("World Missions")]
@@ -111,10 +113,13 @@ namespace _Scripts.Gameplay
         /// </summary>
         private (int, float) Simulate(int startStep, SchemaMission mission)
         {
-            // TODO: TERROR influence time
-            int endStep = startStep + mission.Days;
+            // TODO: Terror should reduce the time it takes to finish the mission
+            int terrorReduction = 0;
+
+            // The minimum amount of time a mission can take is 0 days
+            int endStep = Math.Min(startStep, startStep + mission.Days - terrorReduction);
             
-            // TODO: Simulate the combat
+            // TODO: Simulate the combat and generate a success ratio from 0f-1f
             float score = 1.0f;
 
             return (endStep, score);
@@ -154,7 +159,7 @@ namespace _Scripts.Gameplay
                 return false;
             }
 
-            // If the mission is not ready, it cannot begin.
+            // If the mission is not ready, it cannot begin (locked or busy, etc)
             var missionInfo = m_missions[mission];
             if (missionInfo.m_status != MissionStatus.Ready)
             {
