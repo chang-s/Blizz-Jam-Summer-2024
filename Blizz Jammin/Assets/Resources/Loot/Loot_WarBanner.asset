@@ -16,35 +16,142 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 106f47a772dcd114fa74626e603b85b6, type: 2}
     - {fileID: 11400000, guid: 83cf9ea79a10ddf4f94c85b990580bed, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: Stats
+    - Name: Modifiers
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[_Scripts.Schemas.SchemaStat,
-        Assembly-CSharp],[System.Int32, mscorlib]], mscorlib
-    - Name: comparer
+      Data: 0|_Scripts.Gameplay.StatModifier[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
       Entry: 7
-      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[_Scripts.Schemas.SchemaStat,
-        Assembly-CSharp]], mscorlib
+      Data: 1|_Scripts.Gameplay.StatModifier, Assembly-CSharp
+    - Name: Stat
+      Entry: 10
+      Data: 0
+    - Name: Amount
+      Entry: 3
+      Data: -1
+    - Name: Aura
+      Entry: 5
+      Data: false
+    - Name: RequiredLoot
+      Entry: 7
+      Data: 2|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RequiredQuirk
+      Entry: 7
+      Data: 3|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RequiredLootParty
+      Entry: 7
+      Data: 4|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RequiredQurikParty
+      Entry: 7
+      Data: 5|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
-      Entry: 12
-      Data: 1
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
-      Data: 
-    - Name: $k
+      Data: 6|_Scripts.Gameplay.StatModifier, Assembly-CSharp
+    - Name: Stat
       Entry: 10
-      Data: 0
-    - Name: $v
+      Data: 1
+    - Name: Amount
       Entry: 3
       Data: 1
+    - Name: Aura
+      Entry: 5
+      Data: true
+    - Name: RequiredLoot
+      Entry: 7
+      Data: 7|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RequiredQuirk
+      Entry: 7
+      Data: 8|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RequiredLootParty
+      Entry: 7
+      Data: 9|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RequiredQurikParty
+      Entry: 7
+      Data: 10|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 

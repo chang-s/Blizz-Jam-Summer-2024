@@ -33,7 +33,16 @@ namespace _Scripts.Schemas
         [PreviewField(100)]
         public Sprite Sprite;
 
-        // TODO: Quirk System
+        /// <summary>
+        /// The amount of quirks to roll at the beginning of the game for this monster.
+        /// </summary>
+        public int QuirkCount;
+
+        /// <summary>
+        /// The pool of quirks that can apply to this monster. Assume this is >= QuirkCount.
+        /// TODO: Stretch goal, when leveling up to certain milestones, add quirk?
+        /// </summary>
+        public SchemaQuirk[] PossibleQuirks;
 
         /// <summary>
         /// Determines if the player gets this monster at the start of the game.

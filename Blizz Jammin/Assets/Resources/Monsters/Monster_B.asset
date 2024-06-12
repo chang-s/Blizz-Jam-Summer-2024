@@ -110,4 +110,17 @@ MonoBehaviour:
   Description: This is MonsterB! <TEMP>
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: db4c47bc8cb194c4d98f4562a275148e, type: 3}
+  QuirkCount: 1
+  PossibleQuirks:
+  - {fileID: 11400000, guid: a7f7addcb2702ee46bf9e0cb7c014bf6, type: 2}
+  - {fileID: 11400000, guid: a371a8c7edd11a342ad9486dbe114985, type: 2}
+  - {fileID: 11400000, guid: ddadd68466cccd444bb8f13c1d9bc215, type: 2}
+  - {fileID: 11400000, guid: aa5c11d6ca20fe14da88ec2658a3bc4e, type: 2}
+  - {fileID: 11400000, guid: 6d3a50cb4a6dabd45bf583f8a09820f1, type: 2}
+  - {fileID: 11400000, guid: 8365356bedb94c14b85131c9eb5b04c8, type: 2}
+  - {fileID: 11400000, guid: c04e3108b1f5a71479a1016968774cf0, type: 2}
+  - {fileID: 11400000, guid: c5e093525ad7a1c4e9f1af72b2084448, type: 2}
+  - {fileID: 11400000, guid: 605c713c2de74b84a83e457d47678e18, type: 2}
+  - {fileID: 11400000, guid: 95f7959f57e45e14b892ddea69fbcdc7, type: 2}
+  - {fileID: 11400000, guid: c86423f26a60d6742930048d2f134f41, type: 2}
   IsStarter: 1
