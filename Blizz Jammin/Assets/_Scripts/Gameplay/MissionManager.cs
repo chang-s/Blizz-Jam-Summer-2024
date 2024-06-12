@@ -110,6 +110,7 @@ namespace _Scripts.Gameplay
         ///
         /// int: The end step
         /// float: The score result (0-1)
+        /// TODO: Make a struct for this return pair?
         /// </summary>
         private (int, float) Simulate(int startStep, SchemaMission mission)
         {
