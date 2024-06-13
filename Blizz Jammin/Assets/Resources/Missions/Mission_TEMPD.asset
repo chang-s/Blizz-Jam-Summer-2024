@@ -23,10 +23,18 @@ MonoBehaviour:
     SerializationNodes: []
   Name: TEMPD
   Icon: {fileID: 21300000, guid: 35721ec0702cb3f45bf1d8610ef54c7c, type: 3}
-  MinCapacity: 1
   MaxCapacity: 6
   Endurance: 15
   Days: 10
+  ModifierCount: 0
+  Modifiers: []
+  ClassModifiers:
+  - Quirk: {fileID: 11400000, guid: 0cb8409e4dcca194fb4275c7f4e8a781, type: 2}
+    ModValue: 1
+  - Quirk: {fileID: 11400000, guid: dfe5e6b37da6f434e8c0cf470faa24a6, type: 2}
+    ModValue: -1
   LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}
   Infamy: 1
   Xp: 5
+  Difficulty: 
+  Quote: 

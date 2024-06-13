@@ -38,7 +38,10 @@ namespace _Scripts.Schemas
         
         [BoxGroup("Simulation")] 
         public Modifier[] Modifiers;
-        
+
+        [BoxGroup("Simulation")]
+        public Modifier[] ClassModifiers;
+
         [BoxGroup("Rewards")] 
         public SchemaLootTable LootTable;
 
@@ -47,5 +50,11 @@ namespace _Scripts.Schemas
         
         [BoxGroup("Rewards")] 
         public float Xp;
+
+        [BoxGroup("Rewards")]
+        public string Difficulty;
+
+        [BoxGroup("Rewards")]
+        public string Quote;
     }
 }

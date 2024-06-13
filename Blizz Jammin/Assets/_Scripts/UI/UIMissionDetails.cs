@@ -16,14 +16,20 @@ namespace _Scripts.UI
         private const string c_timeFormat = "Time: {0}";
         private const string c_infamyFormat = "Infamy: {0}";
         private const string c_xpFormat = "XP: {0}";
+        private const string c_difficultyDefault = "Medium";
+        private const string c_quoteDefault = "Wow, is it me or is it kinda hot in here?";
 
         [BoxGroup("Popup")] 
         [SerializeField] private UIPopup m_popup;
         
         [BoxGroup("Mission State")] 
         [SerializeField] private TMP_Text m_name;
-        [BoxGroup("Mission State")] 
-        [SerializeField] private TMP_Text m_endurance;
+        [BoxGroup("Mission State")]
+        [SerializeField] private TMP_Text m_difficulty;
+        [BoxGroup("Mission State")]
+        [SerializeField] private TMP_Text m_quote;
+        //[BoxGroup("Mission State")] 
+        //[SerializeField] private TMP_Text m_endurance;
         [BoxGroup("Mission State")] 
         [SerializeField] private TMP_Text m_time;
         [BoxGroup("Mission State")] 
@@ -36,7 +42,13 @@ namespace _Scripts.UI
         [SerializeField] private UILoot m_lootPrefab;
         [BoxGroup("Mission State")] 
         [SerializeField] private Transform m_lootRoot;
-        
+        [BoxGroup("Mission State")]
+        [SerializeField] private Transform m_classEffectRoot;
+        [BoxGroup("Mission State")]
+        [SerializeField] private Transform m_quirkEffectRoot;
+        [BoxGroup("Mission State")]
+        [SerializeField] private UIMissionEffect m_effectPrefab;
+
         [BoxGroup("Party")] 
         [SerializeField] private UIPartyMonster[] m_partyMembers;
         
@@ -71,10 +83,18 @@ namespace _Scripts.UI
             
             // Mission details
             m_name.SetText(data.Name);
-            m_endurance.SetText(string.Format(c_enduranceFormat, data.Endurance));
-            m_time.SetText(string.Format(c_timeFormat, data.Days));
-            m_infamy.SetText(string.Format(c_infamyFormat, data.Infamy));
-            m_xp.SetText(string.Format(c_xpFormat, data.Xp));
+            if (data.Difficulty != string.Empty)
+                m_difficulty.SetText(data.Difficulty);
+            else
+                m_difficulty.SetText(c_difficultyDefault);
+            if (data.Quote != string.Empty)
+                m_quote.SetText(data.Quote);
+            else
+                m_quote.SetText(c_quoteDefault);
+            //m_endurance.SetText(string.Format(c_enduranceFormat, data.Endurance));
+            //m_time.SetText(string.Format(c_timeFormat, data.Days));
+            m_infamy.SetText(data.Infamy.ToString());
+            m_xp.SetText(data.Xp.ToString());
             m_icon.sprite = data.Icon;
 
             // Loot
@@ -90,6 +110,35 @@ namespace _Scripts.UI
             {
                 UILoot instance = Instantiate(m_lootPrefab, m_lootRoot);
                 instance.SetData(schemaLoot);
+            }
+
+            foreach (Transform child in m_classEffectRoot.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            foreach (Transform child in m_quirkEffectRoot.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            var classMods = data.ClassModifiers;
+            foreach (var mod in classMods)
+            {
+                if (mod.Quirk != null)
+                {
+                    UIMissionEffect classEffect = Instantiate(m_effectPrefab, m_classEffectRoot);
+                    classEffect.SetData(mod);
+                }
+            }
+
+            var quirkMods = data.Modifiers;
+            foreach (var quirk in quirkMods)
+            {
+                if (quirk.Quirk != null)
+                {
+                    UIMissionEffect quirkEffect = Instantiate(m_effectPrefab, m_quirkEffectRoot);
+                    quirkEffect.SetData(quirk);
+                }
             }
 
             m_start.interactable = ServiceLocator.Instance.MissionManager.CanStartMission(m_missionData);
