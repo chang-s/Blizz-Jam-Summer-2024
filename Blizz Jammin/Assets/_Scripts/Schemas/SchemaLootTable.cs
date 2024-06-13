@@ -29,8 +29,10 @@ namespace _Scripts.Schemas
             HashSet<SchemaLoot> allLoot = new HashSet<SchemaLoot>();
             foreach (var lootTableEntry in LootTable)
             {
-                allLoot.AddRange(lootTableEntry.RequiredLoot);
-                allLoot.AddRange(lootTableEntry.PossibleLoot);
+                if(lootTableEntry.RequiredLoot != null)
+                    allLoot.AddRange(lootTableEntry.RequiredLoot);
+                if(lootTableEntry.PossibleLoot != null)
+                    allLoot.AddRange(lootTableEntry.PossibleLoot);
             }
             return allLoot;
         }
