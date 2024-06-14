@@ -22,6 +22,9 @@ namespace _Scripts.Schemas
         [BoxGroup("Visuals")]
         [PreviewField(100)]
         public Sprite Icon;
+        
+        [BoxGroup("Visuals")]
+        public string Quote;
 
         [BoxGroup("Simulation")] 
         [Range(1, 6)]
@@ -56,10 +59,7 @@ namespace _Scripts.Schemas
         // If we wanna call it difficulty, sure, but its going to be an Integer
         // If we want to do a string for this, then we should derive it from a mapping for Endurance -> Difficulty String?
         // I would much rather show the number though
-        //[BoxGroup("Rewards")]
+        //[BoxGroup("Simulation")]
         //public string Difficulty;
-
-        [BoxGroup("Rewards")]
-        public string Quote;
     }
 }

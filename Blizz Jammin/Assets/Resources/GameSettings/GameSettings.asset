@@ -26,6 +26,6 @@ MonoBehaviour:
   StatLevelExponent: 1.5
   DefaultCritScalar: 2
   CritChancePerLuck: 0.1
-  AdditionalCritScalarPerLuck: 0
-  CritScalarPerTerror: 0.2
+  AdditionalCritScalarPerLuck: 0.1
+  CritScalarPerTerror: 0.25
   DamageBonusPerSymbiosis: 1

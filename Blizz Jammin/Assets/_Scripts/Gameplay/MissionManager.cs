@@ -202,7 +202,7 @@ namespace _Scripts.Gameplay
                                   m_gameSettings.MissionSpeedTerrorPerDay;
 
             // The minimum amount of time a mission can take is 0 days
-            int endStep = startStep - Math.Max(0, startStep + mission.Days - terrorReduction);
+            int endStep = startStep + Math.Max(0, mission.Days - terrorReduction);
             
             // TODO: Simulate the combat and generate a success ratio from 0f-1f
             float score = 1.0f;
@@ -215,6 +215,11 @@ namespace _Scripts.Gameplay
             int value = 0;
             foreach (var monsterInfo in party)
             {
+                if (monsterInfo == null)
+                {
+                    continue;
+                }
+                
                 value += monsterInfo.m_worldInstance.GetStatValue(stat);
             }
             return value;
