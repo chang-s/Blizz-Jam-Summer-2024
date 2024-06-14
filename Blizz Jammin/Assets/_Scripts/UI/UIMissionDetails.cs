@@ -122,22 +122,28 @@ namespace _Scripts.UI
             }
 
             var classMods = data.ClassModifiers;
-            foreach (var mod in classMods)
+            if (classMods != null)
             {
-                if (mod.Quirk != null)
+                foreach (var mod in classMods)
                 {
-                    UIMissionEffect classEffect = Instantiate(m_effectPrefab, m_classEffectRoot);
-                    classEffect.SetData(mod);
-                }
+                    if (mod.Quirk != null)
+                    {
+                        UIMissionEffect classEffect = Instantiate(m_effectPrefab, m_classEffectRoot);
+                        classEffect.SetData(mod);
+                    }
+                }   
             }
 
             var quirkMods = data.Modifiers;
-            foreach (var quirk in quirkMods)
+            if (quirkMods != null)
             {
-                if (quirk.Quirk != null)
+                foreach (var quirk in quirkMods)
                 {
-                    UIMissionEffect quirkEffect = Instantiate(m_effectPrefab, m_quirkEffectRoot);
-                    quirkEffect.SetData(quirk);
+                    if (quirk.Quirk != null)
+                    {
+                        UIMissionEffect quirkEffect = Instantiate(m_effectPrefab, m_quirkEffectRoot);
+                        quirkEffect.SetData(quirk);
+                    }
                 }
             }
 
