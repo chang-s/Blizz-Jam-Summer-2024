@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Scripts.Gameplay
 {
@@ -196,16 +197,18 @@ namespace _Scripts.Gameplay
         /// </summary>
         private (int, float) Simulate(int startStep, SchemaMission mission)
         {
+            // Get the party for the mission
             var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
 
+            // Calculate the end time of the mission
+            // The minimum amount of time a mission can take is 0 days
             int terrorReduction = GetAggregatePartyStatValue(SchemaStat.Stat.Terror, party) /
                                   m_gameSettings.MissionSpeedTerrorPerDay;
-
-            // The minimum amount of time a mission can take is 0 days
             int endStep = startStep + Math.Max(0, mission.Days - terrorReduction);
             
-            // TODO: Simulate the combat and generate a success ratio from 0f-1f
-            float score = 1.0f;
+            // Calculate the damage the party will do. Cast to float so that we can get a ratio
+            float damage = GetAggregatePartyDamage(party);
+            float score = Math.Min(damage / mission.Endurance, 1.0f);
 
             return (endStep, score);
         }
@@ -223,6 +226,69 @@ namespace _Scripts.Gameplay
                 value += monsterInfo.m_worldInstance.GetStatValue(stat);
             }
             return value;
+        }
+
+        private int GetAggregatePartyDamage(MonsterManager.MonsterInfo[] party)
+        {
+            int GetActiveCombatants(int[] enduranceTrackers)
+            {
+                int activeCombatants = 0;
+                foreach (var endurance in enduranceTrackers)
+                {
+                    activeCombatants += endurance > 0 ? 1 : 0;
+                }
+                return activeCombatants;
+            }
+            
+            
+            // Track how many simulation steps that each party member can do
+            int[] partyMemberEnduranceTracker = new int[party.Length];
+            for (var i = 0; i < partyMemberEnduranceTracker.Length; i++)
+            {
+                partyMemberEnduranceTracker[i] = party[i] == null
+                    ? 0
+                    : party[i].m_worldInstance.GetStatValue(SchemaStat.Stat.Endurance);
+            }
+
+            int damage = 0;
+            int activeCombatants = GetActiveCombatants(partyMemberEnduranceTracker);
+            while (activeCombatants > 0)
+            {
+                for (var i = 0; i < partyMemberEnduranceTracker.Length; i++)
+                {
+                    // This teammate is exhausted
+                    if (partyMemberEnduranceTracker[i] <= 0)
+                    {
+                        continue;
+                    }
+                    
+                    // Remove 1 endurance
+                    partyMemberEnduranceTracker[i]--;
+                    
+                    // Calculate damage this step
+                    var monster = party[i].m_worldInstance;
+                    var attack = monster.GetStatValue(SchemaStat.Stat.Attack);
+                    var luck = monster.GetStatValue(SchemaStat.Stat.Luck);
+                    var terror = monster.GetStatValue(SchemaStat.Stat.Terror);
+                    var symbiosis = monster.GetStatValue(SchemaStat.Stat.Symbiosis);
+
+                    var offensiveValue = (int) (attack + activeCombatants * symbiosis * m_gameSettings.DamageBonusPerSymbiosis);
+                    var critChance = Math.Min(1.0f, luck / m_gameSettings.CritChanceCap);
+                    var isCrit = Random.Range(0f, 1f) <= critChance;
+                    var surplusLuck = luck > m_gameSettings.CritChanceCap ? luck - m_gameSettings.CritChanceCap : 0;
+                    var critScalar = m_gameSettings.DefaultCritScalar + (terror * m_gameSettings.CritScalarPerTerror) +
+                                     (surplusLuck * m_gameSettings.CritScalarPerSurplusLuck);
+
+                    damage += (int) (offensiveValue * (isCrit ? critScalar : 1f));
+                }
+
+                // Now that everyone has done their step, their endurances have gone down, we can re-calculate how
+                // many monsters are still in combat. It's important to do this last because Symbiosis needs to take 
+                // all members into account, and not in any specific order
+                activeCombatants = GetActiveCombatants(partyMemberEnduranceTracker);
+            }
+
+            return damage;
         }
 
         #endregion

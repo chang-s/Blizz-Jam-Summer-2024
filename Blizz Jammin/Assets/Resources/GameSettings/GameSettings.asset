@@ -25,7 +25,7 @@ MonoBehaviour:
   MissionSpeedTerrorPerDay: 5
   StatLevelExponent: 1.5
   DefaultCritScalar: 2
-  CritChancePerLuck: 0.1
-  AdditionalCritScalarPerLuck: 0.1
+  CritChanceCap: 5
+  CritScalarPerSurplusLuck: 0.1
   CritScalarPerTerror: 0.25
   DamageBonusPerSymbiosis: 1

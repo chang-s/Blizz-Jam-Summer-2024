@@ -27,14 +27,14 @@ namespace _Scripts.Schemas
         [SerializeField] public float DefaultCritScalar;
         
         [BoxGroup("Combat")]
-        [Tooltip("How much crit chance you get for 1 Luck. This means there is a cap!")]
+        [Tooltip("How much crit you need for a guaranteed crit")]
         [MinValue(0)]
-        [SerializeField] public float CritChancePerLuck;
+        [SerializeField] public int CritChanceCap;
         
         [BoxGroup("Combat")]
         [Tooltip("Once capped, any remaining luck becomes crit scalar at this rate.")]
         [MinValue(0)]
-        [SerializeField] public float AdditionalCritScalarPerLuck;
+        [SerializeField] public float CritScalarPerSurplusLuck;
         
         [BoxGroup("Combat")]
         [Tooltip("Terror directly modifies the crit scalar, this much per Terror.")]
