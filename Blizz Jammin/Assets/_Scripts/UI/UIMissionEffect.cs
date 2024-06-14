@@ -17,6 +17,9 @@ public class UIMissionEffect : MonoBehaviour
     [SerializeField] private GameObject m_buffBackground;
     [SerializeField] private GameObject m_debuffBackground;
     [SerializeField] private TextMeshProUGUI m_effectLabel;
+    [SerializeField] private Transform m_modVisualRoot;
+    [SerializeField] private Transform m_buffMod;
+    [SerializeField] private Transform m_debuffMod;
 
     public void SetState(State state)
     {
@@ -33,6 +36,24 @@ public class UIMissionEffect : MonoBehaviour
         }
     }
 
+    private void ClearModVisuals()
+    {
+        foreach (Transform child in m_modVisualRoot)
+        {
+            Destroy(child);
+        }
+    }
+
+    private void SetModVisuals(int modValue)
+    {
+        Transform modVisual = modValue > 0 ? m_buffMod : m_debuffMod;
+        modValue = Mathf.Abs(modValue);
+        for (int i = 0; i < modValue; ++i)
+        {
+            Instantiate(modVisual, m_modVisualRoot);
+        }
+    }
+
     public void SetData(Modifier mod)
     {
         string quirkNameCleanup = mod.Quirk.name;
@@ -42,5 +63,8 @@ public class UIMissionEffect : MonoBehaviour
 
         m_buffBackground.SetActive(mod.ModValue > 0);
         m_debuffBackground.SetActive(mod.ModValue < 0);
+
+        ClearModVisuals();
+        SetModVisuals(mod.ModValue);
     }
 }

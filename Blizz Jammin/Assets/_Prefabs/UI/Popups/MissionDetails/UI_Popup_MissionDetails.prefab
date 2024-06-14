@@ -3287,6 +3287,7 @@ MonoBehaviour:
   m_name: {fileID: 8652241416911249826}
   m_difficulty: {fileID: 7483302561859476547}
   m_quote: {fileID: 5110657060207361444}
+  m_endurance: {fileID: 0}
   m_time: {fileID: 0}
   m_infamy: {fileID: 2713061617074145297}
   m_xp: {fileID: 83964101822246025}
@@ -3295,7 +3296,7 @@ MonoBehaviour:
   m_lootRoot: {fileID: 6244882616837488717}
   m_classEffectRoot: {fileID: 445298431950012178}
   m_quirkEffectRoot: {fileID: 3919083290067443448}
-  m_effectPrefab: {fileID: 6847944022731153113, guid: b96e32283ff647f4d8897b59f6d56637, type: 3}
+  m_effectPrefab: {fileID: 4523403678849977172, guid: a1e789ffb211fa240afc029b10f066b5, type: 3}
   m_partyMembers:
   - {fileID: 3582863082092737432}
   - {fileID: 5410912154902409335}
@@ -3797,7 +3798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2019192835002966949, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4322990721837342989, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_SizeDelta.y
