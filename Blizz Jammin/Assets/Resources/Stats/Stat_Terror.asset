@@ -23,3 +23,4 @@ MonoBehaviour:
     SerializationNodes: []
   Name: Terror
   Sprite: {fileID: 21300000, guid: 63b6984390a434a999c8b4e117d5eb62, type: 3}
+  Type: 4

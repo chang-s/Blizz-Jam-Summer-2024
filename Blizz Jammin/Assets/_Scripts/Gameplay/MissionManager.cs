@@ -60,9 +60,91 @@ namespace _Scripts.Gameplay
         public Action<MissionInfo> OnMissionStatusChanged;
         
         private Dictionary<SchemaMission, MissionInfo> m_missions = new Dictionary<SchemaMission, MissionInfo>();
+        private SchemaGameSettings m_gameSettings;
+        
+        #region Public
+        
+        /// <summary>
+        /// Returns if the given mission can currently start.
+        /// It can be prevented by:
+        ///   Being busy already, or
+        ///   Not enough party members assigned to the mission
+        /// </summary>
+        public bool CanStartMission(SchemaMission mission)
+        {
+            if (mission == null)
+            {
+                return false;
+            }
+
+            if (!m_missions.ContainsKey(mission))
+            {
+                return false;
+            }
+
+            // If the mission is not ready, it cannot begin (locked or busy, etc)
+            var missionInfo = m_missions[mission];
+            if (missionInfo.m_status != MissionStatus.Ready)
+            {
+                return false;
+            }
+            
+            // You must have at least 1 party member to start a mission
+            var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
+            for (var i = 0; i < party.Length; i++)
+            {
+                if (party[i] != null)
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        public bool IsAnyMissionInCombat()
+        {
+            foreach (var (mission, missionInfo) in m_missions)
+            {
+                if (missionInfo.m_status == MissionStatus.InCombat)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Start the given mission with the current party associated with it.
+        /// </summary>
+        public void StartMission(SchemaMission mission)
+        {
+            if (!CanStartMission(mission))
+            {
+                return;
+            }
+            
+            var missionInfo = m_missions[mission];
+            missionInfo.m_startStep = ServiceLocator.Instance.TimeManager.Day.Value;
+            
+            (int endStep, float score) = Simulate(missionInfo.m_startStep, mission);
+
+            missionInfo.m_status = MissionStatus.InCombat;
+            missionInfo.m_endStep = endStep;
+            missionInfo.m_score = score;
+            
+            OnMissionStatusChanged?.Invoke(missionInfo);
+        }
+
+        #endregion
+
+        #region Private
 
         private void Awake()
         {
+            m_gameSettings = ServiceLocator.Instance.GameSettings;
+            
             int missionWorldIndex = 0;
             foreach (var mission in ServiceLocator.Instance.AllMissions)
             {
@@ -102,7 +184,7 @@ namespace _Scripts.Gameplay
                 }
             }
         }
-
+        
         /// <summary>
         /// Given the mission, returns the simulation result using the party from MonsterManager.
         /// NOTE: Currently, random is not guided so re-running the same calculation might result in a different result.
@@ -114,11 +196,13 @@ namespace _Scripts.Gameplay
         /// </summary>
         private (int, float) Simulate(int startStep, SchemaMission mission)
         {
-            // TODO: Terror should reduce the time it takes to finish the mission
-            int terrorReduction = 0;
+            var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
+
+            int terrorReduction = GetAggregatePartyStatValue(SchemaStat.Stat.Terror, party) /
+                                  m_gameSettings.MissionSpeedTerrorPerDay;
 
             // The minimum amount of time a mission can take is 0 days
-            int endStep = Math.Min(startStep, startStep + mission.Days - terrorReduction);
+            int endStep = startStep - Math.Max(0, startStep + mission.Days - terrorReduction);
             
             // TODO: Simulate the combat and generate a success ratio from 0f-1f
             float score = 1.0f;
@@ -126,71 +210,16 @@ namespace _Scripts.Gameplay
             return (endStep, score);
         }
 
-        /// <summary>
-        /// Start the given mission with the current party
-        /// </summary>
-        public void StartMission(SchemaMission mission)
+        private int GetAggregatePartyStatValue(SchemaStat.Stat stat, MonsterManager.MonsterInfo[] party)
         {
-            if (!CanStartMission(mission))
+            int value = 0;
+            foreach (var monsterInfo in party)
             {
-                return;
+                value += monsterInfo.m_worldInstance.GetStatValue(stat);
             }
-            
-            var missionInfo = m_missions[mission];
-            missionInfo.m_startStep = ServiceLocator.Instance.TimeManager.Day.Value;
-            
-            (int endStep, float score) = Simulate(missionInfo.m_startStep, mission);
-
-            missionInfo.m_status = MissionStatus.InCombat;
-            missionInfo.m_endStep = endStep;
-            missionInfo.m_score = score;
-            
-            OnMissionStatusChanged?.Invoke(missionInfo);
+            return value;
         }
 
-        public bool CanStartMission(SchemaMission mission)
-        {
-            if (mission == null)
-            {
-                return false;
-            }
-
-            if (!m_missions.ContainsKey(mission))
-            {
-                return false;
-            }
-
-            // If the mission is not ready, it cannot begin (locked or busy, etc)
-            var missionInfo = m_missions[mission];
-            if (missionInfo.m_status != MissionStatus.Ready)
-            {
-                return false;
-            }
-            
-            // You must have at least 1 party member to start a mission
-            var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
-            for (var i = 0; i < party.Length; i++)
-            {
-                if (party[i] != null)
-                {
-                    return true;
-                }
-            }
-            
-            return false;
-        }
-
-        public bool IsAnyMissionInCombat()
-        {
-            foreach (var (mission, missionInfo) in m_missions)
-            {
-                if (missionInfo.m_status == MissionStatus.InCombat)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
+        #endregion
     }
 }

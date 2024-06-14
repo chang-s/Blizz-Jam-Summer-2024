@@ -28,8 +28,8 @@ namespace _Scripts.UI
         [SerializeField] private TMP_Text m_difficulty;
         [BoxGroup("Mission State")]
         [SerializeField] private TMP_Text m_quote;
-        //[BoxGroup("Mission State")] 
-        //[SerializeField] private TMP_Text m_endurance;
+        [BoxGroup("Mission State")] 
+        [SerializeField] private TMP_Text m_endurance;
         [BoxGroup("Mission State")] 
         [SerializeField] private TMP_Text m_time;
         [BoxGroup("Mission State")] 
@@ -83,16 +83,23 @@ namespace _Scripts.UI
             
             // Mission details
             m_name.SetText(data.Name);
+            
+            // This is just UX temp. There is no string denoting the difficulty of the mission
+            // What should be shown is the Endurance (or Health, whatever we end up calling it)
+            // If we wanna call it difficulty, sure, but its going to be an Integer
+            /*
             if (data.Difficulty != string.Empty)
                 m_difficulty.SetText(data.Difficulty);
             else
                 m_difficulty.SetText(c_difficultyDefault);
-            if (data.Quote != string.Empty)
-                m_quote.SetText(data.Quote);
-            else
-                m_quote.SetText(c_quoteDefault);
+            */
+
+            m_quote.SetText(data.Quote != string.Empty ? data.Quote : c_quoteDefault);
+
+            // TODO: Hook up these two
             //m_endurance.SetText(string.Format(c_enduranceFormat, data.Endurance));
             //m_time.SetText(string.Format(c_timeFormat, data.Days));
+            
             m_infamy.SetText(data.Infamy.ToString());
             m_xp.SetText(data.Xp.ToString());
             m_icon.sprite = data.Icon;

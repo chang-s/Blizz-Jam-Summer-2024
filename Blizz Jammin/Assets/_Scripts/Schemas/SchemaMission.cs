@@ -50,9 +50,14 @@ namespace _Scripts.Schemas
         
         [BoxGroup("Rewards")] 
         public float Xp;
-
-        [BoxGroup("Rewards")]
-        public string Difficulty;
+        
+        // This is just UX temp. There is no string denoting the difficulty of the mission
+        // What should be shown is the Endurance (or Health, whatever we end up calling it)
+        // If we wanna call it difficulty, sure, but its going to be an Integer
+        // If we want to do a string for this, then we should derive it from a mapping for Endurance -> Difficulty String?
+        // I would much rather show the number though
+        //[BoxGroup("Rewards")]
+        //public string Difficulty;
 
         [BoxGroup("Rewards")]
         public string Quote;
