@@ -13,9 +13,12 @@ namespace _Scripts.UI
 
         public Action OnShow;
         public Action OnHide;
+
+        public bool Showing { get; private set; }
         
         public void Show()
         {
+            Showing = true;
             m_canvasGroup.alpha = 1.0f;
             m_canvasGroup.blocksRaycasts = true;
             OnShow?.Invoke();
@@ -25,6 +28,8 @@ namespace _Scripts.UI
 
         public void Hide()
         {
+
+            Showing = false;
             m_canvasGroup.alpha = 0.0f;
             m_canvasGroup.blocksRaycasts = false;
             OnHide?.Invoke();

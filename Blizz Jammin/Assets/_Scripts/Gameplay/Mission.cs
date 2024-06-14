@@ -16,6 +16,7 @@ namespace _Scripts.Gameplay
         [SerializeField] private GameObject m_completedGroup;
 
         private SchemaMission m_data;
+        private MissionManager.MissionStatus m_status;
         
         public void SetData(SchemaMission data)
         {
@@ -40,6 +41,8 @@ namespace _Scripts.Gameplay
 
         private void SetStatus(MissionManager.MissionStatus status)
         {
+            m_status = status;
+            
             //m_lockedGroup.SetActive(status == MissionManager.MissionStatus.Locked);
             m_combatGroup.SetActive(status == MissionManager.MissionStatus.InCombat);
             m_completedGroup.SetActive(status == MissionManager.MissionStatus.Complete);
@@ -53,11 +56,20 @@ namespace _Scripts.Gameplay
             {
                 return;
             }
-            
+
+            // When clicking a complete mission, open the results popup
+            if (m_status == MissionManager.MissionStatus.Complete)
+            {
+                var resultsPopup = popupManager.GetPopup(UIPopupManager.PopupType.MissionResults).GetComponent<UIMissionResults>();
+                resultsPopup.SetData(m_data);
+                popupManager.RequestPopup(UIPopupManager.PopupType.MissionResults);
+                return;
+            }
+
+            // Otherwise, open the mission details
             UIPopup popup = popupManager.GetPopup(UIPopupManager.PopupType.MissionDetails);
             UIMissionDetails missionDetails = popup.GetComponent<UIMissionDetails>();
             missionDetails.SetData(m_data);
-            
             popupManager.RequestPopup(UIPopupManager.PopupType.MissionDetails);
         }
 

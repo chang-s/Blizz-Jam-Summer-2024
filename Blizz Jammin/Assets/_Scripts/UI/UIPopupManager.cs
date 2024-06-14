@@ -11,6 +11,7 @@ namespace _Scripts.UI
         {
             MonsterDetails,
             MissionDetails,
+            MissionResults,
         }
         
         [SerializeField] private GameObject m_sharedBG;
@@ -59,6 +60,8 @@ namespace _Scripts.UI
             ProcessQueue();
         }
 
+        // TODO: Should this require a reference to a specific popup? Currently it will close the top level which
+        // may not always be what we want to do
         public void RequestClose()
         {
             if (m_currentPopup == null)

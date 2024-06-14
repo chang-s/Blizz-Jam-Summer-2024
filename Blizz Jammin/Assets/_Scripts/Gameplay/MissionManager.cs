@@ -137,6 +137,28 @@ namespace _Scripts.Gameplay
             
             OnMissionStatusChanged?.Invoke(missionInfo);
         }
+        
+        public void ClaimRewards(SchemaMission mission)
+        {
+            // TODO: Grant/Celebrate Rewards
+            // TODO: Clear results
+
+            // TEMP: just mark it as Ready again and make the party available again
+            // We may want to make this an event instead???
+            var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
+            foreach (var monsterInfo in party)
+            {
+                if (monsterInfo == null)
+                {
+                    continue;
+                }
+                
+                monsterInfo.m_status = MonsterManager.MonsterStatus.Purchased;
+            }
+            
+            m_missions[mission].m_status = MissionStatus.Ready;
+            OnMissionStatusChanged.Invoke(m_missions[mission]);
+        }
 
         #endregion
 
@@ -201,10 +223,10 @@ namespace _Scripts.Gameplay
             var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
 
             // Calculate the end time of the mission
-            // The minimum amount of time a mission can take is 0 days
+            // The minimum amount of time a mission can take is 1 day
             int terrorReduction = GetAggregatePartyStatValue(SchemaStat.Stat.Terror, party) /
                                   m_gameSettings.MissionSpeedTerrorPerDay;
-            int endStep = startStep + Math.Max(0, mission.Days - terrorReduction);
+            int endStep = startStep + Math.Max(1, mission.Days - terrorReduction);
             
             // Calculate the damage the party will do. Cast to float so that we can get a ratio
             float damage = GetAggregatePartyDamage(party);

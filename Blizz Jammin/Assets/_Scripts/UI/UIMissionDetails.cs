@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
@@ -188,6 +189,18 @@ namespace _Scripts.UI
         {
             if (missionInfo.m_mission != m_missionData)
             {
+                return;
+            }
+            
+            // Special case: If the mission we are inspecting finishes while we're inspecting it,
+            // automatically hide this popup and then show the results
+            if (m_popup.Showing && missionInfo.m_status == MissionManager.MissionStatus.Complete)
+            {
+                var resultsPopup = ServiceLocator.Instance.UIPopupManager
+                    .GetPopup(UIPopupManager.PopupType.MissionResults).GetComponent<UIMissionResults>();
+                resultsPopup.SetData(missionInfo.m_mission);
+                ServiceLocator.Instance.UIPopupManager.RequestClose();
+                ServiceLocator.Instance.UIPopupManager.RequestPopup(UIPopupManager.PopupType.MissionResults);
                 return;
             }
             
