@@ -26,6 +26,7 @@ namespace _Scripts.Gameplay
         public SchemaLoot[] AllLoot { get; private set; }
         public SchemaStat[] AllStats { get; private set; }
         public SchemaQuirk[] AllQuirks { get; private set; }
+        public SchemaGameSettings GameSettings { get; private set; }
 
         protected override void Awake()
         {
@@ -43,6 +44,7 @@ namespace _Scripts.Gameplay
             AllMonsters = Resources.LoadAll<SchemaMonster>("Monsters");
             AllStats = Resources.LoadAll<SchemaStat>("Stats");
             AllQuirks = Resources.LoadAll<SchemaQuirk>("Quirks");
+            GameSettings = Resources.LoadAll<SchemaGameSettings>("GameSettings")[0];
         }
 
         // TODO: Better lookups, might have to introduce an enum

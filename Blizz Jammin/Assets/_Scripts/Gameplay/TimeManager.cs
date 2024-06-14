@@ -6,18 +6,16 @@ namespace _Scripts.Gameplay
 {
     public class TimeManager : MonoBehaviour
     {
-        // TODO: Make this a scriptable object
-        [SerializeField] 
-        private float m_secondsPerDay = 1f;
-
         [HideInInspector]
         public Observable<int> Day = new Observable<int>(0);
 
         private Stopwatch m_timer = new Stopwatch();
+        private float m_secondsPerDay = 1f;
 
         private void Awake()
         {
             ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
+            m_secondsPerDay = ServiceLocator.Instance.GameSettings.SecondsPerDay;
         }
 
         private void OnMissionStatusChanged(MissionManager.MissionInfo changedMissionInfo)

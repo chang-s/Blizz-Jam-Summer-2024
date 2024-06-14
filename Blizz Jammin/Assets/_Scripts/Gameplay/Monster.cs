@@ -9,9 +9,7 @@ namespace _Scripts.Gameplay
     public class Monster : MonoBehaviour, ISchemaController<SchemaMonster>
     {
         public SchemaMonster Data { get; private set; }
-        
-        // TODO: XP System. Assume Level is >= 1
-        public int Level { get; private set; } = 1;
+        public uint Level { get; private set; } = 1;
 
         [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private TextMeshPro m_nameLabel;
