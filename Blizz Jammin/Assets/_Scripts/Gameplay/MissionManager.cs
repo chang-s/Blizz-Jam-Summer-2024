@@ -142,24 +142,8 @@ namespace _Scripts.Gameplay
         {
             // TODO: Grant/Celebrate Rewards
             // TODO: Clear results
-
-            // TODO: Move this in MonsterManager/listen for the mission status change instead of doing it here
-            //       Do this when we do the real mission results flow
             
-            // TEMP HACK: just mark the mission as Ready again and make the party available again
-            // We may want to make this an event instead???
-            var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
-            foreach (var monsterInfo in party)
-            {
-                if (monsterInfo == null)
-                {
-                    continue;
-                }
-                
-                monsterInfo.m_status = MonsterManager.MonsterStatus.Purchased;
-                monsterInfo.m_currentMission = null;
-            }
-            
+            // Change the status of the mission back to ready, and then inform all listeners.
             m_missions[mission].m_status = MissionStatus.Ready;
             OnMissionStatusChanged.Invoke(m_missions[mission]);
         }

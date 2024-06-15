@@ -72,8 +72,30 @@ namespace _Scripts.Gameplay
             {
                 m_parties.Add(mission, new MonsterInfo[mission.MaxCapacity]);
             }
+
+            ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
         }
-        
+
+        private void OnMissionStatusChanged(MissionManager.MissionInfo missionInfo)
+        {
+            // When a mission becomes ready, we should de-associate all monsters in the party
+            if (missionInfo.m_status == MissionManager.MissionStatus.Ready)
+            {
+                var party = GetParty(missionInfo.m_mission);
+                for (var i = 0; i < party.Length; i++)
+                {
+                    var partyMember = party[i];
+                    if (partyMember == null)
+                    {
+                        continue;
+                    }
+
+                    // TODO: Clean up this call/usage/storage of SchemaMonster/SchemaMission
+                    RemoveMonsterFromParty(partyMember.m_worldInstance.Data, missionInfo.m_mission, i);
+                }
+            }
+        }
+
         public List<MonsterInfo> GetOwnedMonsters()
         {
             List<MonsterInfo> results = new List<MonsterInfo>();
