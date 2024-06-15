@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   SecondsPerDay: 1
-  MissionSpeedTerrorPerDay: 5
+  MissionSpeedTerrorPerDay: 3
   StatLevelExponent: 1.5
   DefaultCritScalar: 2
   CritChanceCap: 5
