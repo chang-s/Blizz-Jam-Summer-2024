@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -26,6 +27,30 @@ namespace _Scripts.Schemas
         [BoxGroup("Visuals")]
         public string Quote;
 
+        [BoxGroup("Simulation")] 
+        [Range(0, 3)]
+        public int PossiblePositiveQuirkCount;
+        
+        [BoxGroup("Simulation")] 
+        [Range(1, 3)]
+        public int PositiveQuirkMinimumMod;
+        
+        [BoxGroup("Simulation")] 
+        [Range(1, 3)]
+        public int PositiveQuirkMaximumMod;
+
+        [BoxGroup("Simulation")] 
+        [Range(0, 6)]
+        public int PossibleNegativeQuirkCount;
+        
+        [BoxGroup("Simulation")] 
+        [Range(-3, -1)]
+        public int NegativeQuirkMinimumMod;
+        
+        [BoxGroup("Simulation")] 
+        [Range(-3, -1)]
+        public int NegativeQuirkMaximumMod;
+        
         [BoxGroup("Simulation")] 
         [Range(1, 6)]
         public int MaxCapacity;

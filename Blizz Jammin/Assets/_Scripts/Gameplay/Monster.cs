@@ -44,12 +44,16 @@ namespace _Scripts.Gameplay
 
         public List<SchemaQuirk> GetUnlockedQuirks()
         {
+            var allQuirks = ServiceLocator.Instance.AllQuirks;
+            
             //Probably should rework this when level unlocks classes/quirks?
             m_unlockedQuirks.Clear();
             for (int i = 0; i < Level; ++i)
             {
-                if(i < Data.PossibleQuirks.Count() && Data.PossibleQuirks[i] != null)
-                    m_unlockedQuirks.Add(Data.PossibleQuirks[i]);
+                if (i < allQuirks.Length)
+                {
+                    m_unlockedQuirks.Add(allQuirks[i]);
+                }
             }
             return m_unlockedQuirks;
         }

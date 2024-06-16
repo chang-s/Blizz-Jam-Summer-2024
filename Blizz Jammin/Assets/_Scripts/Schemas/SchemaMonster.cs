@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -44,14 +43,10 @@ namespace _Scripts.Schemas
         /// The amount of quirks to roll at the beginning of the game for this monster.
         /// </summary>
         [BoxGroup("Behavior")]
-        // TODO: Consider leveling up adds quirks
+        // All monsters have a chance to get any quirk. When we boot the game, each one will
+        // roll this many. 
+        // TODO: Consider leveling up adds quirks. 1->2->2->3->-4?
         public int QuirkCount;
-        
-        /// <summary>
-        /// The pool of quirks that can apply to this monster. Assume this is >= QuirkCount.
-        /// TODO: Stretch goal, when leveling up to certain milestones, add quirk?
-        /// </summary>
-        public List<SchemaQuirk> PossibleQuirks = new List<SchemaQuirk>();
 
         /// <summary>
         /// Determines if the player gets this monster at the start of the game.
@@ -59,9 +54,8 @@ namespace _Scripts.Schemas
         [BoxGroup("Behavior")]
         public bool IsStarter = false;
         
-        // TODO: Expand this per-level, probably an intermediate ScriptableObject?
         /// <summary>
-        /// The monster's base stats.
+        /// The monster's base stats. This gets scaled by level, see GameSettings.StatExponent
         /// </summary>
         [BoxGroup("Behavior")]
         public Dictionary<SchemaStat, int> Stats = new Dictionary<SchemaStat, int>();
@@ -80,27 +74,6 @@ namespace _Scripts.Schemas
                 }
 
                 Stats.Add(stat, 1);
-            }
-        }
-        
-        [Button("Add All Quirks")]
-        public void AddAllQuirks()
-        {
-            string[] allStatsGuids = AssetDatabase.FindAssets("t:SchemaQuirk", new string[]{
-                "Assets/Resources/Quirks"
-            });
-            
-            foreach (string statGuid in allStatsGuids)
-            {
-                string assetPath = AssetDatabase.GUIDToAssetPath(statGuid);
-                SchemaQuirk quirk = AssetDatabase.LoadAssetAtPath<SchemaQuirk>(assetPath);
-
-                if (PossibleQuirks.Contains(quirk))
-                {
-                    continue;
-                }
-
-                PossibleQuirks.Add(quirk);
             }
         }
     }
