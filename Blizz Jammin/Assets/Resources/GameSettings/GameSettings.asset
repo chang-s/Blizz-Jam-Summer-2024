@@ -23,6 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   SecondsPerDay: 1
   MissionSpeedTerrorPerDay: 3
+  XpForLevel: 000000000a0000001e000000460000009600000036010000
   StatLevelExponent: 1.5
   DefaultCritScalar: 2
   CritChanceCap: 5

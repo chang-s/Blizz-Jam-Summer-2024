@@ -16,6 +16,10 @@ namespace _Scripts.Schemas
         [MinValue(1)]
         [SerializeField] public int MissionSpeedTerrorPerDay;
         
+        [BoxGroup("Monster Levels")]
+        [Tooltip("How much XP you need to have to be at the level (-1 based)")]
+        [SerializeField] public int[] XpForLevel;
+        
         [BoxGroup("Combat")]
         [Tooltip("The exponent applied to every stat (before items), where the power is equal to the monster's level.")]
         [MinValue(1)]
