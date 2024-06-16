@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -34,17 +35,23 @@ namespace _Scripts.Schemas
         public Sprite Sprite;
 
         /// <summary>
+        /// The monster's class. This is a glorified Quirk, but can only have ONE of these from the set of 3.
+        /// </summary>
+        [BoxGroup("Behavior")]
+        public SchemaQuirk Class;
+
+        /// <summary>
         /// The amount of quirks to roll at the beginning of the game for this monster.
         /// </summary>
+        [BoxGroup("Behavior")]
+        // TODO: Consider leveling up adds quirks
         public int QuirkCount;
-
-        public SchemaQuirk[] PossibleClasses;
-
+        
         /// <summary>
         /// The pool of quirks that can apply to this monster. Assume this is >= QuirkCount.
         /// TODO: Stretch goal, when leveling up to certain milestones, add quirk?
         /// </summary>
-        public SchemaQuirk[] PossibleQuirks;
+        public List<SchemaQuirk> PossibleQuirks = new List<SchemaQuirk>();
 
         /// <summary>
         /// Determines if the player gets this monster at the start of the game.
@@ -73,6 +80,27 @@ namespace _Scripts.Schemas
                 }
 
                 Stats.Add(stat, 1);
+            }
+        }
+        
+        [Button("Add All Quirks")]
+        public void AddAllQuirks()
+        {
+            string[] allStatsGuids = AssetDatabase.FindAssets("t:SchemaQuirk", new string[]{
+                "Assets/Resources/Quirks"
+            });
+            
+            foreach (string statGuid in allStatsGuids)
+            {
+                string assetPath = AssetDatabase.GUIDToAssetPath(statGuid);
+                SchemaQuirk quirk = AssetDatabase.LoadAssetAtPath<SchemaQuirk>(assetPath);
+
+                if (PossibleQuirks.Contains(quirk))
+                {
+                    continue;
+                }
+
+                PossibleQuirks.Add(quirk);
             }
         }
     }

@@ -21,7 +21,7 @@ namespace _Scripts.Gameplay
         private Dictionary<SchemaStat.Stat, float> m_mulltStatBonus = new();
 
         private List<SchemaQuirk> m_unlockedQuirks = new List<SchemaQuirk>();
-        private List<SchemaQuirk> m_unlockedClasses = new List<SchemaQuirk>();
+        private SchemaQuirk m_class;
 
         private SchemaGameSettings m_gameSettings;
 
@@ -54,18 +54,15 @@ namespace _Scripts.Gameplay
             return m_unlockedQuirks;
         }
 
-        public List<SchemaQuirk> GetUnlockedClasses()
+        public SchemaQuirk GetClass()
         {
-            //Probably should rework this when level unlocks classes/quirks?
-            m_unlockedClasses.Clear();
-            for (int i = 0; i < Level; ++i)
+            if (Data == null)
             {
-                if (i < Data.PossibleClasses.Count() && Data.PossibleClasses[i] != null)
-                    m_unlockedClasses.Add(Data.PossibleClasses[i]);
+                return null;
             }
-            return m_unlockedClasses;
-        }
 
+            return Data.Class;
+        }
 
         public int GetStatValue(SchemaStat.Stat stat)
         {

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4786afa98f33c74c8f2374fd950bbe5, type: 3}
-  m_Name: Monster_B
+  m_Name: Monster_H
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -48,7 +48,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -72,7 +72,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 3
-      Data: 5
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -84,7 +84,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -96,7 +96,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 3
-      Data: 0
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -106,12 +106,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: MonsterB
-  Description: All or Nothing Type
+  Name: MonsterH
+  Description: Teddy Bear Type
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: db4c47bc8cb194c4d98f4562a275148e, type: 3}
+  Class: {fileID: 11400000, guid: dfe5e6b37da6f434e8c0cf470faa24a6, type: 2}
   QuirkCount: 1
-  Class: {fileID: 11400000, guid: 0cb8409e4dcca194fb4275c7f4e8a781, type: 2}
   PossibleQuirks:
   - {fileID: 11400000, guid: a7f7addcb2702ee46bf9e0cb7c014bf6, type: 2}
   - {fileID: 11400000, guid: ddadd68466cccd444bb8f13c1d9bc215, type: 2}

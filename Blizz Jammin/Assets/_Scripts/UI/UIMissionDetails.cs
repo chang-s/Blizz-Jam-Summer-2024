@@ -200,7 +200,7 @@ namespace _Scripts.UI
                     sortedMonsters = sortedMonsters.OrderBy(m => m.m_worldInstance.Data.Name).ToList();
                     break;
                 case 1: //Sorts by Class
-                    sortedMonsters = sortedMonsters.OrderBy(m => m.m_worldInstance.GetUnlockedClasses()[0].Name).ToList();
+                    sortedMonsters = sortedMonsters.OrderBy(m => m.m_worldInstance.GetClass().Name).ToList();
                     break;
                 case 2: //Sorts by Level
                     sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.Level).ToList();
