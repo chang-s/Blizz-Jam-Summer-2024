@@ -57,10 +57,6 @@ namespace _Scripts.UI
         [BoxGroup("Roster")] 
         [SerializeField] private Transform m_rosterRoot;
         [SerializeField] private TMP_Dropdown m_sortDropdown;
-        [SerializeField] private Transform m_classToggleRoot;
-        [SerializeField] private Transform m_quirkToggleRoot;
-        private List<Toggle> m_classToggles = new List<Toggle>();
-        private List<Toggle> m_quirkToggles = new List<Toggle>();
 
         [BoxGroup("Roster")] 
         [SerializeField] private UIRosterMonster m_rosterMonsterPrefab;
@@ -167,9 +163,6 @@ namespace _Scripts.UI
         
         private void Awake()
         {
-            GatherClassToggles();
-            GatherQuirkToggles();
-
             m_start.onClick.AddListener(() =>
             {
                 var missionManager = ServiceLocator.Instance.MissionManager;
@@ -192,101 +185,43 @@ namespace _Scripts.UI
 
             m_sortDropdown.onValueChanged.AddListener(delegate { UpdateRoster(); });
 
-            foreach (var toggle in m_quirkToggles)
-            {
-                toggle.onValueChanged.AddListener(delegate { UpdateRoster(); });
-            }
-
-            foreach (var toggle in m_classToggles)
-            {
-                toggle.onValueChanged.AddListener(delegate { UpdateRoster(); });
-            }
-
             ServiceLocator.Instance.MonsterManager.OnPartyChanged += OnPartyChanged;
             ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
             m_popup.OnShow += OnShow;
         }
 
-        private void GatherClassToggles()
+        private List<MonsterManager.MonsterInfo> SortMonsters(List<MonsterManager.MonsterInfo> monsters)
         {
-            m_classToggles.Clear();
-            foreach (Transform child in m_classToggleRoot)
-            {
-                Toggle t = child.GetComponent<Toggle>();
-                if (t)
-                {
-                    m_classToggles.Add(t);
-                }
-            }
-        }
-
-        private void GatherQuirkToggles()
-        {
-            m_quirkToggles.Clear();
-            foreach (Transform child in m_quirkToggleRoot)
-            {
-                Toggle t = child.GetComponent<Toggle>();
-                if (t)
-                {
-                    t.isOn = false;
-                    m_quirkToggles.Add(t);
-                }
-            }
-        }
-
-        private List<MonsterManager.MonsterInfo> SortAndFilterMonster(List<MonsterManager.MonsterInfo> monsters)
-        {
-            var filteredMonsters = monsters.Where(monster => QuirkFilter(monster) && ClassFilter(monster)).ToList();
+            var sortedMonsters = monsters;
 
             switch (m_sortDropdown.value)
             {
                 case 0: //Sorts by Name
-                    filteredMonsters = filteredMonsters.OrderBy(m => m.m_worldInstance.Data.Name).ToList();
+                    sortedMonsters = sortedMonsters.OrderBy(m => m.m_worldInstance.Data.Name).ToList();
                     break;
-                case 1: //Sorts by Level
-                    filteredMonsters = filteredMonsters.OrderByDescending(m => m.m_worldInstance.Level).ToList();
+                case 1: //Sorts by Class
+                    sortedMonsters = sortedMonsters.OrderBy(m => m.m_worldInstance.GetUnlockedClasses()[0].Name).ToList();
                     break;
-                case 2: //Sorts by Attack
-                    filteredMonsters = filteredMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Attack)).ToList();
+                case 2: //Sorts by Level
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.Level).ToList();
                     break;
-                case 3: //Sorts by Endurance
-                    filteredMonsters = filteredMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Endurance)).ToList();
+                case 3: //Sorts by Attack
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Attack)).ToList();
                     break;
-                case 4: //Sorts by Luck
-                    filteredMonsters = filteredMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Luck)).ToList();
+                case 4: //Sort by Endurance
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Endurance)).ToList();
                     break;
-                case 5: //Sorts by Symbiosis
-                    filteredMonsters = filteredMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Symbiosis)).ToList();
+                case 5: //Sorts by Luck 
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Luck)).ToList();
                     break;
-                case 6: //Sorts by Terror
-                    filteredMonsters = filteredMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Terror)).ToList();
+                case 6: //Sorts by Symbiosis 
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Symbiosis)).ToList();
+                    break;
+                case 7: //Sorts by Terror 
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Terror)).ToList();
                     break;
             }
-            return filteredMonsters;
-        }
-
-        private bool QuirkFilter(MonsterManager.MonsterInfo monster)
-        {
-            foreach (var toggle in m_quirkToggles)
-            {
-                if (toggle.isOn && !monster.m_worldInstance.GetUnlockedQuirks().Any(quirk => quirk.Name == toggle.name))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private bool ClassFilter(MonsterManager.MonsterInfo monster)
-        {
-            foreach (var toggle in m_classToggles)
-            {
-                if (toggle.isOn && !monster.m_worldInstance.GetUnlockedClasses().Any(_class => _class.Name == toggle.name))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return sortedMonsters;
         }
 
         private void OnMissionStatusChanged(MissionManager.MissionInfo missionInfo)
@@ -361,7 +296,7 @@ namespace _Scripts.UI
         private void UpdateRoster()
         {
             var allMonsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
-            var filteredAndSortedMonsters = SortAndFilterMonster(allMonsters);
+            var sortedMonsters = SortMonsters(allMonsters);
             var partyMonsters = ServiceLocator.Instance.MonsterManager.GetParty(m_missionData);
 
             //Super unoptimal - don't judge me ;)
@@ -372,7 +307,7 @@ namespace _Scripts.UI
             m_rosterInstances.Clear();
 
             // Make an entry for all monsters. Try to recycle them if they exist already
-            foreach (MonsterManager.MonsterInfo monsterInfo in filteredAndSortedMonsters)
+            foreach (MonsterManager.MonsterInfo monsterInfo in sortedMonsters)
             {
                 if (!m_rosterInstances.ContainsKey(monsterInfo.m_worldInstance))
                 {
