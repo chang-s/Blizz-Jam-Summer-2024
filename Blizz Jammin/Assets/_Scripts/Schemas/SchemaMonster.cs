@@ -38,6 +38,8 @@ namespace _Scripts.Schemas
         /// </summary>
         public int QuirkCount;
 
+        public SchemaQuirk[] PossibleClasses;
+
         /// <summary>
         /// The pool of quirks that can apply to this monster. Assume this is >= QuirkCount.
         /// TODO: Stretch goal, when leveling up to certain milestones, add quirk?

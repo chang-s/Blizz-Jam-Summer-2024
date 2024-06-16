@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Scripts.Schemas;
 using _Scripts.UI;
 using TMPro;
@@ -19,6 +20,9 @@ namespace _Scripts.Gameplay
         private Dictionary<SchemaStat.Stat, int> m_flatStatBonus = new();
         private Dictionary<SchemaStat.Stat, float> m_mulltStatBonus = new();
 
+        private List<SchemaQuirk> m_unlockedQuirks = new List<SchemaQuirk>();
+        private List<SchemaQuirk> m_unlockedClasses = new List<SchemaQuirk>();
+
         private SchemaGameSettings m_gameSettings;
 
         public void SetData(SchemaMonster data)
@@ -37,6 +41,31 @@ namespace _Scripts.Gameplay
                 m_mulltStatBonus.Add(schemaStat.Type, 0);
             }
         }
+
+        public List<SchemaQuirk> GetUnlockedQuirks()
+        {
+            //Probably should rework this when level unlocks classes/quirks?
+            m_unlockedQuirks.Clear();
+            for (int i = 0; i < Level; ++i)
+            {
+                if(i < Data.PossibleQuirks.Count() && Data.PossibleQuirks[i] != null)
+                    m_unlockedQuirks.Add(Data.PossibleQuirks[i]);
+            }
+            return m_unlockedQuirks;
+        }
+
+        public List<SchemaQuirk> GetUnlockedClasses()
+        {
+            //Probably should rework this when level unlocks classes/quirks?
+            m_unlockedClasses.Clear();
+            for (int i = 0; i < Level; ++i)
+            {
+                if (i < Data.PossibleClasses.Count() && Data.PossibleClasses[i] != null)
+                    m_unlockedClasses.Add(Data.PossibleClasses[i]);
+            }
+            return m_unlockedClasses;
+        }
+
 
         public int GetStatValue(SchemaStat.Stat stat)
         {
