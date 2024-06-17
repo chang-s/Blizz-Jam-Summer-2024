@@ -64,6 +64,16 @@ namespace _Scripts.Gameplay
         private SchemaGameSettings m_gameSettings;
         
         #region Public
+
+        public MissionInfo GetMissionInfo(SchemaMission mission)
+        {
+            if (!m_missions.ContainsKey(mission))
+            {
+                return null;
+            }
+
+            return m_missions[mission];
+        }
         
         /// <summary>
         /// Returns if the given mission can currently start.

@@ -131,24 +131,15 @@ namespace _Scripts.UI
             {
                 Destroy(child.gameObject);
             }
+            
 
-            var classMods = data.ClassModifiers;
-            if (classMods != null)
+            var mods = ServiceLocator.Instance.MissionManager
+                .GetMissionInfo(data)
+                .m_worldInstance.Modifiers;
+            
+            if (mods != null)
             {
-                foreach (var mod in classMods)
-                {
-                    if (mod.Quirk != null)
-                    {
-                        UIMissionEffect classEffect = Instantiate(m_effectPrefab, m_classEffectRoot);
-                        classEffect.SetData(mod);
-                    }
-                }   
-            }
-
-            var quirkMods = data.Modifiers;
-            if (quirkMods != null)
-            {
-                foreach (var quirk in quirkMods)
+                foreach (var quirk in mods)
                 {
                     if (quirk.Quirk != null)
                     {

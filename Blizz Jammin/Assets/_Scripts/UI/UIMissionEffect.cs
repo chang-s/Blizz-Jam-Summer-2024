@@ -1,5 +1,6 @@
 using _Scripts.Schemas;
 using System;
+using _Scripts.Gameplay;
 using TMPro;
 using UnityEngine;
 using static _Scripts.Schemas.SchemaMission;
@@ -54,7 +55,7 @@ public class UIMissionEffect : MonoBehaviour
         }
     }
 
-    public void SetData(Modifier mod)
+    public void SetData(Mission.Modifier mod)
     {
         string quirkNameCleanup = mod.Quirk.name;
         if (quirkNameCleanup.Contains('_'))
