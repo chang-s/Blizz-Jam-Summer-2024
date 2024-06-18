@@ -1354,7 +1354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_missionRoadRoot: {fileID: 1251374386}
   m_missionPrefab: {fileID: 7609445380599713211, guid: 458698840ff3fff4eb37d6fda734448e, type: 3}
-  m_offsetBetweenPages: {x: 18.9, y: 0, z: 0}
+  m_offsetBetweenPages: {x: 19.2, y: 0, z: 0}
   m_pageOffsets:
   - {fileID: 2415589211212959300}
   - {fileID: 2514678048284846656}
@@ -1746,7 +1746,7 @@ Transform:
   m_GameObject: {fileID: 1961895773}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.7594, y: -3.79, z: 10}
+  m_LocalPosition: {x: 99.3, y: -3.79, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1798,7 +1798,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 57.518894, y: 10.8}
+  m_Size: {x: 230.4525, y: 10.8}
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

@@ -50,17 +50,14 @@ namespace _Scripts.Schemas
         [BoxGroup("Simulation")]
         public int Days;
 
-        [BoxGroup("Simulation")] 
-        public int ModifierCount;
-
-        [BoxGroup("Rewards")] 
-        public SchemaLootTable LootTable;
-
         [BoxGroup("Rewards")] 
         public float Infamy;
         
         [BoxGroup("Rewards")] 
         public float Xp;
+        
+        [BoxGroup("Rewards")] 
+        public SchemaLootTable LootTable;
         
         // This is just UX temp. There is no string denoting the difficulty of the mission
         // What should be shown is the Endurance (or Health, whatever we end up calling it)

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13dc65d6288764949a47f2463c2f265e, type: 3}
-  m_Name: Mission_1A
+  m_Name: Mission_10C
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,18 +21,18 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Name: 1A
-  Icon: {fileID: 21300000, guid: 1eda720f96b3ef4438379a446d6f6013, type: 3}
+  Name: 10C
+  Icon: {fileID: 21300000, guid: 35721ec0702cb3f45bf1d8610ef54c7c, type: 3}
   Quote: 
-  PossiblePositiveQuirkCount: 1
-  PositiveQuirkMinimumMod: 1
-  PositiveQuirkMaximumMod: 1
-  PossibleNegativeQuirkCount: 0
-  NegativeQuirkMinimumMod: -1
-  NegativeQuirkMaximumMod: -1
-  MaxCapacity: 1
-  Endurance: 2
-  Days: 5
-  LootTable: {fileID: 11400000, guid: f8ce2eccc32df6144ba8152ca7139879, type: 2}
-  Infamy: 5
-  Xp: 2
+  PossiblePositiveQuirkCount: 3
+  PositiveQuirkMinimumMod: 2
+  PositiveQuirkMaximumMod: 3
+  PossibleNegativeQuirkCount: 3
+  NegativeQuirkMinimumMod: -2
+  NegativeQuirkMaximumMod: -3
+  MaxCapacity: 5
+  Endurance: 2299
+  Days: 90
+  Infamy: 285
+  Xp: 80
+  LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}
