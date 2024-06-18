@@ -1,4 +1,5 @@
 using _Scripts.Gameplay;
+using _Scripts.Schemas;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ namespace _Scripts.UI
     public class UIPopupRequester : MonoBehaviour
     {
         public Button Button;
-        public UIPopupManager.PopupType PopupType;
+        public SchemaPopup.PopupType PopupType;
 
         private void Start()
         {

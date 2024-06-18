@@ -115,17 +115,17 @@ namespace _Scripts.Gameplay
             // When clicking a complete mission, open the results popup
             if (m_status == MissionManager.MissionStatus.Complete)
             {
-                var resultsPopup = popupManager.GetPopup(UIPopupManager.PopupType.MissionResults).GetComponent<UIMissionResults>();
+                var resultsPopup = popupManager.GetPopup(SchemaPopup.PopupType.MissionResults).GetComponent<UIMissionResults>();
                 resultsPopup.SetData(m_data);
-                popupManager.RequestPopup(UIPopupManager.PopupType.MissionResults);
+                popupManager.RequestPopup(SchemaPopup.PopupType.MissionResults);
                 return;
             }
 
             // Otherwise, open the mission details
-            UIPopup popup = popupManager.GetPopup(UIPopupManager.PopupType.MissionDetails);
+            UIPopup popup = popupManager.GetPopup(SchemaPopup.PopupType.MissionDetails);
             UIMissionDetails missionDetails = popup.GetComponent<UIMissionDetails>();
             missionDetails.SetData(m_data);
-            popupManager.RequestPopup(UIPopupManager.PopupType.MissionDetails);
+            popupManager.RequestPopup(SchemaPopup.PopupType.MissionDetails);
         }
 
         private void OnValidate()

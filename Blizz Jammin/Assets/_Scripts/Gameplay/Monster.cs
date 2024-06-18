@@ -102,11 +102,11 @@ namespace _Scripts.Gameplay
                 return;
             }
             
-            UIPopup popup = popupManager.GetPopup(UIPopupManager.PopupType.MonsterDetails);
+            UIPopup popup = popupManager.GetPopup(SchemaPopup.PopupType.MonsterDetails);
             UIMonsterDetails monsterDetails = popup.GetComponent<UIMonsterDetails>();
             monsterDetails.SetData(Data);
             
-            popupManager.RequestPopup(UIPopupManager.PopupType.MonsterDetails);
+            popupManager.RequestPopup(SchemaPopup.PopupType.MonsterDetails);
         }
     }
 }

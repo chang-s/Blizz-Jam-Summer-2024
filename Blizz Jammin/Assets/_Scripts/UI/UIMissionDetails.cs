@@ -227,10 +227,10 @@ namespace _Scripts.UI
             if (m_popup.Showing && missionInfo.m_status == MissionManager.MissionStatus.Complete)
             {
                 var resultsPopup = ServiceLocator.Instance.UIPopupManager
-                    .GetPopup(UIPopupManager.PopupType.MissionResults).GetComponent<UIMissionResults>();
+                    .GetPopup(SchemaPopup.PopupType.MissionResults).GetComponent<UIMissionResults>();
                 resultsPopup.SetData(missionInfo.m_mission);
                 ServiceLocator.Instance.UIPopupManager.RequestClose();
-                ServiceLocator.Instance.UIPopupManager.RequestPopup(UIPopupManager.PopupType.MissionResults);
+                ServiceLocator.Instance.UIPopupManager.RequestPopup(SchemaPopup.PopupType.MissionResults);
                 return;
             }
             

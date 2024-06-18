@@ -1,5 +1,6 @@
-using System;
 using System.Collections.Generic;
+using _Scripts.Gameplay;
+using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,26 +8,18 @@ namespace _Scripts.UI
 {
     public class UIPopupManager : SerializedMonoBehaviour
     {
-        public enum PopupType
-        {
-            MonsterDetails,
-            MissionDetails,
-            MissionResults,
-        }
-        
         [SerializeField] private GameObject m_sharedBG;
         [SerializeField] private Transform m_root;
-        [SerializeField] private Dictionary<PopupType, UIPopup> m_configs;
-        
+
         /// <summary>
         /// All the popup instances for the game.
         /// </summary>
-        private Dictionary<PopupType, UIPopup> m_instances = new Dictionary<PopupType, UIPopup>();
+        private Dictionary<SchemaPopup.PopupType, UIPopup> m_instances = new Dictionary<SchemaPopup.PopupType, UIPopup>();
         
         /// <summary>
         /// The queue of popups to be shown.
         /// </summary>
-        private List<PopupType> m_queue = new List<PopupType>();
+        private List<SchemaPopup.PopupType> m_queue = new List<SchemaPopup.PopupType>();
 
         /// <summary>
         /// The instance of the current popup type.
@@ -35,16 +28,16 @@ namespace _Scripts.UI
 
         private void Start()
         {
-            foreach (var (type, prefab) in m_configs)
+            foreach (var popup in ServiceLocator.Instance.AllPopups)
             {
-                UIPopup instance = Instantiate(prefab, m_root);
+                UIPopup instance = Instantiate(popup.Prefab, m_root);
                 instance.Hide();
-                m_instances.Add(type, instance);
+                m_instances.Add(popup.Type, instance);
             }
         }
 
         // TODO: Type this better, so we don't incur boxing
-        public UIPopup GetPopup(PopupType type)
+        public UIPopup GetPopup(SchemaPopup.PopupType type)
         {
             if (!m_instances.ContainsKey(type))
             {
@@ -54,7 +47,7 @@ namespace _Scripts.UI
             return m_instances[type];
         }
         
-        public void RequestPopup(PopupType type)
+        public void RequestPopup(SchemaPopup.PopupType type)
         {
             m_queue.Add(type);
             ProcessQueue();
@@ -95,7 +88,7 @@ namespace _Scripts.UI
                 return;
             }
 
-            PopupType popupType = m_queue[0];
+            SchemaPopup.PopupType popupType = m_queue[0];
             m_queue.RemoveAt(0);
         
             // Show

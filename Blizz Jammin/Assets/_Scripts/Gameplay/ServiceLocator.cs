@@ -20,12 +20,12 @@ namespace _Scripts.Gameplay
         public TimeManager TimeManager { get; private set; }
         public UIPopupManager UIPopupManager { get; private set; }
 
-        // TODO: Do some basic sorting for our intended purposes
         // Schema collections
         public SchemaMission[] AllMissions { get; private set; }
         public SchemaMonster[] AllMonsters { get; private set; }
         public SchemaLoot[] AllLoot { get; private set; }
         public SchemaStat[] AllStats { get; private set; }
+        public SchemaPopup[] AllPopups { get; private set; }
         public SchemaQuirk[] AllQuirks { get; private set; }
         public SchemaGameSettings GameSettings { get; private set; }
 
@@ -48,14 +48,9 @@ namespace _Scripts.Gameplay
             
             AllMonsters = Resources.LoadAll<SchemaMonster>("Monsters");
             AllStats = Resources.LoadAll<SchemaStat>("Stats");
+            AllPopups = Resources.LoadAll<SchemaPopup>("Popups");
             AllQuirks = Resources.LoadAll<SchemaQuirk>("Quirks");
             GameSettings = Resources.LoadAll<SchemaGameSettings>("GameSettings")[0];
-        }
-
-        // TODO: Better lookups, might have to introduce an enum
-        public SchemaStat GetStat(string statName)
-        {
-            return AllStats.First(s => s.Name == statName);
         }
     }
 }
