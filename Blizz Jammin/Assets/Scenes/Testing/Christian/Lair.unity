@@ -536,6 +536,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3615821986059993530, guid: a4ff1e3503fa2fc418c2aa88e2fb0298, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3863591553868590631, guid: a4ff1e3503fa2fc418c2aa88e2fb0298, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1472,77 +1476,12 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 7857922156576066777, guid: 94fcdbead9230d84ea73b617e40f34a1, type: 3}
-    - {fileID: 2209376691707282512, guid: d5a6aba64be1a8e4081e64a47586d34f, type: 3}
-    - {fileID: 3105001148553431769, guid: f0dcbcc344c1c9443aad611d0e62c07a, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: m_configs
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[_Scripts.UI.UIPopupManager+PopupType,
-        Assembly-CSharp],[_Scripts.UI.UIPopup, Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[_Scripts.UI.UIPopupManager+PopupType,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   m_sharedBG: {fileID: 824865368}
   m_root: {fileID: 1147533628}
 --- !u!4 &1887987567
