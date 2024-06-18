@@ -16,9 +16,7 @@ namespace _Scripts.Gameplay
         [BoxGroup("Camera Movement")]
         public Camera Camera;
         [BoxGroup("Camera Movement")]
-        public Vector3 LairHorizontalOffset;
-        [BoxGroup("Camera Movement")]
-        public Vector3 MissionHorizontalOffset;
+        public Vector3 HorizontalOffset;
         [BoxGroup("Camera Movement")]
         public Vector3 VerticalOffset;
         [BoxGroup("Camera Movement")]
@@ -39,23 +37,24 @@ namespace _Scripts.Gameplay
         [BoxGroup("Buttons")]
         public Button Missions;
 
-        private bool m_showingLair;
+        private bool m_showingMonsters;
         private Vector3 m_cameraStart;
         private int m_maxMonsters;
         private int m_maxMissions;
-        private int m_page;
+        private int m_monsterPage;
+        private int m_missionPage;
         private int m_maxMonsterPages;
         private int m_maxMissionPages;
         private float m_animationTimeRemaining;
         
         private void Awake()
         {
-            m_showingLair = true;
-            m_page = 0;
+            m_showingMonsters = true;
+            m_monsterPage = m_missionPage = 0;
             m_maxMonsters = ServiceLocator.Instance.AllMonsters.Length;
             m_maxMissions = ServiceLocator.Instance.AllMissions.Length;
-            m_maxMonsterPages = m_maxMonsters / EntriesPerPage;
-            m_maxMissionPages = m_maxMissions / EntriesPerPage;
+            m_maxMonsterPages = m_maxMonsters / EntriesPerPage + (m_maxMonsters % EntriesPerPage == 0 ? 0 : 1) - 1;
+            m_maxMissionPages = m_maxMissions / EntriesPerPage + (m_maxMissions % EntriesPerPage == 0 ? 0 : 1) - 1;
 
             UpdateNavButtons();
             
@@ -88,12 +87,18 @@ namespace _Scripts.Gameplay
             }
 
             m_animationTimeRemaining = Duration;
-            
-            m_page++;
 
-            var offset = m_showingLair ? LairHorizontalOffset : MissionHorizontalOffset;
+            if (m_showingMonsters)
+            {
+                m_monsterPage++;
+            }
+            else
+            {
+                m_missionPage++;
+            }
+
             Camera.transform.DOMove(
-                Camera.transform.position + offset,
+                Camera.transform.position + HorizontalOffset,
                 Duration
             ).SetEase(Ease);
             
@@ -109,11 +114,17 @@ namespace _Scripts.Gameplay
 
             m_animationTimeRemaining = Duration;
             
-            m_page--;
-
-            var offset = m_showingLair ? LairHorizontalOffset : MissionHorizontalOffset;
+            if (m_showingMonsters)
+            {
+                m_monsterPage--;
+            }
+            else
+            {
+                m_missionPage--;
+            }
+            
             Camera.transform.DOMove(
-                Camera.transform.position - offset,
+                Camera.transform.position - HorizontalOffset,
                 Duration
             ).SetEase(Ease);
             
@@ -128,13 +139,16 @@ namespace _Scripts.Gameplay
             }
 
             m_animationTimeRemaining = Duration;
+
+            int pages = m_missionPage - m_monsterPage;
+            Vector3 horizontalOffset = pages * HorizontalOffset;
             
             Camera.transform.DOMove(
-                Camera.transform.position - VerticalOffset,
+                Camera.transform.position - VerticalOffset + horizontalOffset,
                 Duration
             ).SetEase(Ease);
             
-            m_showingLair = false;
+            m_showingMonsters = false;
             UpdateNavButtons();
         }
 
@@ -147,24 +161,27 @@ namespace _Scripts.Gameplay
 
             m_animationTimeRemaining = Duration;
             
+            int pages = m_monsterPage - m_missionPage;
+            Vector3 horizontalOffset = pages * HorizontalOffset;
+
             Camera.transform.DOMove(
-                Camera.transform.position + VerticalOffset,
+                Camera.transform.position + VerticalOffset + horizontalOffset,
                 Duration
             ).SetEase(Ease);
 
-            m_showingLair = true;
+            m_showingMonsters = true;
             UpdateNavButtons();
         }
 
         private void UpdateNavButtons()
         {
-            Lair.gameObject.SetActive(!m_showingLair);
-            Missions.gameObject.SetActive(m_showingLair);
+            Lair.gameObject.SetActive(!m_showingMonsters);
+            Missions.gameObject.SetActive(m_showingMonsters);
 
-            bool showLeft = m_page > 0;
+            bool showLeft = m_showingMonsters ? m_monsterPage > 0 : m_missionPage > 0;
             Left.gameObject.SetActive(showLeft);
 
-            bool showRight = m_showingLair ? m_page < m_maxMonsterPages : m_page < m_maxMissionPages;
+            bool showRight = m_showingMonsters ? m_monsterPage < m_maxMonsterPages : m_missionPage < m_maxMissionPages;
             Right.gameObject.SetActive(showRight);
         }
     }
