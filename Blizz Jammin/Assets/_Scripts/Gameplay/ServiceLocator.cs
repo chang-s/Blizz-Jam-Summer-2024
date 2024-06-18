@@ -1,6 +1,7 @@
 using System.Linq;
 using _Scripts.Schemas;
 using _Scripts.UI;
+using Sirenix.Utilities;
 using UnityEngine;
 using Utility;
 
@@ -40,7 +41,11 @@ namespace _Scripts.Gameplay
             UIPopupManager = FindObjectOfType<UIPopupManager>();
 
             AllLoot = Resources.LoadAll<SchemaLoot>("Loot");
+            
+            // Missions are important to sort because they need to appear in a specific order
             AllMissions = Resources.LoadAll<SchemaMission>("Missions");
+            AllMissions.Sort();
+            
             AllMonsters = Resources.LoadAll<SchemaMonster>("Monsters");
             AllStats = Resources.LoadAll<SchemaStat>("Stats");
             AllQuirks = Resources.LoadAll<SchemaQuirk>("Quirks");

@@ -1,11 +1,15 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Scripts.Schemas
 {
     [CreateAssetMenu(menuName = "Schema/Mission")]
-    public class SchemaMission : Schema
+    public class SchemaMission : Schema, IComparable<SchemaMission>
     {
+        [BoxGroup("Sorting")] 
+        public int WorldOrder;
+        
         [BoxGroup("Visuals")]
         public string Name;
         
@@ -66,5 +70,15 @@ namespace _Scripts.Schemas
         // I would much rather show the number though
         //[BoxGroup("Simulation")]
         //public string Difficulty;
+        
+        /// <summary>
+        /// We need to sort missions in the world map.
+        /// </summary>
+        public int CompareTo(SchemaMission other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+            return WorldOrder > other.WorldOrder ? 1 : -1;
+        }
     }
 }

@@ -21,6 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  WorldOrder: 3
   Name: 1D
   Icon: {fileID: 21300000, guid: 35721ec0702cb3f45bf1d8610ef54c7c, type: 3}
   Quote: 
@@ -33,6 +34,6 @@ MonoBehaviour:
   MaxCapacity: 2
   Endurance: 5
   Days: 10
-  LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}
   Infamy: 10
   Xp: 4
+  LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}

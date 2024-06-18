@@ -21,6 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  WorldOrder: 17
   Name: 5B
   Icon: {fileID: 21300000, guid: 35721ec0702cb3f45bf1d8610ef54c7c, type: 3}
   Quote: 

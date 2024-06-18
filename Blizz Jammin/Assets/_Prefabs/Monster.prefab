@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b62405086b1cc2d4f848aaecc372e28a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3651a48d588ea51419954793e7af226d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -133,7 +133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spriteRenderer: {fileID: 8708361092341791348}
   m_nameLabel: {fileID: 6132684615092858141}
-  m_data: {fileID: 11400000, guid: 3e9a18f190e78c148b01da96e7c48d00, type: 2}
 --- !u!61 &6689118012222243284
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -213,7 +212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.66}
+  m_AnchoredPosition: {x: 0, y: 1.461}
   m_SizeDelta: {x: 5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &7951277901471057759
@@ -305,12 +304,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
+  m_fontSize: 4
   m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 6
-  m_fontSizeMax: 8
+  m_fontSizeMin: 4
+  m_fontSizeMax: 4
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
