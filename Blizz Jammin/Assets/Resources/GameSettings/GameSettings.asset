@@ -20,13 +20,20 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: InfamyScalarPerTerror
+      Entry: 4
+      Data: 0.1
+    - Name: XpScalarPerSymbiosis
+      Entry: 4
+      Data: 0.1
   SecondsPerDay: 1
   MissionSpeedTerrorPerDay: 3
-  XpForLevel: 000000000a0000001e000000460000009600000036010000
+  XpForLevel: 0a0000001e000000460000009600000036010000
   StatLevelExponent: 1.5
   DefaultCritScalar: 2
   CritChanceCap: 5
   CritScalarPerSurplusLuck: 0.1
   CritScalarPerTerror: 0.25
   DamageBonusPerSymbiosis: 1
+  ExtraLootPerLuck: 0.1

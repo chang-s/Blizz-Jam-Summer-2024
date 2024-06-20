@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 8441686585432083323}
   - component: {fileID: 4092001605022204691}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: X/Y
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 4034769858878209083}
   - component: {fileID: 3570693433989214353}
   m_Layer: 0
-  m_Name: Text (TMP) (1)
+  m_Name: XP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4917,10 +4917,6 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7813108826725578711, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
-      propertyPath: m_Alpha
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8301986503306055951, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5093,6 +5089,8 @@ MonoBehaviour:
   m_description: {fileID: 8018360944133525902}
   m_icon: {fileID: 3349589340730917932}
   m_prefab: {fileID: 1683541763954327715, guid: 9a42a31fa4ee286469b59c24e6afab6f, type: 3}
+  m_level: {fileID: 4092001605022204691}
+  m_levelFormat: '{0}/{1}'
 --- !u!224 &9173073864701503388 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1743406210352373539, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}

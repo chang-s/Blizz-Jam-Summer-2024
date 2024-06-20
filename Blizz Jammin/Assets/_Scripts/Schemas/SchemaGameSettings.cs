@@ -51,5 +51,20 @@ namespace _Scripts.Schemas
                  "multiplied by the amount of non-exhausted party members!")]
         [MinValue(0)]
         [SerializeField] public float DamageBonusPerSymbiosis;
+        
+        [BoxGroup("Rewards")]
+        [Tooltip("The amount of luck that is needed to get an extra loot roll")]
+        [MinValue(0)]
+        [SerializeField] public float ExtraLootPerLuck;
+
+        [BoxGroup("Rewards")]
+        [Tooltip("The amount of Infamy scalar to get per Terror in the party")]
+        [MinValue(0)]
+        [SerializeField] public float InfamyScalarPerTerror { get; set; }
+        
+        [BoxGroup("Rewards")]
+        [Tooltip("The amount of Infamy scalar to get per Terror in the party")]
+        [MinValue(0)]
+        [SerializeField] public float XpScalarPerSymbiosis { get; set; }
     }
 }

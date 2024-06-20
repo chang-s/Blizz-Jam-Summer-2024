@@ -127,13 +127,5 @@ namespace _Scripts.Gameplay
             missionDetails.SetData(m_data);
             popupManager.RequestPopup(SchemaPopup.PopupType.MissionDetails);
         }
-
-        private void OnValidate()
-        {
-            if (m_data != null)
-            {
-                SetData(m_data);
-            }
-        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -150,9 +151,32 @@ namespace _Scripts.Gameplay
         
         public void ClaimRewards(SchemaMission mission)
         {
-            // TODO: Grant/Celebrate Rewards
-            // TODO: Clear results
+            var score = GetMissionInfo(mission).m_score;
             
+            var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
+            var validMemberCount = party.Count(member => member != null);
+            
+            var totalLuck = GetAggregatePartyStatValue(SchemaStat.Stat.Luck, party);
+            var totalTerror = GetAggregatePartyStatValue(SchemaStat.Stat.Terror, party);
+            var totalSymbiosis = GetAggregatePartyStatValue(SchemaStat.Stat.Symbiosis, party);
+            
+            // Distribute loot after determining roll count through party luck
+            // TODO: GRANT LOOT
+            var lootTableEntry = mission.LootTable.GetLootTableEntry(score);
+            var rolls = lootTableEntry.Rolls + (int)(totalLuck * m_gameSettings.ExtraLootPerLuck);
+
+            // Distribute XP evenly to party members, after adding the party bonus from symbiosis
+            int totalXp = (int) (score * mission.Xp * (1 + totalSymbiosis * m_gameSettings.XpScalarPerSymbiosis));
+            int xp = totalXp / validMemberCount;
+            foreach (var partyMember in party)
+            {
+                partyMember?.m_worldInstance.AddXp(xp);
+            }
+            
+            // Add Infamy, after adding the infamy bonus from Terror
+            int totalInfamy = (int) (score * mission.Infamy * (1 + totalTerror * m_gameSettings.InfamyScalarPerTerror));
+            // TODO: GRANT INFAMY
+
             // Change the status of the mission back to ready, and then inform all listeners.
             m_missions[mission].m_status = MissionStatus.Ready;
             OnMissionStatusChanged.Invoke(m_missions[mission]);
@@ -233,6 +257,7 @@ namespace _Scripts.Gameplay
             return (endStep, score);
         }
 
+        // TODO: Move this to a better home?
         private int GetAggregatePartyStatValue(SchemaStat.Stat stat, MonsterManager.MonsterInfo[] party)
         {
             int value = 0;

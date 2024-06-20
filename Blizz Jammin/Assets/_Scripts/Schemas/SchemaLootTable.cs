@@ -36,6 +36,19 @@ namespace _Scripts.Schemas
             }
             return allLoot;
         }
+
+        public LootTableEntry GetLootTableEntry(float score)
+        {
+            for (var i = 0; i < LootTable.Length; i++)
+            {
+                if (score >= LootTable[i].RequiredMissionRewardScalar)
+                {
+                    return LootTable[i];
+                }
+            }
+
+            return LootTable[^1];
+        }
         
         /// <summary>
         /// Helper function for setting up data in edit time.

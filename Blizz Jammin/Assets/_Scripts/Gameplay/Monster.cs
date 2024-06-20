@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using _Scripts.Schemas;
 using _Scripts.UI;
 using TMPro;
@@ -11,7 +10,16 @@ namespace _Scripts.Gameplay
     public class Monster : MonoBehaviour, ISchemaController<SchemaMonster>
     {
         public SchemaMonster Data { get; private set; }
-        public uint Level { get; private set; } = 1;
+
+        /// <summary>
+        /// The current level of the monster.
+        /// </summary>
+        public int Level { get; private set; } = 1;
+        
+        /// <summary>
+        /// The amount of Xp in towards the next level.
+        /// </summary>
+        public int Xp { get; private set; } = 0;
 
         [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private TextMeshPro m_nameLabel;
@@ -88,6 +96,31 @@ namespace _Scripts.Gameplay
             m_mulltStatBonus[stat] += delta;
         }
 
+        /// <summary>
+        /// Adds the given amount of XP. Returns if a new level was reached.
+        /// </summary>
+        public bool AddXp(int amount)
+        {
+            Xp += amount;
+            
+            // At max level already
+            int[] xpTables = m_gameSettings.XpForLevel;
+            if (Level >= xpTables.Length)
+            {
+                return false;
+            }
+
+            var xpForNextLevel = xpTables[Level];
+            if (Xp > xpForNextLevel)
+            {
+                Level++;
+                Xp -= xpForNextLevel;
+                return true;
+            }
+
+            return false;
+        }
+
         private void Awake()
         {
             m_gameSettings = ServiceLocator.Instance.GameSettings;
@@ -105,6 +138,7 @@ namespace _Scripts.Gameplay
             UIPopup popup = popupManager.GetPopup(SchemaPopup.PopupType.MonsterDetails);
             UIMonsterDetails monsterDetails = popup.GetComponent<UIMonsterDetails>();
             monsterDetails.SetData(Data);
+            monsterDetails.SetMonster(this);
             
             popupManager.RequestPopup(SchemaPopup.PopupType.MonsterDetails);
         }
