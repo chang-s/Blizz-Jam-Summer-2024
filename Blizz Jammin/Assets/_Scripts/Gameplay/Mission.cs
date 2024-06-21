@@ -107,22 +107,29 @@ namespace _Scripts.Gameplay
             {
                 return;
             }
-
-            // When clicking a complete mission, open the results popup
+            
             var missionInfo = ServiceLocator.Instance.MissionManager.GetMissionInfo(Data);
-            if (missionInfo.m_status == MissionManager.MissionStatus.Complete)
+            switch (missionInfo.m_status)
             {
-                var resultsPopup = popupManager.GetPopup(SchemaPopup.PopupType.MissionResults).GetComponent<UIMissionResults>();
-                resultsPopup.SetData(Data);
-                popupManager.RequestPopup(SchemaPopup.PopupType.MissionResults);
-                return;
-            }
+                // If we're locked, then do nothing
+                case MissionManager.MissionStatus.Locked:
+                    return;
+                
+                // When clicking a complete mission, open the results popup
+                case MissionManager.MissionStatus.Complete:
+                    var resultsPopup = popupManager.GetPopup(SchemaPopup.PopupType.MissionResults).GetComponent<UIMissionResults>();
+                    resultsPopup.SetData(Data);
+                    popupManager.RequestPopup(SchemaPopup.PopupType.MissionResults);
+                    break;
 
-            // Otherwise, open the mission details
-            UIPopup popup = popupManager.GetPopup(SchemaPopup.PopupType.MissionDetails);
-            UIMissionDetails missionDetails = popup.GetComponent<UIMissionDetails>();
-            missionDetails.SetData(Data);
-            popupManager.RequestPopup(SchemaPopup.PopupType.MissionDetails);
+                // Otherwise, open the mission details
+                default:
+                    UIPopup popup = popupManager.GetPopup(SchemaPopup.PopupType.MissionDetails);
+                    UIMissionDetails missionDetails = popup.GetComponent<UIMissionDetails>();
+                    missionDetails.SetData(Data);
+                    popupManager.RequestPopup(SchemaPopup.PopupType.MissionDetails);
+                    break;
+            }
         }
     }
 }
