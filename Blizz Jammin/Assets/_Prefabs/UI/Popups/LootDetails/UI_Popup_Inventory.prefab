@@ -6585,22 +6585,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1743406210352373539, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7526002819674419258}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1133049116841477828, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2303315520545666345}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
---- !u!114 &167285647213208889 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7290991117491412358, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
-  m_PrefabInstance: {fileID: 7457007303300004031}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1461989958323906992 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8301986503306055951, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
@@ -6611,28 +6597,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4175968101975030428, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
   m_PrefabInstance: {fileID: 7457007303300004031}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7549715816721727099 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1133049116841477828, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
-  m_PrefabInstance: {fileID: 7457007303300004031}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2303315520545666345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7549715816721727099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6622e6836cd7dc944b584cb6c1fe22c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_name: {fileID: 167285647213208889}
-  m_description: {fileID: 8018360944133525902}
-  m_icon: {fileID: 3349589340730917932}
-  m_level: {fileID: 0}
-  m_levelFormat: 
 --- !u!224 &9173073864701503388 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1743406210352373539, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
