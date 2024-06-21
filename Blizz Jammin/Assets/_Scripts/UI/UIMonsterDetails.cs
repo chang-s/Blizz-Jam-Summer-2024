@@ -11,10 +11,12 @@ namespace _Scripts.UI
 {
     public class UIMonsterDetails : MonoBehaviour, ISchemaController<SchemaMonster>
     {
+        [BoxGroup("Visuals")]
         [SerializeField] [CanBeNull] private TMP_Text m_name;
+        [BoxGroup("Visuals")]
         [SerializeField] [CanBeNull] private TMP_Text m_description;
+        [BoxGroup("Visuals")]
         [SerializeField] [CanBeNull] private Image m_icon;
-        [SerializeField] private UIStat m_prefab;
 
         [BoxGroup("XP and Levels")]
         [SerializeField] [CanBeNull] private TMP_Text m_level;
