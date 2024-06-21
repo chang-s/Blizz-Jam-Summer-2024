@@ -106,8 +106,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: MonsterI
-  Description: Thief Type
+  Name: Danger Noodle
+  Description: <<Thief Type>>
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: db4c47bc8cb194c4d98f4562a275148e, type: 3}
   Class: {fileID: 11400000, guid: dfe5e6b37da6f434e8c0cf470faa24a6, type: 2}
