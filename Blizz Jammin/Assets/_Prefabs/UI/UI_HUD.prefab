@@ -1199,3 +1199,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_timerText: {fileID: 6212365104077119077}
+  m_infamyText: {fileID: 3018473126074195241}

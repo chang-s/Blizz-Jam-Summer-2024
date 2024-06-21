@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _Scripts.Gameplay
 {
-    public class Mission : MonoBehaviour, ISchemaController<SchemaMission>
+    public class Mission : SerializedMonoBehaviour, ISchemaController<SchemaMission>
     {
         public struct Modifier
         {
@@ -16,23 +16,20 @@ namespace _Scripts.Gameplay
             public int ModValue;
         }
         
-        [BoxGroup("Base")] 
+        [BoxGroup("Visuals")] 
         [SerializeField] private SpriteRenderer m_icon;
         
-        [BoxGroup("States")] 
-        [SerializeField] private GameObject m_combatGroup;
-        [BoxGroup("States")] 
-        [SerializeField] private GameObject m_completedGroup;
+        [BoxGroup("Visuals")] 
+        [SerializeField] private Dictionary<MissionManager.MissionStatus, GameObject> m_states;
 
+        public SchemaMission Data { get; private set; }
         public IReadOnlyCollection<Modifier> Modifiers => m_modifiers;
         
-        private SchemaMission m_data;
-        private MissionManager.MissionStatus m_status;
         private List<Modifier> m_modifiers;
         
         public void SetData(SchemaMission data)
         {
-            m_data = data;
+            Data = data;
             m_icon.sprite = data.Icon;
 
             m_modifiers = RollModifiers(data);
@@ -86,7 +83,7 @@ namespace _Scripts.Gameplay
         
         private void OnMissionStatusChanged(MissionManager.MissionInfo missionInfo)
         {
-            if (missionInfo.m_mission != m_data)
+            if (missionInfo.m_mission.Data != Data)
             {
                 return;
             }
@@ -96,11 +93,10 @@ namespace _Scripts.Gameplay
 
         private void SetStatus(MissionManager.MissionStatus status)
         {
-            m_status = status;
-            
-            //m_lockedGroup.SetActive(status == MissionManager.MissionStatus.Locked);
-            m_combatGroup.SetActive(status == MissionManager.MissionStatus.InCombat);
-            m_completedGroup.SetActive(status == MissionManager.MissionStatus.Complete);
+            foreach (var (missionStatus, group) in m_states)
+            {
+                group.SetActive(missionStatus == status);
+            }
         }
         
         private void OnMouseDown()
@@ -113,10 +109,11 @@ namespace _Scripts.Gameplay
             }
 
             // When clicking a complete mission, open the results popup
-            if (m_status == MissionManager.MissionStatus.Complete)
+            var missionInfo = ServiceLocator.Instance.MissionManager.GetMissionInfo(Data);
+            if (missionInfo.m_status == MissionManager.MissionStatus.Complete)
             {
                 var resultsPopup = popupManager.GetPopup(SchemaPopup.PopupType.MissionResults).GetComponent<UIMissionResults>();
-                resultsPopup.SetData(m_data);
+                resultsPopup.SetData(Data);
                 popupManager.RequestPopup(SchemaPopup.PopupType.MissionResults);
                 return;
             }
@@ -124,7 +121,7 @@ namespace _Scripts.Gameplay
             // Otherwise, open the mission details
             UIPopup popup = popupManager.GetPopup(SchemaPopup.PopupType.MissionDetails);
             UIMissionDetails missionDetails = popup.GetComponent<UIMissionDetails>();
-            missionDetails.SetData(m_data);
+            missionDetails.SetData(Data);
             popupManager.RequestPopup(SchemaPopup.PopupType.MissionDetails);
         }
     }

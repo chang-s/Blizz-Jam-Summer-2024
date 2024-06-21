@@ -2,14 +2,42 @@ using System;
 using System.Collections.Generic;
 using _Scripts.Schemas;
 using _Scripts.UI;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
 namespace _Scripts.Gameplay
 {
-    public class Monster : MonoBehaviour, ISchemaController<SchemaMonster>
+    public class Monster : SerializedMonoBehaviour, ISchemaController<SchemaMonster>
     {
+        public enum MonsterStatus
+        {
+            Locked,             // Cannot purchase yet
+            Purchasable,        // Is in the shop
+            Ready,              // Is bought and owned
+            Busy                // Is owned, but is currently busy in combat or otherwise
+        }
+        
+        /// <summary>
+        /// The data that is being used for this instance.
+        /// </summary>
         public SchemaMonster Data { get; private set; }
+
+        /// <summary>
+        /// The world status of this monster. Helps determine what they can and cannot do.
+        /// </summary>
+        public MonsterStatus Status { get; private set; } = MonsterStatus.Locked;
+
+        /// <summary>
+        /// TODO: Consider moving this tracking to MissionManager or MonsterManager
+        /// The current mission this monster is in.
+        /// </summary>
+        public SchemaMission CurrentMission { get; private set; }
+        
+        /// <summary>
+        /// The class of this monster if there is data set.
+        /// </summary>
+        public SchemaQuirk Class => Data != null ? Data.Class : null;
 
         /// <summary>
         /// The current level of the monster.
@@ -23,24 +51,20 @@ namespace _Scripts.Gameplay
 
         [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private TextMeshPro m_nameLabel;
+        [SerializeField] private Dictionary<MonsterStatus, GameObject> m_states;
 
         private Dictionary<SchemaStat.Stat, int> m_stats = new();
         private Dictionary<SchemaStat.Stat, int> m_flatStatBonus = new();
         private Dictionary<SchemaStat.Stat, float> m_mulltStatBonus = new();
 
         private List<SchemaQuirk> m_unlockedQuirks = new List<SchemaQuirk>();
-        private SchemaQuirk m_class;
 
         private SchemaGameSettings m_gameSettings;
 
         public void SetData(SchemaMonster data)
         {
             Data = data;
-            
-            m_nameLabel.SetText(data.Name);
-            m_spriteRenderer.transform.localScale = data.Scale;
-            m_spriteRenderer.sprite = data.Sprite;
-            
+
             m_stats.Clear();
             foreach (var (schemaStat, amount) in Data.Stats)
             {
@@ -48,8 +72,83 @@ namespace _Scripts.Gameplay
                 m_flatStatBonus.Add(schemaStat.Type, 0);
                 m_mulltStatBonus.Add(schemaStat.Type, 0);
             }
+
+            UpdateVisuals();
         }
 
+        private void UpdateVisuals()
+        {
+            m_nameLabel.SetText(Data.Name);
+            m_spriteRenderer.transform.localScale = Data.Scale;
+            m_spriteRenderer.sprite = Data.Sprite;
+            
+            foreach (var (state, group) in m_states)
+            {
+                group.SetActive(state == Status);
+            }
+        }
+
+        public void Unlock()
+        {
+            if (Status != MonsterStatus.Locked)
+            {
+                return;
+            }
+
+            Status = MonsterStatus.Purchasable;
+            UpdateVisuals();
+        }
+
+        public void Recruit()
+        {
+            if (Status != MonsterStatus.Purchasable)
+            {
+                return;
+            }
+
+            Status = MonsterStatus.Ready;
+            UpdateVisuals();
+        }
+        
+        public void BeginMission(SchemaMission mission)
+        {
+            // Can't start a mission if its not purchased
+            if (Status < MonsterStatus.Ready)
+            {
+                return;
+            }
+
+            // Can't start a mission if you're busy
+            if (Status == MonsterStatus.Busy)
+            {
+                return;
+            }
+
+            Status = MonsterStatus.Busy;
+            CurrentMission = mission;
+            UpdateVisuals();
+        }
+
+        public void EndMission(SchemaMission mission)
+        {
+            // You were not in a mission
+            if (Status != MonsterStatus.Busy || CurrentMission == null)
+            {
+                return;
+            }
+            
+            // Can't finish a mission you aren't on
+            if (CurrentMission != mission)
+            {
+                Debug.LogWarning("Monster instructed to finish mission, but it was not the one it was on!");
+                return;
+            }
+
+            Status = MonsterStatus.Ready;
+            CurrentMission = null;
+            UpdateVisuals();
+        }
+        
         public List<SchemaQuirk> GetUnlockedQuirks()
         {
             var allQuirks = ServiceLocator.Instance.AllQuirks;
@@ -64,16 +163,6 @@ namespace _Scripts.Gameplay
                 }
             }
             return m_unlockedQuirks;
-        }
-
-        public SchemaQuirk GetClass()
-        {
-            if (Data == null)
-            {
-                return null;
-            }
-
-            return Data.Class;
         }
 
         public int GetStatValue(SchemaStat.Stat stat)

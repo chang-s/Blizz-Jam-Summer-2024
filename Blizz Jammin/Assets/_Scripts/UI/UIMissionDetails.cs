@@ -135,7 +135,7 @@ namespace _Scripts.UI
 
             var mods = ServiceLocator.Instance.MissionManager
                 .GetMissionInfo(data)
-                .m_worldInstance.Modifiers;
+                .m_mission.Modifiers;
             
             if (mods != null)
             {
@@ -181,35 +181,35 @@ namespace _Scripts.UI
             m_popup.OnShow += OnShow;
         }
 
-        private List<MonsterManager.MonsterInfo> SortMonsters(List<MonsterManager.MonsterInfo> monsters)
+        private List<Monster> SortMonsters(List<Monster> monsters)
         {
             var sortedMonsters = monsters;
 
             switch (m_sortDropdown.value)
             {
                 case 0: //Sorts by Name
-                    sortedMonsters = sortedMonsters.OrderBy(m => m.m_worldInstance.Data.Name).ToList();
+                    sortedMonsters = sortedMonsters.OrderBy(m => m.Data.Name).ToList();
                     break;
                 case 1: //Sorts by Class
-                    sortedMonsters = sortedMonsters.OrderBy(m => m.m_worldInstance.GetClass().Name).ToList();
+                    sortedMonsters = sortedMonsters.OrderBy(m => m.Class.Name).ToList();
                     break;
                 case 2: //Sorts by Level
-                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.Level).ToList();
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.Level).ToList();
                     break;
                 case 3: //Sorts by Attack
-                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Attack)).ToList();
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.GetStatValue(SchemaStat.Stat.Attack)).ToList();
                     break;
                 case 4: //Sort by Endurance
-                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Endurance)).ToList();
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.GetStatValue(SchemaStat.Stat.Endurance)).ToList();
                     break;
                 case 5: //Sorts by Luck 
-                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Luck)).ToList();
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.GetStatValue(SchemaStat.Stat.Luck)).ToList();
                     break;
                 case 6: //Sorts by Symbiosis 
-                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Symbiosis)).ToList();
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.GetStatValue(SchemaStat.Stat.Symbiosis)).ToList();
                     break;
                 case 7: //Sorts by Terror 
-                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.m_worldInstance.GetStatValue(SchemaStat.Stat.Terror)).ToList();
+                    sortedMonsters = sortedMonsters.OrderByDescending(m => m.GetStatValue(SchemaStat.Stat.Terror)).ToList();
                     break;
             }
             return sortedMonsters;
@@ -217,7 +217,7 @@ namespace _Scripts.UI
 
         private void OnMissionStatusChanged(MissionManager.MissionInfo missionInfo)
         {
-            if (missionInfo.m_mission != m_missionData)
+            if (missionInfo.m_mission.Data != m_missionData)
             {
                 return;
             }
@@ -228,7 +228,7 @@ namespace _Scripts.UI
             {
                 var resultsPopup = ServiceLocator.Instance.UIPopupManager
                     .GetPopup(SchemaPopup.PopupType.MissionResults).GetComponent<UIMissionResults>();
-                resultsPopup.SetData(missionInfo.m_mission);
+                resultsPopup.SetData(missionInfo.m_mission.Data);
                 ServiceLocator.Instance.UIPopupManager.RequestClose();
                 ServiceLocator.Instance.UIPopupManager.RequestPopup(SchemaPopup.PopupType.MissionResults);
                 return;
@@ -298,24 +298,24 @@ namespace _Scripts.UI
             m_rosterInstances.Clear();
 
             // Make an entry for all monsters. Try to recycle them if they exist already
-            foreach (MonsterManager.MonsterInfo monsterInfo in sortedMonsters)
+            foreach (Monster monster in sortedMonsters)
             {
-                if (!m_rosterInstances.ContainsKey(monsterInfo.m_worldInstance))
+                if (!m_rosterInstances.ContainsKey(monster))
                 {
                     UIRosterMonster rosterMonster = Instantiate(m_rosterMonsterPrefab, m_rosterRoot);
-                    rosterMonster.SetData(monsterInfo.m_worldInstance.Data);
+                    rosterMonster.SetData(monster.Data);
                     rosterMonster.Button.onClick.AddListener(() => OnRosterEntryClicked(rosterMonster));
-                    m_rosterInstances.Add(monsterInfo.m_worldInstance, rosterMonster);
+                    m_rosterInstances.Add(monster, rosterMonster);
                 }
 
                 // TODO: Clean this logic up 
                 bool isAddingMonster = m_mode == Mode.AddingMonster;
-                bool isBusy = monsterInfo.m_status == MonsterManager.MonsterStatus.Busy;
-                bool isInMissionParty = monsterInfo.m_currentMission == m_missionData;
+                bool isBusy = monster.Status == Monster.MonsterStatus.Busy;
+                bool isInMissionParty = monster.CurrentMission == m_missionData;
                 bool isCurrentlySelected = m_currentPartyIndex.HasValue &&
                                            partyMonsters[m_currentPartyIndex.Value] != null &&
-                                           m_rosterInstances[monsterInfo.m_worldInstance].MonsterData ==
-                                           partyMonsters[m_currentPartyIndex.Value].m_worldInstance.Data;
+                                           m_rosterInstances[monster].MonsterData ==
+                                           partyMonsters[m_currentPartyIndex.Value].Data;
                 
                 UIRosterMonster.State state = UIRosterMonster.State.Normal;
                 if (isBusy && !isInMissionParty)
@@ -340,7 +340,7 @@ namespace _Scripts.UI
                     state = isInMissionParty ? UIRosterMonster.State.InParty : UIRosterMonster.State.Normal;
                 }
 
-                m_rosterInstances[monsterInfo.m_worldInstance].SetState(state);
+                m_rosterInstances[monster].SetState(state);
             }
         }
 
@@ -353,7 +353,7 @@ namespace _Scripts.UI
             
             var party = ServiceLocator.Instance.MonsterManager.GetParty(m_missionData);
             bool isCurrentlySelected = party[m_currentPartyIndex.Value] != null &&
-                                       monster.MonsterData == party[m_currentPartyIndex.Value].m_worldInstance.Data;
+                                       monster.MonsterData == party[m_currentPartyIndex.Value].Data;
 
             int oldPartyIndex = m_currentPartyIndex.Value;
             
@@ -416,7 +416,7 @@ namespace _Scripts.UI
                     continue;
                 }
                 
-                m_partyMembers[i].SetData(partyMonsters[i]?.m_worldInstance.Data);
+                m_partyMembers[i].SetData(partyMonsters[i]?.Data);
 
                 switch (m_mode)
                 {
@@ -457,7 +457,7 @@ namespace _Scripts.UI
             var allMonsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters();
             foreach (var monsterInfo in allMonsters)
             {
-                if (monsterInfo.m_status == MonsterManager.MonsterStatus.Purchased)
+                if (monsterInfo.Status == Monster.MonsterStatus.Ready)
                 {
                     return false;
                 }

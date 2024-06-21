@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
 using JetBrains.Annotations;
@@ -17,14 +16,12 @@ namespace _Scripts.UI
         [SerializeField] [CanBeNull] private TMP_Text m_description;
         [BoxGroup("Visuals")]
         [SerializeField] [CanBeNull] private Image m_icon;
-
+        
         [BoxGroup("XP and Levels")]
         [SerializeField] [CanBeNull] private TMP_Text m_level;
         [BoxGroup("XP and Levels")]
         [SerializeField] private string m_levelFormat;
         
-        private List<UIStat> m_statInstances = new List<UIStat>();
-
         // TODO: Find a better way to formalize setting dynamic data. Maybe there is a
         // world instance base type, and we have this be IWorldInstanceController or something,
         // instead of doing Schema, since its not enough for monsters
@@ -39,6 +36,7 @@ namespace _Scripts.UI
             levelString = monster.Level >= xpTables.Length 
                 ? "MAX" 
                 : string.Format(m_levelFormat, monster.Xp, xpTables[monster.Level - 1]);
+            
             m_level?.SetText(levelString);
         }
         

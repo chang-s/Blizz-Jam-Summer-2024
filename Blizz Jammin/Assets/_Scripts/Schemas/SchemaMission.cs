@@ -7,7 +7,9 @@ namespace _Scripts.Schemas
     [CreateAssetMenu(menuName = "Schema/Mission")]
     public class SchemaMission : Schema, IComparable<SchemaMission>
     {
-        [BoxGroup("Sorting")] 
+        // This goes from 0->MAX
+        [BoxGroup("Sorting")]
+        [MinValue(0)]
         public int WorldOrder;
         
         [BoxGroup("Visuals")]
@@ -19,6 +21,9 @@ namespace _Scripts.Schemas
         
         [BoxGroup("Visuals")]
         public string Quote;
+
+        [BoxGroup("Behavior")] 
+        public bool IsStarter;
 
         [BoxGroup("Simulation")] 
         [Range(0, 3)]

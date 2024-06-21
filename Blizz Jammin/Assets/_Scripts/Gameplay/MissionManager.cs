@@ -18,17 +18,13 @@ namespace _Scripts.Gameplay
             Complete
         }
         
+        // TODO: Merge with Mission.cs??
         public class MissionInfo
         {
             /// <summary>
             /// The world instance of the mission.
             /// </summary>
-            public Mission m_worldInstance;
-            
-            /// <summary>
-            /// The base data for the given mission.
-            /// </summary>
-            public SchemaMission m_mission;
+            public Mission m_mission;
 
             /// <summary>
             /// The current status of the mission
@@ -60,20 +56,56 @@ namespace _Scripts.Gameplay
         [SerializeField] private Transform[] m_pageOffsets;
 
         public Action<MissionInfo> OnMissionStatusChanged;
-        
-        private Dictionary<SchemaMission, MissionInfo> m_missions = new Dictionary<SchemaMission, MissionInfo>();
+
+        private List<MissionInfo> m_missions = new List<MissionInfo>();
         private SchemaGameSettings m_gameSettings;
         
         #region Public
 
         public MissionInfo GetMissionInfo(SchemaMission mission)
         {
-            if (!m_missions.ContainsKey(mission))
+            if (mission == null)
+            {
+                return null;
+            }
+            
+            if (mission.WorldOrder < 0)
+            {
+                return null;
+            }
+            
+            if (mission.WorldOrder >= m_missions.Count)
             {
                 return null;
             }
 
-            return m_missions[mission];
+            return m_missions[mission.WorldOrder];
+        }
+
+        /// <summary>
+        /// Gets the previous mission to the given mission. Null if its the first mission.
+        /// </summary>
+        public MissionInfo GetPrevMissionInfo(SchemaMission mission)
+        {
+            if (mission.WorldOrder <= 0)
+            {
+                return null;
+            }
+
+            return m_missions[mission.WorldOrder - 1];
+        }
+
+        /// <summary>
+        /// Gets the next mission to the given mission. Null if its the last mission.
+        /// </summary>
+        public MissionInfo GetNextMissionInfo(SchemaMission mission)
+        {
+            if (mission.WorldOrder >= m_missions.Count - 1)
+            {
+                return null;
+            }
+
+            return m_missions[mission.WorldOrder + 1];
         }
         
         /// <summary>
@@ -84,18 +116,13 @@ namespace _Scripts.Gameplay
         /// </summary>
         public bool CanStartMission(SchemaMission mission)
         {
-            if (mission == null)
+            var missionInfo = GetMissionInfo(mission);
+            if (missionInfo == null)
             {
                 return false;
             }
-
-            if (!m_missions.ContainsKey(mission))
-            {
-                return false;
-            }
-
+            
             // If the mission is not ready, it cannot begin (locked or busy, etc)
-            var missionInfo = m_missions[mission];
             if (missionInfo.m_status != MissionStatus.Ready)
             {
                 return false;
@@ -116,7 +143,7 @@ namespace _Scripts.Gameplay
         
         public bool IsAnyMissionInCombat()
         {
-            foreach (var (mission, missionInfo) in m_missions)
+            foreach (var missionInfo in m_missions)
             {
                 if (missionInfo.m_status == MissionStatus.InCombat)
                 {
@@ -137,7 +164,7 @@ namespace _Scripts.Gameplay
                 return;
             }
             
-            var missionInfo = m_missions[mission];
+            var missionInfo = m_missions[mission.WorldOrder];
             missionInfo.m_startStep = ServiceLocator.Instance.TimeManager.Day.Value;
             
             (int endStep, float score) = Simulate(missionInfo.m_startStep, mission);
@@ -170,16 +197,26 @@ namespace _Scripts.Gameplay
             int xp = totalXp / validMemberCount;
             foreach (var partyMember in party)
             {
-                partyMember?.m_worldInstance.AddXp(xp);
+                partyMember?.AddXp(xp);
             }
             
             // Add Infamy, after adding the infamy bonus from Terror
             int totalInfamy = (int) (score * mission.Infamy * (1 + totalTerror * m_gameSettings.InfamyScalarPerTerror));
-            // TODO: GRANT INFAMY
+            ServiceLocator.Instance.RecruitManager.DeltaInfamy(totalInfamy);
 
             // Change the status of the mission back to ready, and then inform all listeners.
-            m_missions[mission].m_status = MissionStatus.Ready;
-            OnMissionStatusChanged.Invoke(m_missions[mission]);
+            m_missions[mission.WorldOrder].m_status = MissionStatus.Ready;
+            OnMissionStatusChanged.Invoke(m_missions[mission.WorldOrder]);
+            
+            // Unlock the next mission if there is one and its locked and the mission was 100% complete
+            var nextMission = GetNextMissionInfo(mission);
+            if (score >= 1.0f - Double.Epsilon && 
+                nextMission != null && 
+                nextMission.m_status == MissionStatus.Locked
+            ) {
+                nextMission.m_status = MissionStatus.Ready;
+                OnMissionStatusChanged?.Invoke(nextMission);
+            }
         }
 
         #endregion
@@ -199,14 +236,16 @@ namespace _Scripts.Gameplay
                 int page = missionWorldIndex / m_pageOffsets.Length;
                 int offsetIndex = missionWorldIndex % m_pageOffsets.Length;
                 missionInstance.transform.localPosition += (page * m_offsetBetweenPages) + m_pageOffsets[offsetIndex].transform.localPosition;
-                
-                m_missions.Add(mission, new MissionInfo()
-                {
-                    m_worldInstance = missionInstance,
-                    m_mission = mission,
-                    m_status = MissionStatus.Ready
-                });
 
+                var missionInfo = new MissionInfo()
+                {
+                    m_mission = missionInstance,
+                    m_status = mission.IsStarter ? MissionStatus.Ready : MissionStatus.Locked
+                };
+
+                OnMissionStatusChanged?.Invoke(missionInfo);
+                m_missions.Add(missionInfo);
+                
                 missionWorldIndex++;
             }
 
@@ -215,7 +254,7 @@ namespace _Scripts.Gameplay
 
         private void OnDayChanged(int _, int day)
         {
-            foreach (var (mission, missionInfo) in m_missions)
+            foreach (var missionInfo in m_missions)
             {
                 if (missionInfo.m_status != MissionStatus.InCombat)
                 {
@@ -258,7 +297,7 @@ namespace _Scripts.Gameplay
         }
 
         // TODO: Move this to a better home?
-        private int GetAggregatePartyStatValue(SchemaStat.Stat stat, MonsterManager.MonsterInfo[] party)
+        private int GetAggregatePartyStatValue(SchemaStat.Stat stat, Monster[] party)
         {
             int value = 0;
             foreach (var monsterInfo in party)
@@ -268,12 +307,12 @@ namespace _Scripts.Gameplay
                     continue;
                 }
                 
-                value += monsterInfo.m_worldInstance.GetStatValue(stat);
+                value += monsterInfo.GetStatValue(stat);
             }
             return value;
         }
 
-        private int GetAggregatePartyDamage(MonsterManager.MonsterInfo[] party)
+        private int GetAggregatePartyDamage(Monster[] party)
         {
             int GetActiveCombatants(int[] enduranceTrackers)
             {
@@ -292,7 +331,7 @@ namespace _Scripts.Gameplay
             {
                 partyMemberEnduranceTracker[i] = party[i] == null
                     ? 0
-                    : party[i].m_worldInstance.GetStatValue(SchemaStat.Stat.Endurance);
+                    : party[i].GetStatValue(SchemaStat.Stat.Endurance);
             }
 
             int damage = 0;
@@ -311,7 +350,7 @@ namespace _Scripts.Gameplay
                     partyMemberEnduranceTracker[i]--;
                     
                     // Calculate damage this step
-                    var monster = party[i].m_worldInstance;
+                    var monster = party[i];
                     var attack = monster.GetStatValue(SchemaStat.Stat.Attack);
                     var luck = monster.GetStatValue(SchemaStat.Stat.Luck);
                     var terror = monster.GetStatValue(SchemaStat.Stat.Terror);

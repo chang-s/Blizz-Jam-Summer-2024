@@ -9,23 +9,8 @@ namespace _Scripts.Gameplay
     //  TODO: It might behoove us to split this into MonsterManager and PartyManager, but for now we are getting away with 1 class
     public class MonsterManager : MonoBehaviour
     {
-        private readonly MonsterInfo[] c_emptyParty = new MonsterInfo[] { };
-
-        public enum MonsterStatus
-        {
-            Locked,             // Cannot purchase yet
-            Purchasable,        // Is in the shop
-            Purchased,          // Is bought and owned
-            Busy                // Is owned, but is currently busy in combat or otherwise
-        }
-
-        public class MonsterInfo
-        {
-            public Monster m_worldInstance;
-            public MonsterStatus m_status;
-            public SchemaMission m_currentMission;
-        }
-
+        private readonly Monster[] c_emptyParty = new Monster[] { };
+        
         [BoxGroup("Lair")]
         [SerializeField] private Monster m_monsterPrefab;
         [BoxGroup("Lair")]
@@ -41,36 +26,38 @@ namespace _Scripts.Gameplay
         /// <summary>
         /// Internal tracking of all monsters in the game.
         /// </summary>
-        private List<MonsterInfo> m_monsterInfos;
+        private List<Monster> m_monsters;
         
         /// <summary>
         /// Tracker of a collection of monsters per mission.
         /// </summary>
-        private Dictionary<SchemaMission, MonsterInfo[]> m_parties = new Dictionary<SchemaMission, MonsterInfo[]>(); 
+        private Dictionary<SchemaMission, Monster[]> m_parties = new Dictionary<SchemaMission, Monster[]>(); 
 
         private void Awake()
         {
             Vector3 offset = Vector3.zero;
-            m_monsterInfos = new List<MonsterInfo>();
+            m_monsters = new List<Monster>();
             foreach (var monsterSchema in ServiceLocator.Instance.AllMonsters)
             {
-                
                 Monster monster = Instantiate(m_monsterPrefab, m_monsterRoot);
                 monster.transform.localPosition += offset;
                 monster.SetData(monsterSchema);
-                
-                m_monsterInfos.Add(new MonsterInfo()
-                {
-                    m_worldInstance = monster,
-                    m_status = monsterSchema.IsStarter ? MonsterStatus.Purchased : MonsterStatus.Locked
-                });
 
+                // All "starter" monsters are unlocked and recruited at the start of the game
+                if (monsterSchema.IsStarter)
+                {
+                    monster.Unlock();
+                    monster.Recruit();
+                }
+                
+                m_monsters.Add(monster);
+                
                 offset += m_gap;
             }
             
             foreach (var mission in ServiceLocator.Instance.AllMissions)
             {
-                m_parties.Add(mission, new MonsterInfo[mission.MaxCapacity]);
+                m_parties.Add(mission, new Monster[mission.MaxCapacity]);
             }
 
             ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
@@ -81,7 +68,7 @@ namespace _Scripts.Gameplay
             // When a mission becomes ready, we should de-associate all monsters in the party
             if (missionInfo.m_status == MissionManager.MissionStatus.Ready)
             {
-                var party = GetParty(missionInfo.m_mission);
+                var party = GetParty(missionInfo.m_mission.Data);
                 for (var i = 0; i < party.Length; i++)
                 {
                     var partyMember = party[i];
@@ -91,17 +78,17 @@ namespace _Scripts.Gameplay
                     }
 
                     // TODO: Clean up this call/usage/storage of SchemaMonster/SchemaMission
-                    RemoveMonsterFromParty(partyMember.m_worldInstance.Data, missionInfo.m_mission, i);
+                    RemoveMonsterFromParty(partyMember.Data, missionInfo.m_mission.Data, i);
                 }
             }
         }
 
-        public List<MonsterInfo> GetOwnedMonsters()
+        public List<Monster> GetOwnedMonsters()
         {
-            List<MonsterInfo> results = new List<MonsterInfo>();
-            foreach (MonsterInfo info in m_monsterInfos)
+            List<Monster> results = new List<Monster>();
+            foreach (Monster info in m_monsters)
             {
-                if (info.m_status > MonsterStatus.Purchasable)
+                if (info.Status > Monster.MonsterStatus.Purchasable)
                 {
                     results.Add(info);
                 }
@@ -110,7 +97,7 @@ namespace _Scripts.Gameplay
             return results;
         }
         
-        public MonsterInfo[] GetParty(SchemaMission mission)
+        public Monster[] GetParty(SchemaMission mission)
         {
             if (!m_parties.ContainsKey(mission))
             {
@@ -120,7 +107,7 @@ namespace _Scripts.Gameplay
             return m_parties[mission];
         }
         
-        public bool AddMonsterToParty(SchemaMonster monster, SchemaMission mission, int partyIndex)
+        public bool AddMonsterToParty(SchemaMonster schema, SchemaMission mission, int partyIndex)
         {
             if (!m_parties.ContainsKey(mission))
             {
@@ -133,51 +120,48 @@ namespace _Scripts.Gameplay
                 return false;
             }
             
-            MonsterInfo monsterInfo = m_monsterInfos.Find(m => m.m_worldInstance.Data == monster);
-            if (monsterInfo == null)
+            Monster monster = m_monsters.Find(m => m.Data == schema);
+            if (monster == null)
             {
                 return false;
             }
 
-            switch (monsterInfo.m_status)
+            switch (monster.Status)
             {
-                case MonsterStatus.Locked or MonsterStatus.Purchasable:
+                case Monster.MonsterStatus.Locked or Monster.MonsterStatus.Purchasable:
                     return false;
-                case MonsterStatus.Busy:
-                    // If we try to equip a monster who is busy in another mission, do not allow it.
-                    if (monsterInfo.m_currentMission != mission)
+                case Monster.MonsterStatus.Busy:
+                    // If we try to equip a schema who is busy in another mission, do not allow it.
+                    if (monster.CurrentMission != mission)
                     {
                         return false;
                     }
                     break;
             }
             
-            // If this monster was already in this mission's party, clear it out first
+            // If this schema was already in this mission's party, clear it out first
             for (var i = 0; i < party.Length; i++)
             {
-                if (party[i] != null && party[i] == monsterInfo)
+                if (party[i] != null && party[i] == monster)
                 {
                     party[i] = null;
                 }
             }
-
-            // If there is a monster in this slot, untrack it (aka remove)
+            
             if (party[partyIndex] != null)
             {
-                party[partyIndex].m_status = MonsterStatus.Purchased;
-                party[partyIndex].m_currentMission = null;
+                RemoveMonsterFromParty(party[partyIndex].Data, mission, partyIndex);
             }
             
-            monsterInfo.m_status = MonsterStatus.Busy;
-            monsterInfo.m_currentMission = mission;
-            party[partyIndex] = monsterInfo;
+            monster.BeginMission(mission);
+            party[partyIndex] = monster;
             
             OnPartyChanged?.Invoke(mission);
             
             return true;
         }
 
-        public bool RemoveMonsterFromParty(SchemaMonster monster, SchemaMission mission, int partyIndex)
+        public bool RemoveMonsterFromParty(SchemaMonster schema, SchemaMission mission, int partyIndex)
         {
             if (!m_parties.ContainsKey(mission))
             {
@@ -190,20 +174,19 @@ namespace _Scripts.Gameplay
                 return false;
             }
             
-            MonsterInfo monsterInfo = m_monsterInfos.Find(m => m.m_worldInstance.Data == monster);
-            if (monsterInfo == null)
+            Monster monster = m_monsters.Find(m => m.Data == schema);
+            if (monster == null)
             {
                 return false;
             }
 
-            switch (monsterInfo.m_status)
+            switch (monster.Status)
             {
-                case MonsterStatus.Locked or MonsterStatus.Purchasable:
+                case Monster.MonsterStatus.Locked or Monster.MonsterStatus.Purchasable:
                     return false;
             }
             
-            monsterInfo.m_status = MonsterStatus.Purchased;
-            monsterInfo.m_currentMission = null;
+            monster.EndMission(mission);
             party[partyIndex] = null;
             
             OnPartyChanged?.Invoke(mission);
