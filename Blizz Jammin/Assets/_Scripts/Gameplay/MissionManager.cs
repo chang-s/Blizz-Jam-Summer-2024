@@ -176,6 +176,11 @@ namespace _Scripts.Gameplay
             OnMissionStatusChanged?.Invoke(missionInfo);
         }
         
+        public int GetUnclaimedRewardCount()
+        {
+            return m_missions.Count(m => m.m_status == MissionStatus.Complete);
+        }
+        
         public void ClaimRewards(SchemaMission mission)
         {
             var score = GetMissionInfo(mission).m_score;

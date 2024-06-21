@@ -16,6 +16,9 @@ namespace _Scripts.UI
         [BoxGroup("Panel")]
         [SerializeField] private TMP_Text m_infamyText;
         
+        [BoxGroup("Badges")]
+        [SerializeField] private GameObject m_badgeMission;
+        
         private void Awake()
         {
             m_timerText.SetText(string.Format(c_timerFormat, 0));
@@ -23,8 +26,16 @@ namespace _Scripts.UI
             
             m_infamyText.SetText(string.Format(c_infamyFormat, 0));
             ServiceLocator.Instance.RecruitManager.Infamy.OnChangedValues += OnInfamyChanged;
+
+            ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
         }
-        
+
+        private void OnMissionStatusChanged(MissionManager.MissionInfo _)
+        {
+            int rewardsToClaim = ServiceLocator.Instance.MissionManager.GetUnclaimedRewardCount();
+            m_badgeMission.SetActive(rewardsToClaim > 0);
+        }
+
         private void OnDayChanged(int oldValue, int newValue)
         {
             m_timerText.SetText(string.Format(c_timerFormat, newValue));
