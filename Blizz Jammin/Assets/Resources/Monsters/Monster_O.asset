@@ -107,9 +107,10 @@ MonoBehaviour:
       Entry: 8
       Data: 
   Name: Lucifur
-  Description: <<Logistics Master/General Type>>
+  Description: The purr-incess of hell herself! She terrifies all and takes what
+    she wants. You go, Queen! Erhm, I mean, princess!
   Scale: {x: 1, y: 1, z: 1}
-  Sprite: {fileID: 21300000, guid: db4c47bc8cb194c4d98f4562a275148e, type: 3}
+  Sprite: {fileID: 21300000, guid: d25cc9d23862b01489d9bcc4d120eb13, type: 3}
   Class: {fileID: 11400000, guid: dfe5e6b37da6f434e8c0cf470faa24a6, type: 2}
   QuirkCount: 1
   IsStarter: 0

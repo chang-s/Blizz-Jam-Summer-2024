@@ -4958,6 +4958,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -2292749825610485414, guid: 6addb9e9a159047838bc0a9c9064cd40, type: 2}
     - target: {fileID: 7290991117491412358, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7290991117491412358, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
