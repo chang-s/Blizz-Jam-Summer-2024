@@ -15,8 +15,12 @@ namespace _Scripts.Gameplay
         [SerializeField] private Monster m_monsterPrefab;
         [BoxGroup("Lair")]
         [SerializeField] private Transform m_monsterRoot;
-        [BoxGroup("Lair")] [SerializeField] 
-        private Vector3 m_gap;
+        [BoxGroup("Lair")] 
+        [SerializeField] private Vector3 m_gap;
+        [BoxGroup("Lair")] 
+        [SerializeField] private int m_monstersPerPage;
+        [BoxGroup("Lair")] 
+        [SerializeField] Vector3 m_pageGap;
 
         /// <summary>
         /// Invoked when a party has changed. Event has the mission for the party that has changed.
@@ -53,6 +57,10 @@ namespace _Scripts.Gameplay
                 m_monsters.Add(monster);
                 
                 offset += m_gap;
+                if (m_monsters.Count % m_monstersPerPage == 0)
+                {
+                    offset =  m_pageGap * m_monsters.Count / m_monstersPerPage;
+                }
             }
             
             foreach (var mission in ServiceLocator.Instance.AllMissions)

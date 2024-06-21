@@ -1048,7 +1048,7 @@ Transform:
   m_GameObject: {fileID: 1009903353}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.86, y: -1.17, z: 0}
+  m_LocalPosition: {x: -12.5, y: -1.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1270,7 +1270,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_monsterPrefab: {fileID: 7981157418185556846, guid: 5512e5418b80daf4980418a63d97e58e, type: 3}
   m_monsterRoot: {fileID: 1009903354}
-  m_gap: {x: 4.8, y: 0, z: 0}
+  m_gap: {x: 4, y: 0, z: 0}
+  m_monstersPerPage: 4
+  m_pageGap: {x: 19.2, y: 0, z: 0}
 --- !u!4 &1642283451
 Transform:
   m_ObjectHideFlags: 0
