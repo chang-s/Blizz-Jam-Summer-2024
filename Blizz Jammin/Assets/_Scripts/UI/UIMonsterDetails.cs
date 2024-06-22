@@ -8,8 +8,12 @@ using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
-    public class UIMonsterDetails : MonoBehaviour, ISchemaController<SchemaMonster>
+    public class UIMonsterDetails : SerializedMonoBehaviour, IWorldInstanceController<Monster>
     {
+        private const string c_levelFormat = "Lv {0}";
+        private const string c_xpFormat = "{0}/{1}";
+        private const string c_xpMax = "MAX";
+        
         [BoxGroup("Visuals")]
         [SerializeField] [CanBeNull] private TMP_Text m_name;
         [BoxGroup("Visuals")]
@@ -18,26 +22,30 @@ namespace _Scripts.UI
         [SerializeField] [CanBeNull] private Image m_icon;
         
         [BoxGroup("XP and Levels")]
-        [SerializeField] [CanBeNull] private TMP_Text m_level;
+        [SerializeField] [CanBeNull] private TMP_Text m_levelLabel;
         [BoxGroup("XP and Levels")]
-        [SerializeField] private string m_levelFormat;
+        [SerializeField] [CanBeNull] private TMP_Text m_xpLabel;
+
+        [BoxGroup("Stats")]
+        [SerializeField] [CanBeNull] private UIMonsterStats m_stats;
         
-        // TODO: Find a better way to formalize setting dynamic data. Maybe there is a
-        // world instance base type, and we have this be IWorldInstanceController or something,
-        // instead of doing Schema, since its not enough for monsters
-        public void SetMonster(Monster monster)
+        public void SetInstance(Monster monster)
         {
+            // Inform the stats subview
+            m_stats?.SetInstance(monster);
+            
             // Static data
             SetData(monster.Data);
             
             // Dynamic data
-            string levelString = m_levelFormat;
+            string xpString = c_xpFormat;
             var xpTables = ServiceLocator.Instance.GameSettings.XpForLevel;
-            levelString = monster.Level >= xpTables.Length 
+            xpString = monster.Level >= xpTables.Length 
                 ? "MAX" 
-                : string.Format(m_levelFormat, monster.Xp, xpTables[monster.Level - 1]);
+                : string.Format(xpString, monster.Xp, xpTables[monster.Level - 1]);
             
-            m_level?.SetText(levelString);
+            m_xpLabel?.SetText(xpString);
+            m_levelLabel?.SetText(string.Format(c_levelFormat, monster.Level.ToString()));
         }
         
         public void SetData(SchemaMonster data)

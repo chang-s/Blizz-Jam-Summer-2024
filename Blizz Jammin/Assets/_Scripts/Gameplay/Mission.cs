@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _Scripts.Gameplay
 {
-    public class Mission : SerializedMonoBehaviour, ISchemaController<SchemaMission>
+    public class Mission : WorldInstance, ISchemaController<SchemaMission>
     {
         public struct Modifier
         {

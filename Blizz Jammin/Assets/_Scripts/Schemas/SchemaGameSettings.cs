@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Scripts.Schemas
@@ -66,5 +67,16 @@ namespace _Scripts.Schemas
         [Tooltip("The amount of Infamy scalar to get per Terror in the party")]
         [MinValue(0)]
         [SerializeField] public float XpScalarPerSymbiosis { get; set; }
+
+        /// <summary>
+        /// This is mostly a hack. We can easily determine the highest value of a stat by level if we know
+        /// how much the maximum amount of level 1 is.
+        /// </summary>
+
+        private const int c_maxStatAtLevelOne = 10;
+        public int GetMaxStatValueForLevel(int level)
+        {
+            return (int) (c_maxStatAtLevelOne * Math.Pow(StatLevelExponent, level - 1));
+        }
     }
 }

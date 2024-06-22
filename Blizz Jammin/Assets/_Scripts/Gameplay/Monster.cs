@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using _Scripts.Schemas;
 using _Scripts.UI;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
 namespace _Scripts.Gameplay
 {
-    public class Monster : SerializedMonoBehaviour, ISchemaController<SchemaMonster>
+    public class Monster : WorldInstance, ISchemaController<SchemaMonster>
     {
         public enum MonsterStatus
         {
@@ -235,7 +234,7 @@ namespace _Scripts.Gameplay
             UIPopup popup = popupManager.GetPopup(SchemaPopup.PopupType.MonsterDetails);
             UIMonsterDetails monsterDetails = popup.GetComponent<UIMonsterDetails>();
             monsterDetails.SetData(Data);
-            monsterDetails.SetMonster(this);
+            monsterDetails.SetInstance(this);
             
             popupManager.RequestPopup(SchemaPopup.PopupType.MonsterDetails);
         }
