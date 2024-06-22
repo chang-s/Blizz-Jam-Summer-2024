@@ -98,6 +98,10 @@ namespace _Scripts.Gameplay
             }
         }
 
+        /// <summary>
+        /// TODO: CLEANUP
+        /// DO NOT call this outside of MonsterManager!
+        /// </summary>
         public void Unlock()
         {
             if (Status != MonsterStatus.Locked)
@@ -131,6 +135,10 @@ namespace _Scripts.Gameplay
             }
         }
 
+        /// <summary>
+        /// TODO: CLEANUP
+        /// DO NOT call this outside of MonsterManager!
+        /// </summary>
         public void Recruit()
         {
             if (Status != MonsterStatus.Purchasable)

@@ -143,6 +143,27 @@ namespace _Scripts.Gameplay
             }
         }
         
+        [Button("Unlock Next Mission")]
+        private void Cheat_UnlockNextMission()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+            
+            for (var i = 0; i < AllMissions.Length; i++)
+            {
+                var missionInfo = MissionManager.GetMissionInfo(AllMissions[i]);
+                if (missionInfo.m_status != MissionManager.MissionStatus.Locked)
+                {
+                    continue;
+                }
+
+                MissionManager.UnlockMission(missionInfo);
+                return;
+            }
+        }
+        
         [Button("Unlock All Monsters")]
         private void Cheat_UnlockAllMonsters()
         {

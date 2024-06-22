@@ -226,6 +226,18 @@ namespace _Scripts.Gameplay
             ) {
                 UnlockMission(nextMission);
             }
+            
+            // TODO: Localize to MonsterManager, via event?
+            var lockedMonsters = ServiceLocator.Instance.MonsterManager.GetMonsters(Monster.MonsterStatus.Locked);
+            foreach (var lockedMonster in lockedMonsters)
+            {
+                if (lockedMonster.Data.UnlockMission != mission)
+                {
+                    continue;
+                }
+                
+                ServiceLocator.Instance.MonsterManager.Unlock(lockedMonster);
+            }
         }
 
         public void UnlockMission(MissionInfo mission)

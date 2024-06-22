@@ -36,7 +36,7 @@ namespace _Scripts.UI
         [SerializeField] private Button m_right;
 
         private Monster m_shownMonster = null;
-        private int m_shownMonsterIndex = -1;
+        private int m_shownMonsterIndex = 0;
         
         public void SetInstance(Monster instance)
         {
@@ -157,7 +157,7 @@ namespace _Scripts.UI
             // The UI only supports a specific amount of buttons, so we must clamp the monsters, even if there
             // are more to recruit, we will only show as many as we can
             var monsters = ServiceLocator.Instance.MonsterManager.GetMonsters(Monster.MonsterStatus.Purchasable);
-
+            
             if (monsters.Count == 0)
             {
                 m_outOfStock.SetActive(true);
