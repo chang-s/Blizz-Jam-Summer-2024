@@ -193,7 +193,7 @@ namespace _Scripts.Gameplay
             
             // At max level already
             int[] xpTables = m_gameSettings.XpForLevel;
-            if (Level >= xpTables.Length)
+            if (Level > xpTables.Length)
             {
                 return false;
             }

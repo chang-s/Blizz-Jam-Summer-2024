@@ -43,7 +43,7 @@ namespace _Scripts.UI
             // Dynamic data
             string xpString = c_xpFormat;
             var xpTables = ServiceLocator.Instance.GameSettings.XpForLevel;
-            xpString = monster.Level >= xpTables.Length 
+            xpString = monster.Level > xpTables.Length 
                 ? "MAX" 
                 : string.Format(xpString, monster.Xp, xpTables[monster.Level - 1]);
             

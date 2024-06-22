@@ -116,5 +116,19 @@ namespace _Scripts.Gameplay
             }
         }
         
+        [Button("Add 100XP Owned Monsters")]
+        private void Cheat_AddXPOwnedMonsters100()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            foreach (var monster in MonsterManager.GetOwnedMonsters())
+            {
+                monster.AddXp(100);
+            }
+        }
+        
     }
 }

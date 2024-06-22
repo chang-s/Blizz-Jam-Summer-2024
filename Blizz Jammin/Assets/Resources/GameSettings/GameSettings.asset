@@ -29,7 +29,7 @@ MonoBehaviour:
       Data: 0.1
   SecondsPerDay: 1
   MissionSpeedTerrorPerDay: 3
-  XpForLevel: 0a0000001e000000460000009600000036010000
+  XpForLevel: 0a00000032000000c8000000f4010000
   StatLevelExponent: 1.5
   DefaultCritScalar: 2
   CritChanceCap: 5
