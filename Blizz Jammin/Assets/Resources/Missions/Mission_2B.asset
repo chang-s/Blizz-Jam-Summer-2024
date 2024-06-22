@@ -23,8 +23,9 @@ MonoBehaviour:
     SerializationNodes: []
   WorldOrder: 5
   Name: 2B
-  Icon: {fileID: 21300000, guid: 688351371e1e19342b006165f8ea62eb, type: 3}
+  Icon: {fileID: 21300000, guid: 7e728faa8342a5a44b29098cf02277f4, type: 3}
   Quote: 
+  IsStarter: 0
   PossiblePositiveQuirkCount: 1
   PositiveQuirkMinimumMod: 1
   PositiveQuirkMaximumMod: 1

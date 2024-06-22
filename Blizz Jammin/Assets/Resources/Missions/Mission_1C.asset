@@ -23,8 +23,9 @@ MonoBehaviour:
     SerializationNodes: []
   WorldOrder: 2
   Name: 1C
-  Icon: {fileID: 21300000, guid: 4c3ee32cd313eb540b77523afb969f3b, type: 3}
+  Icon: {fileID: 21300000, guid: 7e728faa8342a5a44b29098cf02277f4, type: 3}
   Quote: 
+  IsStarter: 0
   PossiblePositiveQuirkCount: 1
   PositiveQuirkMinimumMod: 1
   PositiveQuirkMaximumMod: 1

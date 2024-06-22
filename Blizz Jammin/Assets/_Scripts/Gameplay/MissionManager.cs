@@ -49,11 +49,16 @@ namespace _Scripts.Gameplay
             // TODO: Cache loot results too?
         }
 
-        [BoxGroup("World Missions")]
+        [BoxGroup("Lair")]
         [SerializeField] private Transform m_missionRoadRoot;
+        [BoxGroup("Lair")]
         [SerializeField] private Mission m_missionPrefab;
+        [BoxGroup("Lair")]
         [SerializeField] private Vector3 m_offsetBetweenPages;
-        [SerializeField] private Transform[] m_pageOffsets;
+        [BoxGroup("Lair")] 
+        [SerializeField] private Vector3 m_gap;
+        [BoxGroup("Lair")] 
+        [SerializeField] private int m_missionsPerPage;
 
         public Action<MissionInfo> OnMissionStatusChanged;
 
@@ -232,15 +237,12 @@ namespace _Scripts.Gameplay
         {
             m_gameSettings = ServiceLocator.Instance.GameSettings;
             
-            int missionWorldIndex = 0;
+            Vector3 offset = Vector3.zero;
             foreach (var mission in ServiceLocator.Instance.AllMissions)
             {
                 var missionInstance = Instantiate(m_missionPrefab, m_missionRoadRoot);
+                missionInstance.transform.localPosition += offset;
                 missionInstance.SetData(mission);
-                
-                int page = missionWorldIndex / m_pageOffsets.Length;
-                int offsetIndex = missionWorldIndex % m_pageOffsets.Length;
-                missionInstance.transform.localPosition += (page * m_offsetBetweenPages) + m_pageOffsets[offsetIndex].transform.localPosition;
 
                 var missionInfo = new MissionInfo()
                 {
@@ -251,7 +253,11 @@ namespace _Scripts.Gameplay
                 OnMissionStatusChanged?.Invoke(missionInfo);
                 m_missions.Add(missionInfo);
                 
-                missionWorldIndex++;
+                offset += m_gap;
+                if (m_missions.Count % m_missionsPerPage == 0)
+                {
+                    offset =  m_offsetBetweenPages * m_missions.Count / m_missionsPerPage;
+                }
             }
 
             ServiceLocator.Instance.TimeManager.Day.OnChangedValues += OnDayChanged;
