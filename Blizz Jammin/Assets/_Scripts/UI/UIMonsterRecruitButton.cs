@@ -14,10 +14,19 @@ namespace _Scripts.UI
         [SerializeField] private GameObject m_badge;
 
         public Button Button => m_button;
+
+        private Monster m_instance;
         
         public void SetInstance(Monster instance)
         {
+            m_instance = instance;
             m_monsterDetails.SetInstance(instance);
+            UpdateBadge();
+        }
+
+        public void UpdateBadge()
+        {
+            m_badge.SetActive(m_instance != null && m_instance.IsNew);
         }
     }
 }

@@ -50,6 +50,11 @@ namespace _Scripts.Gameplay
         public int Xp { get; private set; } = 0;
 
         /// <summary>
+        /// A tracker for showing if its newly unlocked.
+        /// </summary>
+        public bool IsNew { get; private set; } = false;
+
+        /// <summary>
         /// Read only version of the quirks.
         /// </summary>
         public IReadOnlyCollection<SchemaQuirk> Quirks => m_quirks;
@@ -105,7 +110,8 @@ namespace _Scripts.Gameplay
             {
                 RollQuirk();
             }
-            
+
+            IsNew = true;
             Status = MonsterStatus.Purchasable;
             UpdateVisuals();
         }
@@ -134,6 +140,11 @@ namespace _Scripts.Gameplay
 
             Status = MonsterStatus.Ready;
             UpdateVisuals();
+        }
+
+        public void MarkSeen()
+        {
+            IsNew = false;
         }
         
         public void BeginMission(SchemaMission mission)

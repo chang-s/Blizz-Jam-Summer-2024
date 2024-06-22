@@ -48,6 +48,9 @@ namespace _Scripts.UI
             // Update the cost label
             m_costLabel.SetText(instance.Data.Cost.ToString());
 
+            // To track on the UI
+            instance.MarkSeen();
+            
             UpdateRecruitButtonState();
         }
 
@@ -76,8 +79,9 @@ namespace _Scripts.UI
             if (monsters.Count > 0)
             {
                 m_shownMonsterIndex = 0;
-                m_monsterButtons[m_shownMonsterIndex].Button.Select();
                 SetInstance(monsters[0]);
+                m_monsterButtons[m_shownMonsterIndex].UpdateBadge();
+                m_monsterButtons[m_shownMonsterIndex].Button.Select();
             }
 
             m_popup.OnShow += OnPopupShown;
@@ -119,6 +123,7 @@ namespace _Scripts.UI
             }
             m_monsterButtons[m_shownMonsterIndex].Button.Select();
             SetInstance(monsters[m_shownMonsterIndex]);
+            m_monsterButtons[m_shownMonsterIndex].UpdateBadge();
         }
         
         private void GoToPreviousMonster()
@@ -131,6 +136,7 @@ namespace _Scripts.UI
             }
             m_monsterButtons[m_shownMonsterIndex].Button.Select();
             SetInstance(monsters[m_shownMonsterIndex]);
+            m_monsterButtons[m_shownMonsterIndex].UpdateBadge();
         }
 
         private void OnMonsterButtonClicked(int buttonIndex)
@@ -143,6 +149,7 @@ namespace _Scripts.UI
 
             m_shownMonsterIndex = buttonIndex;
             SetInstance(monsters[buttonIndex]);
+            m_monsterButtons[buttonIndex].UpdateBadge();
         }
 
         private void UpdateMonsterButtons()

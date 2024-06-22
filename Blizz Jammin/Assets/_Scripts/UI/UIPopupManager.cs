@@ -26,7 +26,7 @@ namespace _Scripts.UI
         /// </summary>
         private UIPopup m_currentPopup;
 
-        private void Start()
+        private void Awake()
         {
             foreach (var popup in ServiceLocator.Instance.AllPopups)
             {

@@ -1,4 +1,6 @@
+using System.Linq;
 using _Scripts.Gameplay;
+using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -18,6 +20,8 @@ namespace _Scripts.UI
         
         [BoxGroup("Badges")]
         [SerializeField] private GameObject m_badgeMission;
+        [BoxGroup("Badges")]
+        [SerializeField] private GameObject m_badgeRecruit;
         
         private void Awake()
         {
@@ -27,9 +31,25 @@ namespace _Scripts.UI
             m_infamyText.SetText(string.Format(c_infamyFormat, 0));
             ServiceLocator.Instance.Infamy.OnChangedValues += OnInfamyChanged;
 
+            ServiceLocator.Instance.MonsterManager.OnMonsterUnlocked += OnMonsterUnlocked;
             ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
+            
+            var monsterRecruitPopup = ServiceLocator.Instance.UIPopupManager.GetPopup(SchemaPopup.PopupType.MonsterRecruit);
+            monsterRecruitPopup.OnHide += HandleRecruitBadge;
         }
 
+        private void OnMonsterUnlocked(Monster _)
+        {
+            HandleRecruitBadge();
+        }
+
+        private void HandleRecruitBadge()
+        {
+            var monsters = ServiceLocator.Instance.MonsterManager.GetMonsters(Monster.MonsterStatus.Purchasable);
+            int newMonsters = monsters.Count(m => m.IsNew);
+            m_badgeRecruit.SetActive(newMonsters > 0);
+        }
+        
         private void OnMissionStatusChanged(MissionManager.MissionInfo _)
         {
             int rewardsToClaim = ServiceLocator.Instance.MissionManager.GetUnclaimedRewardCount();

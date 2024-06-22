@@ -181,7 +181,7 @@ namespace _Scripts.Gameplay
             m_maxMonsterPages = m_maxMonsters / EntriesPerPage + (m_maxMonsters % EntriesPerPage == 0 ? 0 : 1) - 1;
             UpdateNavButtons();
         }
-        
+
         private void UpdateNavButtons()
         {
             Lair.gameObject.SetActive(!m_showingMonsters);
