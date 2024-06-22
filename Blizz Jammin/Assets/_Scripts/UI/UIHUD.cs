@@ -25,7 +25,7 @@ namespace _Scripts.UI
             ServiceLocator.Instance.TimeManager.Day.OnChangedValues += OnDayChanged;
             
             m_infamyText.SetText(string.Format(c_infamyFormat, 0));
-            ServiceLocator.Instance.RecruitManager.Infamy.OnChangedValues += OnInfamyChanged;
+            ServiceLocator.Instance.Infamy.OnChangedValues += OnInfamyChanged;
 
             ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
         }

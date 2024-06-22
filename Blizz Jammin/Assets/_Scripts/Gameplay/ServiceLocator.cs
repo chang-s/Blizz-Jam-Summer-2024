@@ -1,8 +1,10 @@
 using _Scripts.Schemas;
 using _Scripts.UI;
+using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 using Utility;
+using Utility.Observable;
 
 namespace _Scripts.Gameplay
 {
@@ -18,7 +20,6 @@ namespace _Scripts.Gameplay
         public MonsterManager MonsterManager { get; private set; }
         public TimeManager TimeManager { get; private set; }
         public UIPopupManager UIPopupManager { get; private set; }
-        public RecruitManager RecruitManager { get; private set; }
 
         // Schema collections
         public SchemaMission[] AllMissions { get; private set; }
@@ -28,7 +29,10 @@ namespace _Scripts.Gameplay
         public SchemaPopup[] AllPopups { get; private set; }
         public SchemaQuirk[] AllQuirks { get; private set; }
         public SchemaGameSettings GameSettings { get; private set; }
-
+        
+        // Other global variables
+        public Observable<int> Infamy { get; private set; } = new Observable<int>(0);
+        
         protected override void Awake()
         {
             base.Awake();
@@ -39,7 +43,6 @@ namespace _Scripts.Gameplay
             MonsterManager = FindObjectOfType<MonsterManager>();
             TimeManager = FindObjectOfType<TimeManager>();
             UIPopupManager = FindObjectOfType<UIPopupManager>();
-            RecruitManager = FindObjectOfType<RecruitManager>();
 
             AllLoot = Resources.LoadAll<SchemaLoot>("Loot");
             
@@ -53,5 +56,65 @@ namespace _Scripts.Gameplay
             AllQuirks = Resources.LoadAll<SchemaQuirk>("Quirks");
             GameSettings = Resources.LoadAll<SchemaGameSettings>("GameSettings")[0];
         }
+        
+        public void DeltaInfamy(int amount)
+        {
+            Infamy.Value += amount;
+        }
+
+
+        /////////////////////////////////////////////////////////////
+        /// CHEATS    
+        /////////////////////////////////////////////////////////////
+        [Button("Add 100 Infamy")]
+        private void Cheat_AddInfamy100()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            DeltaInfamy(100);
+        }
+        
+        [Button("Add 1000 Infamy")]
+        private void Cheat_AddInfamy1000()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            DeltaInfamy(1000);
+        }
+        
+        [Button("Add 2XP Owned Monsters")]
+        private void Cheat_AddXPOwnedMonsters2()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            foreach (var monster in MonsterManager.GetOwnedMonsters())
+            {
+                monster.AddXp(2);
+            }
+        }
+        
+        [Button("Add 10XP Owned Monsters")]
+        private void Cheat_AddXPOwnedMonsters10()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            foreach (var monster in MonsterManager.GetOwnedMonsters())
+            {
+                monster.AddXp(10);
+            }
+        }
+        
     }
 }

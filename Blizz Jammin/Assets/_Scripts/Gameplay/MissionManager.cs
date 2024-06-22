@@ -212,7 +212,7 @@ namespace _Scripts.Gameplay
             
             // Add Infamy, after adding the infamy bonus from Terror
             int totalInfamy = (int) (score * mission.Infamy * (1 + totalTerror * m_gameSettings.InfamyScalarPerTerror));
-            ServiceLocator.Instance.RecruitManager.DeltaInfamy(totalInfamy);
+            ServiceLocator.Instance.DeltaInfamy(totalInfamy);
 
             // Change the status of the mission back to ready, and then inform all listeners.
             m_missions[mission.WorldOrder].m_status = MissionStatus.Ready;

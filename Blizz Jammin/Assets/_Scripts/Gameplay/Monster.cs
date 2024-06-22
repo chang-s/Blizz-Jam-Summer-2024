@@ -198,8 +198,8 @@ namespace _Scripts.Gameplay
                 return false;
             }
 
-            var xpForNextLevel = xpTables[Level];
-            if (Xp > xpForNextLevel)
+            var xpForNextLevel = xpTables[Level - 1];
+            if (Xp >= xpForNextLevel)
             {
                 Level++;
                 Xp -= xpForNextLevel;

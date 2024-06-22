@@ -59,6 +59,20 @@ namespace _Scripts.Schemas
         /// </summary>
         [BoxGroup("Behavior")]
         public Dictionary<SchemaStat, int> Stats = new Dictionary<SchemaStat, int>();
+
+        /// <summary>
+        /// How much it costs to recruit this monster.
+        /// </summary>
+        [BoxGroup("Recruit")] 
+        public int Cost;
+
+        /*
+        /// <summary>
+        /// If provided, completing this mission with 100% will unlock the monster in the shop. 
+        /// </summary>
+        [BoxGroup("Recruit")] 
+        public SchemaMission UnlockMission;
+        */
         
         [Button("Add All Stats")]
         public void AddAllStats()

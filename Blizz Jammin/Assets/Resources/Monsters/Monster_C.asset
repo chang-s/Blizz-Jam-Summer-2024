@@ -113,3 +113,4 @@ MonoBehaviour:
   Class: {fileID: 11400000, guid: 0cb8409e4dcca194fb4275c7f4e8a781, type: 2}
   QuirkCount: 1
   IsStarter: 0
+  Cost: 500

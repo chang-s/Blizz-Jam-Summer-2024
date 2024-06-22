@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Utility.Observable;
 
 namespace _Scripts.Gameplay
 {
