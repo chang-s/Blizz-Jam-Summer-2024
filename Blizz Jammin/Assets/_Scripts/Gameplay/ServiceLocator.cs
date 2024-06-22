@@ -20,6 +20,8 @@ namespace _Scripts.Gameplay
         public MonsterManager MonsterManager { get; private set; }
         public TimeManager TimeManager { get; private set; }
         public UIPopupManager UIPopupManager { get; private set; }
+        public LootManager LootManager { get; private set; }
+        public SoundManager SoundManager { get; private set; }
 
         // Schema collections
         public SchemaMission[] AllMissions { get; private set; }
@@ -43,6 +45,8 @@ namespace _Scripts.Gameplay
             MonsterManager = FindObjectOfType<MonsterManager>();
             TimeManager = FindObjectOfType<TimeManager>();
             UIPopupManager = FindObjectOfType<UIPopupManager>();
+            LootManager = FindObjectOfType<LootManager>();
+            SoundManager = FindObjectOfType<SoundManager>();
 
             AllLoot = Resources.LoadAll<SchemaLoot>("Loot");
             

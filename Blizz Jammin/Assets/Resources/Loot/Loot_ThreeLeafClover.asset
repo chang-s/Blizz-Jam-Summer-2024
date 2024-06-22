@@ -34,51 +34,18 @@ MonoBehaviour:
     - Name: Stat
       Entry: 10
       Data: 0
-    - Name: Amount
+    - Name: FlatAmount
       Entry: 3
       Data: 1
+    - Name: MultAmount
+      Entry: 4
+      Data: 0
     - Name: Aura
       Entry: 5
       Data: false
-    - Name: RequiredLoot
-      Entry: 7
-      Data: 2|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: RequiredQuirk
       Entry: 7
-      Data: 3|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: RequiredLootParty
-      Entry: 7
-      Data: 4|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: RequiredQurikParty
-      Entry: 7
-      Data: 5|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+      Data: 2|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -100,3 +67,4 @@ MonoBehaviour:
   Name: Three Leaf Clover
   Description: +1 Luck
   Icon: {fileID: 21300000, guid: 30d15ff4d8b40524c886e7368290770f, type: 3}
+  SellValue: 100

@@ -27,6 +27,12 @@ namespace _Scripts.Schemas
         public Sprite Icon;
 
         /// <summary>
+        /// The amount of Infamy gained when sold.
+        /// </summary>
+        [BoxGroup("Behavior")] 
+        public int SellValue;
+        
+        /// <summary>
         /// The stats this loot provides.
         /// </summary>
         [BoxGroup("Behavior")] 

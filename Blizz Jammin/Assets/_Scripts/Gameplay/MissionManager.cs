@@ -198,9 +198,22 @@ namespace _Scripts.Gameplay
             var totalSymbiosis = GetAggregatePartyStatValue(SchemaStat.Stat.Symbiosis, party);
             
             // Distribute loot after determining roll count through party luck
-            // TODO: GRANT LOOT
             var lootTableEntry = mission.LootTable.GetLootTableEntry(score);
             var rolls = lootTableEntry.Rolls + (int)(totalLuck * m_gameSettings.ExtraLootPerLuck);
+            
+            // TODO: Consider having this off a new event like OnMissionRewardsClaimed
+            // Every mission has required loot to be given, add that
+            foreach (var schemaLoot in lootTableEntry.RequiredLoot)
+            {
+                ServiceLocator.Instance.LootManager.GrantLoot(schemaLoot);
+            }
+            
+            // Grant X many loot randomly from the table
+            for (int i = 0; i < rolls; i++)
+            {
+                int randomLootIndex = Random.Range(0, lootTableEntry.PossibleLoot.Length);
+                ServiceLocator.Instance.LootManager.GrantLoot(lootTableEntry.PossibleLoot[randomLootIndex]);
+            }
 
             // Distribute XP evenly to party members, after adding the party bonus from symbiosis
             int totalXp = (int) (score * mission.Xp * (1 + totalSymbiosis * m_gameSettings.XpScalarPerSymbiosis));
