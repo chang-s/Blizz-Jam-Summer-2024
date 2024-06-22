@@ -111,6 +111,7 @@ MonoBehaviour:
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: 3651a48d588ea51419954793e7af226d, type: 3}
   Class: {fileID: 11400000, guid: 9e0cd02fe00fd1b4888ffe8d17b0c7cf, type: 2}
-  QuirkCount: 1
-  IsStarter: 0
+  InitialQuirkCount: 1
+  StartStatus: 0
   Cost: 500
+  UnlockMission: {fileID: 11400000, guid: f8c252ba3a0c43c4b99fb23c8c6575e0, type: 2}

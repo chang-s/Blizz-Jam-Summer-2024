@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Scripts.Gameplay;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -41,18 +42,17 @@ namespace _Scripts.Schemas
 
         /// <summary>
         /// The amount of quirks to roll at the beginning of the game for this monster.
+        /// All monsters have a chance to get any quirk. When we boot the game, each one will
+        /// roll this many. 
         /// </summary>
         [BoxGroup("Behavior")]
-        // All monsters have a chance to get any quirk. When we boot the game, each one will
-        // roll this many. 
-        // TODO: Consider leveling up adds quirks. 1->2->2->3->-4?
-        public int QuirkCount;
+        public int InitialQuirkCount;
 
         /// <summary>
         /// Determines if the player gets this monster at the start of the game.
         /// </summary>
         [BoxGroup("Behavior")]
-        public bool IsStarter = false;
+        public Monster.MonsterStatus StartStatus = Monster.MonsterStatus.Locked;
         
         /// <summary>
         /// The monster's base stats. This gets scaled by level, see GameSettings.StatExponent
@@ -65,13 +65,19 @@ namespace _Scripts.Schemas
         /// </summary>
         [BoxGroup("Recruit")] 
         public int Cost;
-
-        /*
+        
         /// <summary>
         /// If provided, completing this mission with 100% will unlock the monster in the shop. 
         /// </summary>
         [BoxGroup("Recruit")] 
         public SchemaMission UnlockMission;
+        
+        /*
+        /// <summary>
+        /// If provided, getting this loot will unlock the monster in the shop. 
+        /// </summary>
+        [BoxGroup("Recruit")] 
+        public SchemaLoot UnlockLoot;
         */
         
         [Button("Add All Stats")]

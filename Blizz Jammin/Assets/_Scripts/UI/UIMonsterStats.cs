@@ -22,7 +22,7 @@ namespace _Scripts.UI
         
         public void SetInstance(Monster instance)
         {
-            int maxStatValue = m_gameSettings.GetMaxStatValueForLevel(instance.Level);
+            int maxStatValue = ServiceLocator.Instance.GameSettings.GetMaxStatValueForLevel(instance.Level);
             var stats = ServiceLocator.Instance.AllStats;
             foreach (var schemaStat in stats)
             {
@@ -35,11 +35,6 @@ namespace _Scripts.UI
                 slider.maxValue = maxStatValue;
                 slider.normalizedValue = statValue / (float)maxStatValue;
             }
-        }
-
-        private void Awake()
-        {
-            m_gameSettings = ServiceLocator.Instance.GameSettings;
         }
     }
 }

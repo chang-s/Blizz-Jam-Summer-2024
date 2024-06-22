@@ -51,7 +51,7 @@ namespace _Scripts.Gameplay
         {
             m_showingMonsters = true;
             m_monsterPage = m_missionPage = 0;
-            m_maxMonsters = ServiceLocator.Instance.AllMonsters.Length;
+            m_maxMonsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters().Count;
             m_maxMissions = ServiceLocator.Instance.AllMissions.Length;
             m_maxMonsterPages = m_maxMonsters / EntriesPerPage + (m_maxMonsters % EntriesPerPage == 0 ? 0 : 1) - 1;
             m_maxMissionPages = m_maxMissions / EntriesPerPage + (m_maxMissions % EntriesPerPage == 0 ? 0 : 1) - 1;
@@ -62,6 +62,8 @@ namespace _Scripts.Gameplay
             Missions.onClick.AddListener(OnMissionButtonClicked);
             Left.onClick.AddListener(OnLeftButtonClicked);
             Right.onClick.AddListener(OnRightButtonClicked);
+
+            ServiceLocator.Instance.MonsterManager.OnMonsterRecruited += OnMonsterRecruited;
         }
 
         private void Update()
@@ -170,6 +172,13 @@ namespace _Scripts.Gameplay
             ).SetEase(Ease);
 
             m_showingMonsters = true;
+            UpdateNavButtons();
+        }
+
+        private void OnMonsterRecruited(Monster _)
+        {
+            m_maxMonsters = ServiceLocator.Instance.MonsterManager.GetOwnedMonsters().Count;
+            m_maxMonsterPages = m_maxMonsters / EntriesPerPage + (m_maxMonsters % EntriesPerPage == 0 ? 0 : 1) - 1;
             UpdateNavButtons();
         }
 

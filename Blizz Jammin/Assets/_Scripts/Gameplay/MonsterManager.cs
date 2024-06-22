@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -16,13 +17,25 @@ namespace _Scripts.Gameplay
         [SerializeField] private Monster m_monsterPrefab;
         [BoxGroup("Lair")]
         [SerializeField] private Transform m_monsterRoot;
+        [BoxGroup("Lair")]
+        [SerializeField] private Transform m_waitingRoomRoot;
         [BoxGroup("Lair")] 
         [SerializeField] private Vector3 m_gap;
         [BoxGroup("Lair")] 
         [SerializeField] private int m_monstersPerPage;
         [BoxGroup("Lair")] 
         [SerializeField] Vector3 m_pageGap;
-
+        
+        /// <summary>
+        /// Invoked when a monster is unlocked.
+        /// </summary>
+        public Action<Monster> OnMonsterUnlocked;
+        
+        /// <summary>
+        /// Invoked when a monster is recruited.
+        /// </summary>
+        public Action<Monster> OnMonsterRecruited;
+        
         /// <summary>
         /// Invoked when a party has changed. Event has the mission for the party that has changed.
         /// </summary>
@@ -40,36 +53,92 @@ namespace _Scripts.Gameplay
 
         private void Awake()
         {
-            Vector3 offset = Vector3.zero;
+            // Make all the monster instances at startup
             m_monsters = new List<Monster>();
             foreach (var monsterSchema in ServiceLocator.Instance.AllMonsters)
             {
-                Monster monster = Instantiate(m_monsterPrefab, m_monsterRoot);
-                monster.transform.localPosition += offset;
+                Monster monster = Instantiate(m_monsterPrefab, m_waitingRoomRoot);
                 monster.SetData(monsterSchema);
 
-                // All "starter" monsters are unlocked and recruited at the start of the game
-                if (monsterSchema.IsStarter)
+                if (monsterSchema.StartStatus >= Monster.MonsterStatus.Purchasable)
                 {
                     monster.Unlock();
+                }
+                
+                if (monsterSchema.StartStatus >= Monster.MonsterStatus.Ready)
+                {
                     monster.Recruit();
                 }
                 
                 m_monsters.Add(monster);
-                
-                offset += m_gap;
-                if (m_monsters.Count % m_monstersPerPage == 0)
-                {
-                    offset =  m_pageGap * m_monsters.Count / m_monstersPerPage;
-                }
             }
+
+            // Position the monsters in their starting spots
+            PositionMonsters();
             
+            // Make parties for all the missions
             foreach (var mission in ServiceLocator.Instance.AllMissions)
             {
                 m_parties.Add(mission, new Monster[mission.MaxCapacity]);
             }
-
             ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
+        }
+
+        public void Unlock(Monster monster)
+        {
+            if (monster.Status > Monster.MonsterStatus.Locked)
+            {
+                return;
+            }
+            
+            monster.Unlock();
+            OnMonsterUnlocked?.Invoke(monster);
+        }
+
+        public void Recruit(Monster monster)
+        {
+            // We must unlock it forcibly if it isn't to recruit it
+            Unlock(monster);
+            
+            monster.Recruit();
+            
+            // Move this new monster to the front of the list
+            int oldIndex = m_monsters.FindIndex(m => m == monster);
+            Monster firstMonster = m_monsters[0];
+            m_monsters[0] = monster;
+            m_monsters[oldIndex] = firstMonster;
+            
+            PositionMonsters();
+
+            OnMonsterRecruited?.Invoke(monster);
+        }
+        
+        /// <summary>
+        /// This function assumes that m_monsters is filled out. It will place the monsters from start -> end,
+        /// in the order that they are listed. If a monster is NOT purchased, then it will be skipped!
+        /// </summary>
+        private void PositionMonsters()
+        {
+            Vector3 offset = Vector3.zero;
+            int monsterCount = 0;
+            for (var i = 0; i < m_monsters.Count; i++)
+            {
+                var monster = m_monsters[i];
+                if (monster.Status < Monster.MonsterStatus.Ready)
+                {
+                    continue;
+                }
+
+                monsterCount++;
+                m_monsters[i].transform.SetParent(m_monsterRoot);
+                m_monsters[i].transform.localPosition = offset;
+                
+                offset += m_gap;
+                if (monsterCount % m_monstersPerPage == 0)
+                {
+                    offset =  m_pageGap * monsterCount / m_monstersPerPage;
+                }
+            }
         }
 
         private void OnMissionStatusChanged(MissionManager.MissionInfo missionInfo)
@@ -92,18 +161,25 @@ namespace _Scripts.Gameplay
             }
         }
 
-        public List<Monster> GetOwnedMonsters()
+        public List<Monster> GetMonsters(Monster.MonsterStatus status)
         {
             List<Monster> results = new List<Monster>();
             foreach (Monster info in m_monsters)
             {
-                if (info.Status > Monster.MonsterStatus.Purchasable)
+                if (info.Status == status)
                 {
                     results.Add(info);
                 }
             }
 
             return results;
+        }
+
+        public List<Monster> GetOwnedMonsters()
+        {
+            var monsters= GetMonsters(Monster.MonsterStatus.Ready);
+            monsters.AddRange(GetMonsters(Monster.MonsterStatus.Busy));
+            return monsters;
         }
         
         public Monster[] GetParty(SchemaMission mission)

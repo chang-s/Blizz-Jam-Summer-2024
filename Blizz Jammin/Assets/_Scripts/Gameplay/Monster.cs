@@ -4,6 +4,7 @@ using _Scripts.Schemas;
 using _Scripts.UI;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Scripts.Gameplay
 {
@@ -48,6 +49,16 @@ namespace _Scripts.Gameplay
         /// </summary>
         public int Xp { get; private set; } = 0;
 
+        /// <summary>
+        /// A tracker for showing if its newly unlocked.
+        /// </summary>
+        public bool IsNew { get; private set; } = false;
+
+        /// <summary>
+        /// Read only version of the quirks.
+        /// </summary>
+        public IReadOnlyCollection<SchemaQuirk> Quirks => m_quirks;
+
         [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private TextMeshPro m_nameLabel;
         [SerializeField] private Dictionary<MonsterStatus, GameObject> m_states;
@@ -56,7 +67,7 @@ namespace _Scripts.Gameplay
         private Dictionary<SchemaStat.Stat, int> m_flatStatBonus = new();
         private Dictionary<SchemaStat.Stat, float> m_mulltStatBonus = new();
 
-        private List<SchemaQuirk> m_unlockedQuirks = new List<SchemaQuirk>();
+        private HashSet<SchemaQuirk> m_quirks = new HashSet<SchemaQuirk>();
 
         private SchemaGameSettings m_gameSettings;
 
@@ -87,6 +98,10 @@ namespace _Scripts.Gameplay
             }
         }
 
+        /// <summary>
+        /// TODO: CLEANUP
+        /// DO NOT call this outside of MonsterManager!
+        /// </summary>
         public void Unlock()
         {
             if (Status != MonsterStatus.Locked)
@@ -94,10 +109,36 @@ namespace _Scripts.Gameplay
                 return;
             }
 
+            // When unlocking a monster, roll its quirks
+            for (int i = 0; i < Data.InitialQuirkCount; i++)
+            {
+                RollQuirk();
+            }
+
+            IsNew = true;
             Status = MonsterStatus.Purchasable;
             UpdateVisuals();
         }
 
+        private void RollQuirk()
+        {
+            var allQuirks = ServiceLocator.Instance.AllQuirks;
+            if (allQuirks.Length <= Quirks.Count)
+            {
+                return;
+            }
+            
+            bool addedQuirk = false;
+            while (!addedQuirk)
+            {
+                addedQuirk = m_quirks.Add(allQuirks[Random.Range(0, allQuirks.Length)]);
+            }
+        }
+
+        /// <summary>
+        /// TODO: CLEANUP
+        /// DO NOT call this outside of MonsterManager!
+        /// </summary>
         public void Recruit()
         {
             if (Status != MonsterStatus.Purchasable)
@@ -107,6 +148,11 @@ namespace _Scripts.Gameplay
 
             Status = MonsterStatus.Ready;
             UpdateVisuals();
+        }
+
+        public void MarkSeen()
+        {
+            IsNew = false;
         }
         
         public void BeginMission(SchemaMission mission)
@@ -146,22 +192,6 @@ namespace _Scripts.Gameplay
             Status = MonsterStatus.Ready;
             CurrentMission = null;
             UpdateVisuals();
-        }
-        
-        public List<SchemaQuirk> GetUnlockedQuirks()
-        {
-            var allQuirks = ServiceLocator.Instance.AllQuirks;
-            
-            //Probably should rework this when level unlocks classes/quirks?
-            m_unlockedQuirks.Clear();
-            for (int i = 0; i < Level; ++i)
-            {
-                if (i < allQuirks.Length)
-                {
-                    m_unlockedQuirks.Add(allQuirks[i]);
-                }
-            }
-            return m_unlockedQuirks;
         }
 
         public int GetStatValue(SchemaStat.Stat stat)
@@ -203,6 +233,10 @@ namespace _Scripts.Gameplay
             {
                 Level++;
                 Xp -= xpForNextLevel;
+                
+                // Get a new quirk when you level!
+                RollQuirk();
+                
                 return true;
             }
 

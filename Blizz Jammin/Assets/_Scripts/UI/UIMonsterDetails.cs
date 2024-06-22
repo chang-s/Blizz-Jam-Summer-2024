@@ -1,3 +1,4 @@
+using System.Linq;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
 using JetBrains.Annotations;
@@ -31,6 +32,11 @@ namespace _Scripts.UI
 
         [BoxGroup("Stats")]
         [SerializeField] [CanBeNull] private UIMonsterStats m_stats;
+
+        [BoxGroup("Quirks")] 
+        [SerializeField] [CanBeNull] private Image m_class;
+        [BoxGroup("Quirks")] 
+        [SerializeField] [CanBeNull]  private Image[] m_quirks;
         
         public void SetInstance(Monster monster)
         {
@@ -40,7 +46,7 @@ namespace _Scripts.UI
             // Inform the stats subview
             m_stats?.SetInstance(monster);
             
-            // Dynamic data
+            // Handle XP and Level
             string xpString = c_xpFormat;
             var xpTables = ServiceLocator.Instance.GameSettings.XpForLevel;
             xpString = monster.Level > xpTables.Length 
@@ -49,6 +55,21 @@ namespace _Scripts.UI
             
             m_xpLabel?.SetText(xpString);
             m_levelLabel?.SetText(string.Format(c_levelFormat, monster.Level.ToString()));
+            
+            // Handle active Quirks.
+            // TODO: Protect this better - We assume the max amount of quirks is 5
+            var quirks = monster.Quirks.ToArray();
+            for (var i = 0; i < m_quirks?.Length; i++)
+            {
+                if (i >= quirks.Length)
+                {
+                    m_quirks[i].gameObject.SetActive(false);
+                    continue;
+                }
+                
+                m_quirks[i].gameObject.SetActive(true);
+                m_quirks[i].sprite = quirks[i].Icon;
+            }
         }
         
         public void SetData(SchemaMonster data)
@@ -67,6 +88,12 @@ namespace _Scripts.UI
             // Handle texts
             m_name?.SetText(data.Name);
             m_description?.SetText(data.Description);
+            
+            // Handle the class icon
+            if (m_class != null)
+            {
+                m_class.sprite = data.Class.Icon;
+            }
         }
     }
 }

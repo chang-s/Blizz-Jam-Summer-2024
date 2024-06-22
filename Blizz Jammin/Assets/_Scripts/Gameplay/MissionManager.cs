@@ -224,9 +224,26 @@ namespace _Scripts.Gameplay
                 nextMission != null && 
                 nextMission.m_status == MissionStatus.Locked
             ) {
-                nextMission.m_status = MissionStatus.Ready;
-                OnMissionStatusChanged?.Invoke(nextMission);
+                UnlockMission(nextMission);
             }
+            
+            // TODO: Localize to MonsterManager, via event?
+            var lockedMonsters = ServiceLocator.Instance.MonsterManager.GetMonsters(Monster.MonsterStatus.Locked);
+            foreach (var lockedMonster in lockedMonsters)
+            {
+                if (lockedMonster.Data.UnlockMission != mission)
+                {
+                    continue;
+                }
+                
+                ServiceLocator.Instance.MonsterManager.Unlock(lockedMonster);
+            }
+        }
+
+        public void UnlockMission(MissionInfo mission)
+        {
+            mission.m_status = MissionStatus.Ready;
+            OnMissionStatusChanged?.Invoke(mission);
         }
 
         #endregion
