@@ -42,12 +42,11 @@ namespace _Scripts.Schemas
 
         /// <summary>
         /// The amount of quirks to roll at the beginning of the game for this monster.
+        /// All monsters have a chance to get any quirk. When we boot the game, each one will
+        /// roll this many. 
         /// </summary>
         [BoxGroup("Behavior")]
-        // All monsters have a chance to get any quirk. When we boot the game, each one will
-        // roll this many. 
-        // TODO: Consider leveling up adds quirks. 1->2->2->3->-4?
-        public int QuirkCount;
+        public int InitialQuirkCount;
 
         /// <summary>
         /// Determines if the player gets this monster at the start of the game.
