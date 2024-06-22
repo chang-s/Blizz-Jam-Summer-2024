@@ -224,9 +224,14 @@ namespace _Scripts.Gameplay
                 nextMission != null && 
                 nextMission.m_status == MissionStatus.Locked
             ) {
-                nextMission.m_status = MissionStatus.Ready;
-                OnMissionStatusChanged?.Invoke(nextMission);
+                UnlockMission(nextMission);
             }
+        }
+
+        public void UnlockMission(MissionInfo mission)
+        {
+            mission.m_status = MissionStatus.Ready;
+            OnMissionStatusChanged?.Invoke(mission);
         }
 
         #endregion

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Scripts.Gameplay;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -52,7 +53,7 @@ namespace _Scripts.Schemas
         /// Determines if the player gets this monster at the start of the game.
         /// </summary>
         [BoxGroup("Behavior")]
-        public bool IsStarter = false;
+        public Monster.MonsterStatus StartStatus = Monster.MonsterStatus.Locked;
         
         /// <summary>
         /// The monster's base stats. This gets scaled by level, see GameSettings.StatExponent
@@ -65,13 +66,19 @@ namespace _Scripts.Schemas
         /// </summary>
         [BoxGroup("Recruit")] 
         public int Cost;
-
-        /*
+        
         /// <summary>
         /// If provided, completing this mission with 100% will unlock the monster in the shop. 
         /// </summary>
         [BoxGroup("Recruit")] 
         public SchemaMission UnlockMission;
+        
+        /*
+        /// <summary>
+        /// If provided, getting this loot will unlock the monster in the shop. 
+        /// </summary>
+        [BoxGroup("Recruit")] 
+        public SchemaLoot UnlockLoot;
         */
         
         [Button("Add All Stats")]

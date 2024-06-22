@@ -63,9 +63,8 @@ namespace _Scripts.Gameplay
         }
 
 
-        /////////////////////////////////////////////////////////////
-        /// CHEATS    
-        /////////////////////////////////////////////////////////////
+        #region Cheats
+        
         [Button("Add 100 Infamy")]
         private void Cheat_AddInfamy100()
         {
@@ -129,6 +128,53 @@ namespace _Scripts.Gameplay
                 monster.AddXp(100);
             }
         }
+
+        [Button("Unlock All Missions")]
+        private void Cheat_UnlockAllMissions()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            foreach (var schemaMission in AllMissions)
+            {
+                MissionManager.UnlockMission(MissionManager.GetMissionInfo(schemaMission));
+            }
+        }
         
+        [Button("Unlock All Monsters")]
+        private void Cheat_UnlockAllMonsters()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            foreach (var monster in MonsterManager.GetMonsters(Monster.MonsterStatus.Locked))
+            {
+                MonsterManager.Unlock(monster);
+            }
+        }
+        
+        [Button("Recruit All Monsters")]
+        private void Cheat_RecruitAllMonsters()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            foreach (var monster in MonsterManager.GetMonsters(Monster.MonsterStatus.Locked))
+            {
+                MonsterManager.Recruit(monster);
+            }
+            foreach (var monster in MonsterManager.GetMonsters(Monster.MonsterStatus.Purchasable))
+            {
+                MonsterManager.Recruit(monster);
+            }
+        }
+        
+        #endregion
     }
 }
