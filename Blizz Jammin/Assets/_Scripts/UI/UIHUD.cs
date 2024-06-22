@@ -36,6 +36,7 @@ namespace _Scripts.UI
             
             var monsterRecruitPopup = ServiceLocator.Instance.UIPopupManager.GetPopup(SchemaPopup.PopupType.MonsterRecruit);
             monsterRecruitPopup.OnHide += HandleRecruitBadge;
+            HandleRecruitBadge();
         }
 
         private void OnMonsterUnlocked(Monster _)
