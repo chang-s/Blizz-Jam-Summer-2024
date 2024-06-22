@@ -1766,7 +1766,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 349.8723, y: -50}
+  m_AnchoredPosition: {x: 243.85735, y: -50}
   m_SizeDelta: {x: 0, y: 61.9388}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3346865899923851343
@@ -2040,7 +2040,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -119.6, y: 24}
+  m_AnchoredPosition: {x: -119.6, y: -22}
   m_SizeDelta: {x: 68.7, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7768014843377338770
@@ -2993,7 +2993,7 @@ PrefabInstance:
       objectReference: {fileID: 984961754294821293, guid: 633265e5a57663b4493c89e24ebff170, type: 3}
     - target: {fileID: 984961754294821293, guid: 633265e5a57663b4493c89e24ebff170, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 984961754294821293, guid: 633265e5a57663b4493c89e24ebff170, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[0]
@@ -3037,7 +3037,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 984961754294821293, guid: 633265e5a57663b4493c89e24ebff170, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 984961754294821293, guid: 633265e5a57663b4493c89e24ebff170, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
@@ -3736,6 +3736,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6addb9e9a159047838bc0a9c9064cd40, type: 2}
     - target: {fileID: 7290991117491412358, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7290991117491412358, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_fontSizeBase
       value: 40
       objectReference: {fileID: 0}
@@ -3743,6 +3747,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -2292749825610485414, guid: 6addb9e9a159047838bc0a9c9064cd40, type: 2}
+    - target: {fileID: 7290991117491412358, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7290991117491412358, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -3847,6 +3855,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8793138184724646944, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9161529271393620554, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3898,6 +3910,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1133049116841477828, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2303315520545666345}
+    - targetCorrespondingSourceObject: {fileID: 1133049116841477828, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6506493205831935692}
   m_SourcePrefab: {fileID: 100100000, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
 --- !u!114 &167285647213208889 stripped
 MonoBehaviour:
@@ -3952,6 +3967,28 @@ MonoBehaviour:
   m_levelLabel: {fileID: 6447634644137913209}
   m_xpLabel: {fileID: 0}
   m_stats: {fileID: 770989749447498654}
+--- !u!114 &6506493205831935692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7549715816721727099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bc3d8c667212524ab4b436173d8e421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  m_monsterDetails: {fileID: 2303315520545666345}
 --- !u!224 &9173073864701503388 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1743406210352373539, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}

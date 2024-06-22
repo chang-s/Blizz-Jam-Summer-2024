@@ -224,16 +224,18 @@ namespace _Scripts.Gameplay
             }
             
             // If we're locked, open the recruit popup instead of monster details
-            // TODO: Make it load this specific monster
             if (Status == MonsterStatus.Locked || Status == MonsterStatus.Purchasable)
             {
+                UIPopup rPopup = popupManager.GetPopup(SchemaPopup.PopupType.MonsterRecruit);
+                UIMonsterRecruit monsterRecruit = rPopup.GetComponent<UIMonsterRecruit>();
+                monsterRecruit.SetInstance(this);
+                
                 popupManager.RequestPopup(SchemaPopup.PopupType.MonsterRecruit);
                 return;
             }
             
-            UIPopup popup = popupManager.GetPopup(SchemaPopup.PopupType.MonsterDetails);
-            UIMonsterDetails monsterDetails = popup.GetComponent<UIMonsterDetails>();
-            monsterDetails.SetData(Data);
+            UIPopup dPopup = popupManager.GetPopup(SchemaPopup.PopupType.MonsterDetails);
+            UIMonsterDetails monsterDetails = dPopup.GetComponent<UIMonsterDetails>();
             monsterDetails.SetInstance(this);
             
             popupManager.RequestPopup(SchemaPopup.PopupType.MonsterDetails);

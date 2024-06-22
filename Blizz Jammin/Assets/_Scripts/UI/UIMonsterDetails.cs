@@ -8,7 +8,10 @@ using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
-    public class UIMonsterDetails : SerializedMonoBehaviour, IWorldInstanceController<Monster>
+    public class UIMonsterDetails : 
+        SerializedMonoBehaviour, 
+        IWorldInstanceController<Monster>, 
+        ISchemaController<SchemaMonster>
     {
         private const string c_levelFormat = "Lv {0}";
         private const string c_xpFormat = "{0}/{1}";
@@ -31,11 +34,11 @@ namespace _Scripts.UI
         
         public void SetInstance(Monster monster)
         {
-            // Inform the stats subview
-            m_stats?.SetInstance(monster);
-            
             // Static data
             SetData(monster.Data);
+            
+            // Inform the stats subview
+            m_stats?.SetInstance(monster);
             
             // Dynamic data
             string xpString = c_xpFormat;
