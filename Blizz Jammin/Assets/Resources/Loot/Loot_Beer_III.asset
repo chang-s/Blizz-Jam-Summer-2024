@@ -128,7 +128,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   Name: Beer
-  Description: << Needs Description >>
+  Description: "Beer is the answer, but I can\u2019t remember the question."
   StarQuality: 1
   Icon: {fileID: 21300000, guid: f7e4559fc103c9e4ba4f6b2434611715, type: 3}
   SellValue: 50

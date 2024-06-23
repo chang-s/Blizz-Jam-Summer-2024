@@ -77,7 +77,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   Name: Shiny Scale
-  Description: << Need Description >>
+  Description: Can't be harmed if your enemies can't even scratch the surface.
   StarQuality: 2
   Icon: {fileID: 21300000, guid: f6d6176f7dab0b44e93baa70d584b4c2, type: 3}
   SellValue: 25

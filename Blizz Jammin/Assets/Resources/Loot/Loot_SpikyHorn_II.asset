@@ -77,7 +77,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   Name: Spike Horn
-  Description: << Need Description >>
+  Description: When in doubt, just glue another horn to your head.
   StarQuality: 2
   Icon: {fileID: 21300000, guid: 11e6084b9ee296d4980f7fd330d9d071, type: 3}
   SellValue: 25

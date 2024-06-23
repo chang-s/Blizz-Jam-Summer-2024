@@ -111,7 +111,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
   Name: War Banner
-  Description: << Need Description >>
+  Description: Aye, fight and you may die. Run, and you'll live... at least a while.
+    And dying in your beds, many years from now, would you be willin' to trade ALL
+    the days, from this day to that, for one chance, just one chance, to come back
+    here and tell our enemies that they may take our lives, but they'll never take...
+    OUR FREEDOM!
   StarQuality: 3
   Icon: {fileID: 21300000, guid: c44cac1dc0eab064e9d1a122a11b5e39, type: 3}
   SellValue: 50
