@@ -56,12 +56,24 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: RequiredLoot
+      Entry: 7
+      Data: 3|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|_Scripts.Gameplay.StatModifier, Assembly-CSharp
+      Data: 4|_Scripts.Gameplay.StatModifier, Assembly-CSharp
     - Name: Stat
       Entry: 10
       Data: 1
@@ -76,7 +88,7 @@ MonoBehaviour:
       Data: true
     - Name: RequiredQuirk
       Entry: 7
-      Data: 4|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
+      Data: 5|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -85,6 +97,9 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 8
+      Data: 
+    - Name: RequiredLoot
+      Entry: 6
       Data: 
     - Name: 
       Entry: 8

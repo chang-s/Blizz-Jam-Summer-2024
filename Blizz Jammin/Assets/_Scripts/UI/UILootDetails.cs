@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using _Scripts.Gameplay;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -21,7 +22,7 @@ namespace _Scripts.UI
         [SerializeField] private Image m_icon;
         [SerializeField] private Transform m_inventoryRoot;
         [SerializeField] private Button m_sellButton;
-
+        [SerializeField] private GameObject m_noItemsPanel;
         [SerializeField] private UILootModification[] m_lootMods;
         
         private Loot m_shownInstance;
@@ -32,6 +33,7 @@ namespace _Scripts.UI
             ServiceLocator.Instance.LootManager.OnLootSold += OnLootSold;
             
             m_sellButton.onClick.AddListener(SellItem);
+            m_noItemsPanel.SetActive(true);
         }
 
         private void SellItem()
@@ -40,18 +42,21 @@ namespace _Scripts.UI
             {
                 return;
             }
-
-            ServiceLocator.Instance.LootManager.SellLoot(m_shownInstance);
-            m_shownInstance = null;
             
-            // TODO: Show something else, and cover our asses
-            // for now, just close the popup...
-            ServiceLocator.Instance.UIPopupManager.RequestClose();
+            ServiceLocator.Instance.LootManager.SellLoot(m_shownInstance);
         }
 
         private void OnLootAdded(Loot instance)
         {
+            m_noItemsPanel.SetActive(false);
+            
             instance.transform.SetParent(m_inventoryRoot);
+
+            // First item added! Select it
+            if (m_inventoryRoot.childCount == 1)
+            {
+                SetInstance(instance);
+            }
             
             instance.Button.onClick.AddListener(() =>
             {
@@ -61,8 +66,18 @@ namespace _Scripts.UI
         
         private void OnLootSold(Loot instance)
         {
+            m_shownInstance = null;
             instance.Button.onClick.RemoveAllListeners();
-            Destroy(instance.gameObject);
+            DestroyImmediate(instance.gameObject);
+
+            // Try to auto select the first item
+            // TODO: Try to be smarter and get next/prev instead of first item
+            var loot = ServiceLocator.Instance.LootManager.Loot;
+            m_noItemsPanel.SetActive(loot.Count == 0);
+            if (loot.Count > 0)
+            {
+                SetInstance(loot.ToArray()[0]);
+            }
         }
 
         public void SetInstance(Loot instance)
@@ -83,6 +98,7 @@ namespace _Scripts.UI
             m_valueLabel.SetText(instance.Data.SellValue.ToString());
             
             // Handle the loot mods
+            // TODO: Support more than 5 mod entries (m_lootMods == length 5 right now)
             // TODO: Clean this shit up
             for (var i = 0; i < m_lootMods.Length; i++)
             {
@@ -97,6 +113,7 @@ namespace _Scripts.UI
                 bool isSecretBuff = modifier.RequiredLoot != null && modifier.RequiredLoot.Length > 0;
                 if (isSecretBuff && !modifier.Passes(instance))
                 {
+                    m_lootMods[i].Root.SetActive(false);
                     continue;
                 }
 

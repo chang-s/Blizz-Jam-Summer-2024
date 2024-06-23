@@ -14,7 +14,9 @@ namespace _Scripts.Gameplay
         
         [HideInInspector] public Action<Loot> OnLootAdded;
         [HideInInspector] public Action<Loot> OnLootSold;
-        
+
+        public IReadOnlyCollection<Loot> Loot => m_loot;
+
         private List<Loot> m_loot = new List<Loot>();
         
         // TODO:

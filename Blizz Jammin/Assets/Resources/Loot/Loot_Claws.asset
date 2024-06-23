@@ -17,7 +17,6 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 83cf9ea79a10ddf4f94c85b990580bed, type: 2}
-    - {fileID: 11400000, guid: 84ef38be8de0b8043a7ba86638ab7f22, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -61,10 +60,7 @@ MonoBehaviour:
       Data: 3|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 10
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
