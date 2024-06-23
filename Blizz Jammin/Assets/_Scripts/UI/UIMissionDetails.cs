@@ -45,8 +45,6 @@ namespace _Scripts.UI
         [BoxGroup("Mission State")] 
         [SerializeField] private Transform m_lootRoot;
         [BoxGroup("Mission State")]
-        [SerializeField] private Transform m_classEffectRoot;
-        [BoxGroup("Mission State")]
         [SerializeField] private Transform m_quirkEffectRoot;
         [BoxGroup("Mission State")]
         [SerializeField] private UIMissionEffect m_effectPrefab;
@@ -122,11 +120,7 @@ namespace _Scripts.UI
                 Loot instance = Instantiate(m_lootPrefab, m_lootRoot);
                 instance.SetData(schemaLoot);
             }
-
-            foreach (Transform child in m_classEffectRoot.transform)
-            {
-                Destroy(child.gameObject);
-            }
+            
             foreach (Transform child in m_quirkEffectRoot.transform)
             {
                 Destroy(child.gameObject);
