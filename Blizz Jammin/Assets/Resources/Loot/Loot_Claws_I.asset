@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad2da98d9fbaf524085fb3ce586b172f, type: 3}
-  m_Name: Loot_WalkieTalkie
+  m_Name: Loot_Claws_I
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 7631b94fef4a06744980a2c6e39b34ad, type: 2}
+    - {fileID: 11400000, guid: 83cf9ea79a10ddf4f94c85b990580bed, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -55,6 +55,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: RequiredLoot
+      Entry: 7
+      Data: 3|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -64,7 +76,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: Walkie-Talkie
-  Description: +1 Sumbiosis
-  Icon: {fileID: 21300000, guid: 5d9d49062b093cb4186caa184e1db9d8, type: 3}
-  SellValue: 100
+  Name: Claws
+  Description: Claws are fun. Could replace your hand.
+  StarQuality: 1
+  Icon: {fileID: 21300000, guid: e476c87c391c45d46b0a800ca4e48b0f, type: 3}
+  SellValue: 5

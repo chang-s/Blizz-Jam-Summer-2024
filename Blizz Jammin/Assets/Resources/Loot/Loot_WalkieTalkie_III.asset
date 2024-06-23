@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad2da98d9fbaf524085fb3ce586b172f, type: 3}
-  m_Name: Loot_Scales
+  m_Name: Loot_WalkieTalkie_III
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 106f47a772dcd114fa74626e603b85b6, type: 2}
+    - {fileID: 11400000, guid: 7631b94fef4a06744980a2c6e39b34ad, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -36,7 +36,7 @@ MonoBehaviour:
       Data: 0
     - Name: FlatAmount
       Entry: 3
-      Data: 1
+      Data: 5
     - Name: MultAmount
       Entry: 4
       Data: 0
@@ -55,6 +55,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: RequiredLoot
+      Entry: 7
+      Data: 3|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -64,7 +76,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: Scales
-  Description: +1 Endurance
-  Icon: {fileID: 21300000, guid: 5d9d49062b093cb4186caa184e1db9d8, type: 3}
-  SellValue: 100
+  Name: Walkie Talkies
+  Description: << Need Description >>
+  StarQuality: 3
+  Icon: {fileID: 21300000, guid: f40230f76416948429ac6bc324367909, type: 3}
+  SellValue: 50

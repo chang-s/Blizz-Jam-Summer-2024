@@ -19,19 +19,20 @@ namespace _Scripts.UI
         }
         
         public SchemaLoot Data { get; private set; }
+        public Monster EquippedMonster { get; private set; }
         public Button Button => m_button;
 
         public LootState State { get; private set; } = LootState.NotOwned;
-        
+        public bool IsNew { get; private set; } = true;
+
         [SerializeField] private Dictionary<Loot.LootState, GameObject> m_states = new();
 
         [SerializeField] private Button m_button;
         
-        // Required
+
         [SerializeField] private Image m_icon;
         [SerializeField] [CanBeNull] private Image m_equippedMonsterIcon;
-
-        // Optional
+        [SerializeField] [CanBeNull] private GameObject m_badge;
         [SerializeField] [CanBeNull] private TMP_Text m_name;
         [SerializeField] [CanBeNull] private TMP_Text m_description;
         
@@ -65,6 +66,9 @@ namespace _Scripts.UI
             {
                 return;
             }
+
+            IsNew = true;
+            m_badge?.SetActive(true);
             
             State = LootState.Owned;
             UpdateStateVisuals();
@@ -77,6 +81,36 @@ namespace _Scripts.UI
             m_icon.sprite = data.Icon;
             m_name?.SetText(data.Name);
             m_description?.SetText(data.Description);
+        }
+
+        public void MarkSeen()
+        {
+            IsNew = false;
+            m_badge?.SetActive(false);
+        }
+        
+        public void Equip(Monster monster)
+        {
+            if (State != LootState.Owned)
+            {
+                return;
+            }
+
+            monster.EquippedLoot.Add(this);
+            EquippedMonster = monster;
+            State = LootState.Equipped;
+        }
+
+        public void UnEquip()
+        {
+            if (State != LootState.Equipped)
+            {
+                return;
+            }
+            
+            EquippedMonster.EquippedLoot.Remove(this);
+            EquippedMonster = null;
+            State = LootState.Owned;
         }
 
     }

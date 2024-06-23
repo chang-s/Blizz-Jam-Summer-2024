@@ -55,6 +55,11 @@ namespace _Scripts.Gameplay
         public bool IsNew { get; private set; } = false;
 
         /// <summary>
+        /// TEMP
+        /// </summary>
+        public List<Loot> EquippedLoot = new List<Loot>();
+
+        /// <summary>
         /// Read only version of the quirks.
         /// </summary>
         public IReadOnlyCollection<SchemaQuirk> Quirks => m_quirks;
