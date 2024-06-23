@@ -43,6 +43,7 @@ namespace _Scripts.UI
                 if (m_shownInstance != null)
                 {
                     m_shownInstance.MarkSeen();
+                    SetInstance(m_shownInstance);
                 }
             };
         }

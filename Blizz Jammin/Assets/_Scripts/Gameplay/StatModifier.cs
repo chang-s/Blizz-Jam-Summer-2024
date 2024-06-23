@@ -33,14 +33,14 @@ namespace _Scripts.Gameplay
         public bool Aura;
 
         /// <summary>
-        /// If supplied, all quirks must be present on the wielder for the modifier to take effect.
+        /// If supplied, at least one quirks must be present on the wielder for the modifier to take effect.
         /// "If equipped by a Sneaky monster, +10 Attack"
         /// </summary>
         [BoxGroup("Requirements")]
         public SchemaQuirk[] RequiredQuirk;
         
         /// <summary>
-        /// If supplied, all loot must be present in the wielder of this loot for this modifier to take effect.
+        /// If supplied, at least one loot must be present in the wielder of this loot for this modifier to take effect.
         /// "If wielder also has Scales equipped, gain +10 Endurance"
         /// </summary>
         [BoxGroup("Requirements")]
@@ -77,13 +77,13 @@ namespace _Scripts.Gameplay
             foreach (var schemaLoot in RequiredLoot)
             {
                 Loot toFind = loot.EquippedMonster.EquippedLoot.Find(l => l.Data == schemaLoot);
-                if (toFind == null)
+                if (toFind != null)
                 {
-                    return false;
+                    return true;
                 }
             }
 
-            return true;
+            return false;
         }
     }
 }

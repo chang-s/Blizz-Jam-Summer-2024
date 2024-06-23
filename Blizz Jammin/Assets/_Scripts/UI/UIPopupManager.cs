@@ -63,7 +63,13 @@ namespace _Scripts.UI
         
         public void RequestPopup(SchemaPopup.PopupType type)
         {
+            // Do not let a second popup of the same type be shown again
             var popup = m_instances[type];
+            if (m_popupStack.Contains(popup))
+            {
+                return;
+            }
+
             if (popup.Schema.BypassQueue)
             {
                 popup.Show();
