@@ -151,6 +151,8 @@ MonoBehaviour:
   m_levelLabel: {fileID: 0}
   m_xpLabel: {fileID: 0}
   m_stats: {fileID: 0}
+  m_class: {fileID: 0}
+  m_quirks: []
 --- !u!114 &3660951127103033973
 MonoBehaviour:
   m_ObjectHideFlags: 0

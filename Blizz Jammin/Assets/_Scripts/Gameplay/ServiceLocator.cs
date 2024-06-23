@@ -20,6 +20,8 @@ namespace _Scripts.Gameplay
         public MonsterManager MonsterManager { get; private set; }
         public TimeManager TimeManager { get; private set; }
         public UIPopupManager UIPopupManager { get; private set; }
+        public LootManager LootManager { get; private set; }
+        public SoundManager SoundManager { get; private set; }
 
         // Schema collections
         public SchemaMission[] AllMissions { get; private set; }
@@ -43,6 +45,8 @@ namespace _Scripts.Gameplay
             MonsterManager = FindObjectOfType<MonsterManager>();
             TimeManager = FindObjectOfType<TimeManager>();
             UIPopupManager = FindObjectOfType<UIPopupManager>();
+            LootManager = FindObjectOfType<LootManager>();
+            SoundManager = FindObjectOfType<SoundManager>();
 
             AllLoot = Resources.LoadAll<SchemaLoot>("Loot");
             
@@ -64,6 +68,17 @@ namespace _Scripts.Gameplay
 
 
         #region Cheats
+        
+        [Button("Grant Ramdom Loot")]
+        private void Cheat_GrantLoot()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            LootManager.GrantLoot(AllLoot[Random.Range(0, AllLoot.Length)]);
+        }
         
         [Button("Add 100 Infamy")]
         private void Cheat_AddInfamy100()

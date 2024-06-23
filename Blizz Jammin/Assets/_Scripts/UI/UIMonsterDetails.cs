@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
@@ -9,6 +10,7 @@ using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
+    // TODO: Split this into UIMonster and UIMonsterDetails, its currently serving as both
     public class UIMonsterDetails : 
         SerializedMonoBehaviour, 
         IWorldInstanceController<Monster>, 
@@ -38,27 +40,54 @@ namespace _Scripts.UI
         [BoxGroup("Quirks")] 
         [SerializeField] [CanBeNull]  private Image[] m_quirks;
         
-        public void SetInstance(Monster monster)
+        // TODO: make a new class to drive this?
+        [BoxGroup("Items")] 
+        [SerializeField] [CanBeNull]  private Button[] m_itemButtons;
+        [SerializeField] [CanBeNull]  private Image[] m_itemImages;
+
+        private Monster m_instance;
+
+        private void Awake()
         {
+            if (m_itemButtons != null)
+            {
+                for (var i = 0; i < m_itemButtons.Length; i++)
+                {
+                    var capturedIndex = i;
+                    m_itemButtons[i].onClick.AddListener(() =>
+                    {
+                        OnItemButtonClicked(capturedIndex);
+                    });
+                }
+            }
+            
+            ServiceLocator.Instance.LootManager.OnLootEquipped += _ => UpdateLoot();
+            ServiceLocator.Instance.LootManager.OnLootUnEquipped += _ => UpdateLoot();
+        }
+
+        public void SetInstance(Monster instance)
+        {
+            m_instance = instance;
+            
             // Static data
-            SetData(monster.Data);
+            SetData(instance.Data);
             
             // Inform the stats subview
-            m_stats?.SetInstance(monster);
+            m_stats?.SetInstance(instance);
             
             // Handle XP and Level
             string xpString = c_xpFormat;
             var xpTables = ServiceLocator.Instance.GameSettings.XpForLevel;
-            xpString = monster.Level > xpTables.Length 
-                ? "MAX" 
-                : string.Format(xpString, monster.Xp, xpTables[monster.Level - 1]);
+            xpString = instance.Level > xpTables.Length 
+                ? c_xpMax
+                : string.Format(xpString, instance.Xp, xpTables[instance.Level - 1]);
             
             m_xpLabel?.SetText(xpString);
-            m_levelLabel?.SetText(string.Format(c_levelFormat, monster.Level.ToString()));
+            m_levelLabel?.SetText(string.Format(c_levelFormat, instance.Level.ToString()));
             
             // Handle active Quirks.
             // TODO: Protect this better - We assume the max amount of quirks is 5
-            var quirks = monster.Quirks.ToArray();
+            var quirks = instance.Quirks.ToArray();
             for (var i = 0; i < m_quirks?.Length; i++)
             {
                 if (i >= quirks.Length)
@@ -70,6 +99,40 @@ namespace _Scripts.UI
                 m_quirks[i].gameObject.SetActive(true);
                 m_quirks[i].sprite = quirks[i].Icon;
             }
+
+            UpdateLoot();
+        }
+
+        private void UpdateLoot()
+        {
+            if (m_itemImages == null)
+            {
+                return;
+            }
+            
+            for (var i = 0; i < m_itemImages.Length; i++)
+            {
+                var equippedLoot = m_instance.EquippedLoot.Count > i
+                    ? m_instance.EquippedLoot[i]
+                    : null;
+                
+                // TODO: Better UX indexing items
+                // TODO: better "add item" sprite
+                m_itemImages[i].sprite = equippedLoot ? equippedLoot.Data.Icon : null;
+            }
+        }
+
+        // TODO: use index to drive better UX
+        private void OnItemButtonClicked(int itemIndex)
+        {
+            var popupManager = ServiceLocator.Instance.UIPopupManager;
+            var equipPopup = popupManager
+                .GetPopup(SchemaPopup.PopupType.Equip)
+                .GetComponent<UILootEquipPopup>();
+            
+            equipPopup.SetInstance(m_instance);
+            
+            popupManager.RequestPopup(SchemaPopup.PopupType.Equip);
         }
         
         public void SetData(SchemaMonster data)

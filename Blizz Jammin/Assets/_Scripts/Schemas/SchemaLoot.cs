@@ -20,12 +20,25 @@ namespace _Scripts.Schemas
         public string Description;
         
         /// <summary>
+        /// How many stars this item has.
+        /// </summary>
+        [BoxGroup("Visuals")] 
+        [MinValue(1)]
+        public int StarQuality;
+        
+        /// <summary>
         /// The sprite used when shown in the world/UI.
         /// </summary>
         [BoxGroup("Visuals")]
         [PreviewField(100)]
         public Sprite Icon;
 
+        /// <summary>
+        /// The amount of Infamy gained when sold.
+        /// </summary>
+        [BoxGroup("Behavior")] 
+        public int SellValue;
+        
         /// <summary>
         /// The stats this loot provides.
         /// </summary>

@@ -22,6 +22,8 @@ namespace _Scripts.UI
         [SerializeField] private GameObject m_badgeMission;
         [BoxGroup("Badges")]
         [SerializeField] private GameObject m_badgeRecruit;
+        [BoxGroup("Badges")]
+        [SerializeField] private GameObject m_badgeInventory;
         
         private void Awake()
         {
@@ -33,10 +35,27 @@ namespace _Scripts.UI
 
             ServiceLocator.Instance.MonsterManager.OnMonsterUnlocked += OnMonsterUnlocked;
             ServiceLocator.Instance.MissionManager.OnMissionStatusChanged += OnMissionStatusChanged;
+            ServiceLocator.Instance.LootManager.OnLootAdded += OnLootAdded;
+            
+            var lootPopup = ServiceLocator.Instance.UIPopupManager.GetPopup(SchemaPopup.PopupType.Inventory);
+            lootPopup.OnHide += HandleLootBadge;
+            HandleLootBadge();
             
             var monsterRecruitPopup = ServiceLocator.Instance.UIPopupManager.GetPopup(SchemaPopup.PopupType.MonsterRecruit);
             monsterRecruitPopup.OnHide += HandleRecruitBadge;
             HandleRecruitBadge();
+        }
+
+        private void OnLootAdded(Loot _)
+        {
+            HandleLootBadge();
+        }
+        
+        private void HandleLootBadge()
+        {
+            var items = ServiceLocator.Instance.LootManager.Loot;
+            int newLoot = items.Count(l => l.IsNew);
+            m_badgeInventory.SetActive(newLoot > 0);
         }
 
         private void OnMonsterUnlocked(Monster _)

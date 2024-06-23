@@ -41,11 +41,9 @@ namespace _Scripts.UI
         [BoxGroup("Mission State")] 
         [SerializeField] private Image m_icon;
         [BoxGroup("Mission State")] 
-        [SerializeField] private UILoot m_lootPrefab;
+        [SerializeField] private Loot m_lootPrefab;
         [BoxGroup("Mission State")] 
         [SerializeField] private Transform m_lootRoot;
-        [BoxGroup("Mission State")]
-        [SerializeField] private Transform m_classEffectRoot;
         [BoxGroup("Mission State")]
         [SerializeField] private Transform m_quirkEffectRoot;
         [BoxGroup("Mission State")]
@@ -119,14 +117,10 @@ namespace _Scripts.UI
             HashSet<SchemaLoot> loot = data.LootTable.GetAllPossibleLoot();
             foreach (var schemaLoot in loot)
             {
-                UILoot instance = Instantiate(m_lootPrefab, m_lootRoot);
+                Loot instance = Instantiate(m_lootPrefab, m_lootRoot);
                 instance.SetData(schemaLoot);
             }
-
-            foreach (Transform child in m_classEffectRoot.transform)
-            {
-                Destroy(child.gameObject);
-            }
+            
             foreach (Transform child in m_quirkEffectRoot.transform)
             {
                 Destroy(child.gameObject);
@@ -163,6 +157,7 @@ namespace _Scripts.UI
                 }
 
                 missionManager.StartMission(m_missionData);
+                ServiceLocator.Instance.UIPopupManager.RequestClose();
             });
             
             for (var i = 0; i < m_partyMembers.Length; i++)

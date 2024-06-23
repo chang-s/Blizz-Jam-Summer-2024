@@ -24,16 +24,20 @@ MonoBehaviour:
   LootTable:
   - RequiredMissionRewardScalar: 1
     Rolls: 2
+    RequiredLoot: []
     PossibleLoot:
     - {fileID: 11400000, guid: 7fe57364fdece024ba80f411d53db2e3, type: 2}
     - {fileID: 11400000, guid: a401923685d76ef4d838c68a8412ab84, type: 2}
     - {fileID: 11400000, guid: 84ef38be8de0b8043a7ba86638ab7f22, type: 2}
+    - {fileID: 11400000, guid: f6ba1799f84aba74189483b61398f59b, type: 2}
   - RequiredMissionRewardScalar: 0.75
     Rolls: 1
+    RequiredLoot: []
     PossibleLoot:
     - {fileID: 11400000, guid: a401923685d76ef4d838c68a8412ab84, type: 2}
     - {fileID: 11400000, guid: 84ef38be8de0b8043a7ba86638ab7f22, type: 2}
   - RequiredMissionRewardScalar: 0.5
     Rolls: 1
+    RequiredLoot: []
     PossibleLoot:
     - {fileID: 11400000, guid: a401923685d76ef4d838c68a8412ab84, type: 2}

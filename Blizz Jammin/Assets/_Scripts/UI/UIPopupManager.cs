@@ -1,14 +1,16 @@
 using System.Collections.Generic;
+using System.Linq;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
     public class UIPopupManager : SerializedMonoBehaviour
     {
-        [SerializeField] private GameObject m_sharedBG;
+        [SerializeField] private Button m_sharedBG;
         [SerializeField] private Transform m_root;
 
         /// <summary>
@@ -24,15 +26,27 @@ namespace _Scripts.UI
         /// <summary>
         /// The instance of the current popup type.
         /// </summary>
-        private UIPopup m_currentPopup;
+        private Stack<UIPopup> m_popupStack = new Stack<UIPopup>();
 
         private void Awake()
         {
-            foreach (var popup in ServiceLocator.Instance.AllPopups)
+            foreach (var schemaPopup in ServiceLocator.Instance.AllPopups)
             {
-                UIPopup instance = Instantiate(popup.Prefab, m_root);
+                UIPopup instance = Instantiate(schemaPopup.Prefab, m_root);
+                instance.SetData(schemaPopup);
+                
                 instance.Hide();
-                m_instances.Add(popup.Type, instance);
+                m_instances.Add(schemaPopup.Type, instance);
+            }
+
+            m_sharedBG.onClick.AddListener(OnBGClicked);
+        }
+
+        private void OnBGClicked()
+        {
+            if (m_popupStack.Count > 0 && m_popupStack.Peek().Schema.DismissOnBGTap)
+            {
+                RequestClose();
             }
         }
 
@@ -49,42 +63,54 @@ namespace _Scripts.UI
         
         public void RequestPopup(SchemaPopup.PopupType type)
         {
+            // Do not let a second popup of the same type be shown again
+            var popup = m_instances[type];
+            if (m_popupStack.Contains(popup))
+            {
+                return;
+            }
+
+            if (popup.Schema.BypassQueue)
+            {
+                popup.Show();
+                popup.transform.SetAsLastSibling();
+                m_popupStack.Push(popup);
+                return;
+            }
+            
             m_queue.Add(type);
             ProcessQueue();
         }
-
-        // TODO: Should this require a reference to a specific popup? Currently it will close the top level which
-        // may not always be what we want to do
+        
         public void RequestClose()
         {
-            if (m_currentPopup == null)
+            if (m_popupStack.Count <= 0)
             {
                 return;
             }
 
             // Hide
-            m_currentPopup.Hide();
-            m_currentPopup = null;
-        
+            m_popupStack.Pop().Hide();
+
             // Try to go on
             ProcessQueue();
         }
 
         public bool HasActivePopup()
         {
-            return m_currentPopup != null;
+            return m_popupStack.Count > 0;
         }
         
         private void ProcessQueue()
         {
-            if (m_currentPopup != null)
+            if (HasActivePopup())
             {
                 return;
             }
 
             if (m_queue.Count == 0)
             {
-                m_sharedBG.SetActive(false);
+                m_sharedBG.gameObject.SetActive(false);
                 return;
             }
 
@@ -92,9 +118,9 @@ namespace _Scripts.UI
             m_queue.RemoveAt(0);
         
             // Show
-            m_currentPopup = m_instances[popupType];
-            m_currentPopup.Show();
-            m_sharedBG.SetActive(true);
+            m_instances[popupType].Show();
+            m_popupStack.Push(m_instances[popupType]);
+            m_sharedBG.gameObject.SetActive(true);
         }
     }
 }

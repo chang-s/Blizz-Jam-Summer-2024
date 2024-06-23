@@ -2952,6 +2952,14 @@ MonoBehaviour:
   - {fileID: 7321160846586483733}
   - {fileID: 7154462032113937397}
   - {fileID: 5463698756955675418}
+  m_itemButtons:
+  - {fileID: 2047286925777820069}
+  - {fileID: 4925270830883559400}
+  - {fileID: 1056416612280165238}
+  m_itemImages:
+  - {fileID: 1781929976241835825}
+  - {fileID: 271627180482762819}
+  - {fileID: 9212409558706699907}
 --- !u!224 &9173073864701503388 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1743406210352373539, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
