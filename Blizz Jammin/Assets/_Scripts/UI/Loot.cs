@@ -8,8 +8,9 @@ using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
-    // TODO: Ew, this is NOT a world instance...
-    public class Loot : WorldInstance, IWorldInstanceController<Loot>
+    // TODO: Separate the UI side of this into UILoot : IWorldInstanceController<Loot>
+    // this is acting as the instance AND the inventory UI right now. not great
+    public class Loot : WorldInstance, ISchemaController<SchemaLoot>
     {
         public enum LootState
         {
@@ -29,34 +30,24 @@ namespace _Scripts.UI
 
         [SerializeField] private Button m_button;
         
-
         [SerializeField] private Image m_icon;
         [SerializeField] [CanBeNull] private Image m_equippedMonsterIcon;
         [SerializeField] [CanBeNull] private GameObject m_badge;
         [SerializeField] [CanBeNull] private TMP_Text m_name;
         [SerializeField] [CanBeNull] private TMP_Text m_description;
         
-        public void SetInstance(Loot instance)
-        {
-            SetData(instance.Data);
-
-            UpdateStateVisuals();
-
-
-            // TODO: Pass the icon of the monster who is equipping it
-            /*
-            if (m_equippedMonsterIcon != null)
-            {
-                m_equippedMonsterIcon.sprite = ...
-            }
-            */
-        }
-
         private void UpdateStateVisuals()
         {
             foreach (var (state, group) in m_states)
             {
                 group.SetActive(state == State);
+            }
+            
+            switch (State)
+            {
+                case LootState.Equipped:
+                    m_states[LootState.Owned].SetActive(true);
+                    break;
             }
         }
 
@@ -89,6 +80,8 @@ namespace _Scripts.UI
             m_badge?.SetActive(false);
         }
         
+        // TODO: THIS SHOULD BE HANDLED BY MANAGER
+        // response via the event should happen here
         public void Equip(Monster monster)
         {
             if (State != LootState.Owned)
@@ -96,11 +89,19 @@ namespace _Scripts.UI
                 return;
             }
 
+            if (m_equippedMonsterIcon != null)
+            {
+                m_equippedMonsterIcon.sprite = monster.Data.Sprite;
+            }
+            
             monster.EquippedLoot.Add(this);
             EquippedMonster = monster;
             State = LootState.Equipped;
+            UpdateStateVisuals();
         }
 
+        // TODO: THIS SHOULD BE HANDLED BY MANAGER
+        // response via the event should happen here
         public void UnEquip()
         {
             if (State != LootState.Equipped)
@@ -108,9 +109,15 @@ namespace _Scripts.UI
                 return;
             }
             
+            if (m_equippedMonsterIcon != null)
+            {
+                m_equippedMonsterIcon.sprite = null;
+            }
+            
             EquippedMonster.EquippedLoot.Remove(this);
             EquippedMonster = null;
             State = LootState.Owned;
+            UpdateStateVisuals();
         }
 
     }

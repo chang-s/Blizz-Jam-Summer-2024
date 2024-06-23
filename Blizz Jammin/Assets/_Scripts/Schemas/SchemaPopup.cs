@@ -15,11 +15,9 @@ namespace _Scripts.Schemas
             MonsterDetails,
             MissionDetails,
             MissionResults,
-            
-            // Not used yet
             MonsterRecruit,
             Inventory,
-            ItemDetails,
+            Equip,
         }
 
         /// <summary>
@@ -31,5 +29,15 @@ namespace _Scripts.Schemas
         /// The type of this popup entry. DO NOT REUSE these. 1 popup == 1 popup type.
         /// </summary>
         public PopupType Type;
+
+        /// <summary>
+        /// If enabled, this popup will automatically dismiss if you click on the tinted BG.
+        /// </summary>
+        public bool DismissOnBGTap;
+        
+        /// <summary>
+        /// If enabled, this popup will always appear, no matter if there are other popups on screen.
+        /// </summary>
+        public bool BypassQueue;
     }
 }

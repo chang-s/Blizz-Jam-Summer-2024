@@ -216,7 +216,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3651a48d588ea51419954793e7af226d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -408,7 +408,7 @@ MonoBehaviour:
       Data: 
   m_button: {fileID: 25837689212815354}
   m_icon: {fileID: 7631290129161086965}
-  m_equippedMonsterIcon: {fileID: 0}
+  m_equippedMonsterIcon: {fileID: 2712002950525923270}
   m_badge: {fileID: 7123147605851964180}
   m_name: {fileID: 0}
   m_description: {fileID: 0}

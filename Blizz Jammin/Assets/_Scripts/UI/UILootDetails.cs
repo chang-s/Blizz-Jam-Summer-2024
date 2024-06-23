@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
+    // TODO: Separate this into UILoot and UILootDetails, its currently serving as both
     public class UILootDetails :  SerializedMonoBehaviour, IWorldInstanceController<Loot>
     {
         private const string c_star = "<sprite name=\"Infamy\">";

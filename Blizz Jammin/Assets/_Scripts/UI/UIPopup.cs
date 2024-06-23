@@ -1,11 +1,12 @@
 using System;
 using _Scripts.Gameplay;
+using _Scripts.Schemas;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
-    public class UIPopup : MonoBehaviour
+    public class UIPopup : MonoBehaviour, ISchemaController<SchemaPopup>
     {
         [SerializeField] private CanvasGroup m_canvasGroup;
         [SerializeField] private RectTransform m_content;
@@ -13,6 +14,8 @@ namespace _Scripts.UI
 
         public Action OnShow;
         public Action OnHide;
+        
+        public SchemaPopup Schema { get; private set; }
 
         public bool Showing { get; private set; }
         
@@ -46,6 +49,11 @@ namespace _Scripts.UI
         private void OnCloseButtonPressed()
         {
             ServiceLocator.Instance.UIPopupManager.RequestClose();
+        }
+
+        public void SetData(SchemaPopup data)
+        {
+            Schema = data;
         }
     }
 }
