@@ -69,6 +69,17 @@ namespace _Scripts.Gameplay
 
         #region Cheats
         
+        [Button("Grant Ramdom Loot")]
+        private void Cheat_GrantLoot()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            LootManager.GrantLoot(AllLoot[Random.Range(0, AllLoot.Length)]);
+        }
+        
         [Button("Add 100 Infamy")]
         private void Cheat_AddInfamy100()
         {

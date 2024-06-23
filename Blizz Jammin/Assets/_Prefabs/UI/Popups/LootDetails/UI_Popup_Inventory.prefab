@@ -5672,6 +5672,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  m_popup: {fileID: 7857922156576066777}
   m_normalMaterial: {fileID: 2328092382703395682, guid: c07b9d5e5f99d4154b05492514eb33ab, type: 2}
   m_secretMaterial: {fileID: 2100000, guid: 76b22a978b231bc4b9a354714ccf4bdc, type: 2}
   m_nameLabel: {fileID: 167285647213208889}
@@ -5688,6 +5689,17 @@ MonoBehaviour:
   - {fileID: 286674166960146789}
   - {fileID: 3583316617384740851}
   - {fileID: 5764957938528061887}
+--- !u!114 &7857922156576066777 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 752222304566768742, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
+  m_PrefabInstance: {fileID: 7457007303300004031}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7549715816721727099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2d43d88b740324680f8f09767ca8ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &9173073864701503388 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1743406210352373539, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}

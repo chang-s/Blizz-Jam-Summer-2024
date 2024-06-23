@@ -11,7 +11,9 @@ namespace _Scripts.UI
     public class UILootDetails :  SerializedMonoBehaviour, IWorldInstanceController<Loot>
     {
         private const string c_star = "<sprite name=\"Infamy\">";
-
+        
+        [SerializeField] private UIPopup m_popup;
+        
         [SerializeField] private Material m_normalMaterial;
         [SerializeField] private Material m_secretMaterial;
 
@@ -34,6 +36,14 @@ namespace _Scripts.UI
             
             m_sellButton.onClick.AddListener(SellItem);
             m_noItemsPanel.SetActive(true);
+
+            m_popup.OnShow += () =>
+            {
+                if (m_shownInstance != null)
+                {
+                    m_shownInstance.MarkSeen();
+                }
+            };
         }
 
         private void SellItem()
@@ -60,6 +70,7 @@ namespace _Scripts.UI
             
             instance.Button.onClick.AddListener(() =>
             {
+                instance.MarkSeen();
                 SetInstance(instance);
             });
         }
@@ -83,7 +94,7 @@ namespace _Scripts.UI
         public void SetInstance(Loot instance)
         {
             m_shownInstance = instance;
-            
+
             m_icon.sprite = instance.Data.Icon;
             m_nameLabel.SetText(instance.Data.Name);
 
