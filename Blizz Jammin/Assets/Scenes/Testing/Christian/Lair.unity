@@ -1114,8 +1114,8 @@ MonoBehaviour:
     - Name: OnLootSold
       Entry: 6
       Data: 
-  m_lootWaitingRoom: {fileID: 0}
-  m_lootPrefab: {fileID: 0}
+  m_lootWaitingRoom: {fileID: 1122396789}
+  m_lootPrefab: {fileID: 7221247664476091757, guid: 7d479ccc13d6777448fe9855481bbd3b, type: 3}
 --- !u!1 &1061353686
 GameObject:
   m_ObjectHideFlags: 0

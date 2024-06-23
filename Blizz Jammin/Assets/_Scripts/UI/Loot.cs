@@ -19,6 +19,7 @@ namespace _Scripts.UI
         }
         
         public SchemaLoot Data { get; private set; }
+        public Monster EquippedMonster { get; private set; }
         public Button Button => m_button;
 
         public LootState State { get; private set; } = LootState.NotOwned;
@@ -77,6 +78,30 @@ namespace _Scripts.UI
             m_icon.sprite = data.Icon;
             m_name?.SetText(data.Name);
             m_description?.SetText(data.Description);
+        }
+
+        public void Equip(Monster monster)
+        {
+            if (State != LootState.Owned)
+            {
+                return;
+            }
+
+            monster.EquippedLoot.Add(this);
+            EquippedMonster = monster;
+            State = LootState.Equipped;
+        }
+
+        public void UnEquip()
+        {
+            if (State != LootState.Equipped)
+            {
+                return;
+            }
+            
+            EquippedMonster.EquippedLoot.Remove(this);
+            EquippedMonster = null;
+            State = LootState.Owned;
         }
 
     }
