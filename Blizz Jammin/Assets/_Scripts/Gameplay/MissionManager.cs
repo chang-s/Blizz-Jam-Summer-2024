@@ -348,6 +348,8 @@ namespace _Scripts.Gameplay
                     continue;
                 }
                 
+                // TODO: Make items add stats for self/party
+                
                 value += monsterInfo.GetStatValue(stat);
             }
             return value;

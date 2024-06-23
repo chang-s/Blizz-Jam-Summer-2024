@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad2da98d9fbaf524085fb3ce586b172f, type: 3}
-  m_Name: Loot_ThreeLeafClover
+  m_Name: Loot_Claws_I
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 62b4fec89460b7941a23214c6d09edea, type: 2}
+    - {fileID: 11400000, guid: 83cf9ea79a10ddf4f94c85b990580bed, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -76,8 +76,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: Three Leaf Clover
-  Description: +1 Luck
+  Name: Claws
+  Description: Claws are fun. Could replace your hand.
   StarQuality: 1
-  Icon: {fileID: 21300000, guid: 30d15ff4d8b40524c886e7368290770f, type: 3}
-  SellValue: 100
+  Icon: {fileID: 21300000, guid: e476c87c391c45d46b0a800ca4e48b0f, type: 3}
+  SellValue: 5
