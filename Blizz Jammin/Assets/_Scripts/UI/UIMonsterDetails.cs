@@ -119,6 +119,7 @@ namespace _Scripts.UI
                 // TODO: Better UX indexing items
                 // TODO: better "add item" sprite
                 m_itemImages[i].sprite = equippedLoot ? equippedLoot.Data.Icon : null;
+                m_itemImages[i].gameObject.SetActive(equippedLoot);
             }
         }
 
