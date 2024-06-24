@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad2da98d9fbaf524085fb3ce586b172f, type: 3}
-  m_Name: Loot_Scales_III
+  m_Name: Loot_OnionJuice_I
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 106f47a772dcd114fa74626e603b85b6, type: 2}
+    - {fileID: 11400000, guid: 83cf9ea79a10ddf4f94c85b990580bed, type: 2}
+    - {fileID: 11400000, guid: 7631b94fef4a06744980a2c6e39b34ad, type: 2}
+    - {fileID: 11400000, guid: dfe5e6b37da6f434e8c0cf470faa24a6, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -27,7 +29,7 @@ MonoBehaviour:
       Data: 0|_Scripts.Gameplay.StatModifier[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 1|_Scripts.Gameplay.StatModifier, Assembly-CSharp
@@ -36,7 +38,7 @@ MonoBehaviour:
       Data: 0
     - Name: FlatAmount
       Entry: 3
-      Data: 5
+      Data: 2
     - Name: MultAmount
       Entry: 4
       Data: 0
@@ -71,13 +73,59 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 4|_Scripts.Gameplay.StatModifier, Assembly-CSharp
+    - Name: Stat
+      Entry: 10
+      Data: 1
+    - Name: FlatAmount
+      Entry: 3
+      Data: -2
+    - Name: MultAmount
+      Entry: 4
+      Data: 0
+    - Name: Aura
+      Entry: 5
+      Data: false
+    - Name: RequiredQuirk
+      Entry: 7
+      Data: 5|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 2
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  Name: Shiny Scale
-  Description: Can't be harmed if your enemies can't even scratch the surface.
-  StarQuality: 3
-  Icon: {fileID: 21300000, guid: f6d6176f7dab0b44e93baa70d584b4c2, type: 3}
-  SellValue: 50
+    - Name: RequiredLoot
+      Entry: 7
+      Data: 6|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Name: Onion Juice
+  Description: Fresh squeezed orange juice! What? No, it;s orange juice, I swear.
+    The smell? I don't smell anything.
+  StarQuality: 1
+  Icon: {fileID: 21300000, guid: 7716d4560c3d9f2409d4233bbf62754c, type: 3}
+  SellValue: 5

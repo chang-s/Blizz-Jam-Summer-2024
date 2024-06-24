@@ -249,7 +249,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
   Name: Kitty Floatie
-  Description: << Needs Description >>
+  Description: Even the most fearsome monsters need to stay safe in the pool. You
+    might as well look cool doing it.
   StarQuality: 1
-  Icon: {fileID: 21300000, guid: e476c87c391c45d46b0a800ca4e48b0f, type: 3}
+  Icon: {fileID: 21300000, guid: 44213a6605a176347b0a349913b28cfb, type: 3}
   SellValue: 5

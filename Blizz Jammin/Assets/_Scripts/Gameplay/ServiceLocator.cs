@@ -69,8 +69,9 @@ namespace _Scripts.Gameplay
 
         #region Cheats
         
-        [Button("Grant Ramdom Loot")]
-        private void Cheat_GrantLoot()
+        [BoxGroup("Loot")]
+        [Button("Grant Random Loot")]
+        private void Cheat_GrantRandomLoot()
         {
             if (!Application.isPlaying)
             {
@@ -80,6 +81,22 @@ namespace _Scripts.Gameplay
             LootManager.GrantLoot(AllLoot[Random.Range(0, AllLoot.Length)]);
         }
         
+        [BoxGroup("Loot")]
+        [Button("Grant All Loot")]
+        private void Cheat_GrantAllLoot()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            foreach (var schemaLoot in AllLoot)
+            {
+                LootManager.GrantLoot(schemaLoot);   
+            }
+        }
+        
+        [BoxGroup("Infamy")]
         [Button("Add 100 Infamy")]
         private void Cheat_AddInfamy100()
         {
@@ -91,6 +108,7 @@ namespace _Scripts.Gameplay
             DeltaInfamy(100);
         }
         
+        [BoxGroup("Infamy")]
         [Button("Add 1000 Infamy")]
         private void Cheat_AddInfamy1000()
         {
@@ -102,6 +120,7 @@ namespace _Scripts.Gameplay
             DeltaInfamy(1000);
         }
         
+        [BoxGroup("XP")]
         [Button("Add 2XP Owned Monsters")]
         private void Cheat_AddXPOwnedMonsters2()
         {
@@ -116,6 +135,7 @@ namespace _Scripts.Gameplay
             }
         }
         
+        [BoxGroup("XP")]
         [Button("Add 10XP Owned Monsters")]
         private void Cheat_AddXPOwnedMonsters10()
         {
@@ -130,6 +150,7 @@ namespace _Scripts.Gameplay
             }
         }
         
+        [BoxGroup("XP")]
         [Button("Add 100XP Owned Monsters")]
         private void Cheat_AddXPOwnedMonsters100()
         {
@@ -144,6 +165,7 @@ namespace _Scripts.Gameplay
             }
         }
 
+        [BoxGroup("Missions")]
         [Button("Unlock All Missions")]
         private void Cheat_UnlockAllMissions()
         {
@@ -158,6 +180,7 @@ namespace _Scripts.Gameplay
             }
         }
         
+        [BoxGroup("Missions")]
         [Button("Unlock Next Mission")]
         private void Cheat_UnlockNextMission()
         {
@@ -179,6 +202,7 @@ namespace _Scripts.Gameplay
             }
         }
         
+        [BoxGroup("Monsters")]
         [Button("Unlock All Monsters")]
         private void Cheat_UnlockAllMonsters()
         {
@@ -193,6 +217,7 @@ namespace _Scripts.Gameplay
             }
         }
         
+        [BoxGroup("Monsters")]
         [Button("Recruit All Monsters")]
         private void Cheat_RecruitAllMonsters()
         {

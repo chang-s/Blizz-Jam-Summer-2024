@@ -619,7 +619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3350421715824317083
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7206,7 +7206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -7430,11 +7430,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 306715237913907507, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 306715237913907507, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 306715237913907507, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -7650,7 +7650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952590129886099339, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5165413361219099902, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_IsActive
