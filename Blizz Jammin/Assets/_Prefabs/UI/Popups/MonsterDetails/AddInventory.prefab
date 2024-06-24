@@ -235,8 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 604155990374975765}
   - component: {fileID: 3529207463263891110}
-  - component: {fileID: 1181575257478064145}
-  - component: {fileID: 4074785562604006012}
+  - component: {fileID: 793760236277601096}
   m_Layer: 0
   m_Name: AddInventory
   m_TagString: Untagged
@@ -311,7 +310,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1181575257478064145
+--- !u!114 &793760236277601096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -320,7 +319,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5241506414019624099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a232c8879aa5eb499a5dce0d8d3b7d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 34c39a9e265924d4081541b32fc6c411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -331,42 +330,35 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  m_monsterDetails: {fileID: 4074785562604006012}
+    SerializationNodes:
+    - Name: m_states
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[_Scripts.UI.Loot+LootState,
+        Assembly-CSharp],[UnityEngine.GameObject, UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[_Scripts.UI.Loot+LootState,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   m_button: {fileID: 3529207463263891110}
-  m_noMonsterObject: {fileID: 7433615317115871324}
-  m_hasMonsterObject: {fileID: 4437424424995230780}
-  m_selectedObject: {fileID: 7515821641853654628}
-  m_lockedObject: {fileID: 2549272633721726991}
---- !u!114 &4074785562604006012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5241506414019624099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6622e6836cd7dc944b584cb6c1fe22c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  m_name: {fileID: 0}
-  m_description: {fileID: 0}
-  m_icon: {fileID: 3010561499458357163}
-  m_levelLabel: {fileID: 0}
-  m_xpLabel: {fileID: 0}
-  m_stats: {fileID: 0}
-  m_class: {fileID: 0}
-  m_quirks: []
+  m_lootIcon: {fileID: 0}
 --- !u!1 &7433615317115871324
 GameObject:
   m_ObjectHideFlags: 0
