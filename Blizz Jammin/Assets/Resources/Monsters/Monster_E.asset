@@ -110,7 +110,7 @@ MonoBehaviour:
   Description: The prophet of evil and the symbol of the occult. This little goat
     is a true menace to all, but he's so cute you can't stay away!
   Scale: {x: 1, y: 1, z: 1}
-  Sprite: {fileID: 21300000, guid: 42e64d028a57c9740986fbbd8d671d82, type: 3}
+  Sprite: {fileID: -1003585275, guid: a048c3045d12f42a48d155bd131454e4, type: 3}
   Class: {fileID: 11400000, guid: 9e0cd02fe00fd1b4888ffe8d17b0c7cf, type: 2}
   InitialQuirkCount: 1
   StartStatus: 0

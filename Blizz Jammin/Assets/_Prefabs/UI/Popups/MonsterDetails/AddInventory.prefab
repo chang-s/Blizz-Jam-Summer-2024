@@ -167,7 +167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6547959225833665620
 RectTransform:
   m_ObjectHideFlags: 0
@@ -184,8 +184,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.000011444092}
+  m_SizeDelta: {x: -28.381, y: -28.381}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5264216385228617074
 CanvasRenderer:
@@ -215,8 +215,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3651a48d588ea51419954793e7af226d, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: d86adb44dd3cd465d9337ab64892d901, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -235,8 +235,6 @@ GameObject:
   m_Component:
   - component: {fileID: 604155990374975765}
   - component: {fileID: 3529207463263891110}
-  - component: {fileID: 1181575257478064145}
-  - component: {fileID: 4074785562604006012}
   m_Layer: 0
   m_Name: AddInventory
   m_TagString: Untagged
@@ -311,62 +309,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1181575257478064145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5241506414019624099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a232c8879aa5eb499a5dce0d8d3b7d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  m_monsterDetails: {fileID: 4074785562604006012}
-  m_button: {fileID: 3529207463263891110}
-  m_noMonsterObject: {fileID: 7433615317115871324}
-  m_hasMonsterObject: {fileID: 4437424424995230780}
-  m_selectedObject: {fileID: 7515821641853654628}
-  m_lockedObject: {fileID: 2549272633721726991}
---- !u!114 &4074785562604006012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5241506414019624099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6622e6836cd7dc944b584cb6c1fe22c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  m_name: {fileID: 0}
-  m_description: {fileID: 0}
-  m_icon: {fileID: 3010561499458357163}
-  m_levelLabel: {fileID: 0}
-  m_xpLabel: {fileID: 0}
-  m_stats: {fileID: 0}
-  m_class: {fileID: 0}
-  m_quirks: []
 --- !u!1 &7433615317115871324
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 345192b21be25a84bad849d06f1d2e63, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf0bc4d1dfdb949f5b1c3454b1c4173d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

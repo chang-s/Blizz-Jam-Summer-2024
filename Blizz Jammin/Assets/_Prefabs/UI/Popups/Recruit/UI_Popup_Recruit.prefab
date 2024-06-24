@@ -4109,6 +4109,8 @@ MonoBehaviour:
   - {fileID: 580669494787859314}
   - {fileID: 2382861287528236429}
   - {fileID: 5402598549054895325}
+  m_itemButtons: []
+  m_itemImages: []
 --- !u!114 &7857922156576066777 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 752222304566768742, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
