@@ -128,7 +128,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   Name: Call from Mom
-  Description: << Needs Description >>
+  Description: Uh oh, when was the last time you called? You're going to get an earful!
   StarQuality: 2
   Icon: {fileID: 21300000, guid: e2e34956f3ff1de4fb46d581ea5aca0f, type: 3}
   SellValue: 25

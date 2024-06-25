@@ -255,5 +255,5 @@ MonoBehaviour:
   Name: Cursed Treasure Map
   Description: X marks the spot... but at what cost?
   StarQuality: 3
-  Icon: {fileID: 21300000, guid: 1162c9faa4b43884f951fff6d050a5d8, type: 3}
+  Icon: {fileID: 21300000, guid: 70d1cbbcb260611449ccea3fb9dfedc9, type: 3}
   SellValue: 50

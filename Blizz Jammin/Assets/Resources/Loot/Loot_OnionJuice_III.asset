@@ -124,7 +124,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   Name: Onion Juice
-  Description: Fresh squeezed orange juice! What? No, it;s orange juice, I swear.
+  Description: Fresh squeezed orange juice! What? No, it's orange juice, I swear.
     The smell? I don't smell anything.
   StarQuality: 3
   Icon: {fileID: 21300000, guid: 7716d4560c3d9f2409d4233bbf62754c, type: 3}
