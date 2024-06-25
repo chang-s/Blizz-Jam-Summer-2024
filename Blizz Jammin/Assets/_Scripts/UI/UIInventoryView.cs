@@ -81,7 +81,8 @@ namespace _Scripts.UI
                 
                 // We consider the required loot buffs "secret" because we wont show it until you activate it!
                 var modifier = m_shownInstance.Data.Modifiers[i];
-                bool isSecretBuff = modifier.RequiredLoot != null && modifier.RequiredLoot.Length > 0;
+                bool isSecretBuff = (modifier.RequiredLoot != null && modifier.RequiredLoot.Length > 0) ||
+                                    (modifier.RequiredQuirk != null && modifier.RequiredQuirk.Length > 0);
                 if (isSecretBuff && !modifier.Passes(m_shownInstance))
                 {
                     m_lootMods[i].Root.SetActive(false);

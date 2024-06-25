@@ -1,6 +1,6 @@
-﻿using _Scripts.Gameplay.Instances;
+﻿using System.Linq;
+using _Scripts.Gameplay.Instances;
 using _Scripts.Schemas;
-using _Scripts.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -47,25 +47,11 @@ namespace _Scripts.Gameplay
         [BoxGroup("Requirements")]
         public SchemaLoot[] RequiredLoot;
         
-        // TODO: Stretch goals
-        /*
-        /// <summary>
-        /// If supplied, all loot must be present in the party for this modifier to take effect.
-        /// "If party has walkie-talkie, +10 Luck"
-        /// </summary>
-        [BoxGroup("Requirements")] 
-        public SchemaLoot[] RequiredLootParty;
-
-        /// <summary>
-        /// If supplied, all loot must be present in the party for this modifier to take effect.
-        /// "If party has a Sneaky and Slimy monster, +10 Luck"
-        /// </summary>
-        [BoxGroup("Requirements")] 
-        public SchemaLoot[] RequiredQurikParty;
-        */
         public bool Passes(InstanceLoot loot)
         {
-            if (RequiredLoot == null || RequiredLoot.Length == 0)
+            bool hasLootRequirements = RequiredLoot != null && RequiredLoot.Length > 0;
+            bool hasQuirkRequirements = RequiredQuirk != null && RequiredQuirk.Length > 0;
+            if (!hasLootRequirements && !hasQuirkRequirements)
             {
                 return true;
             }
@@ -74,13 +60,39 @@ namespace _Scripts.Gameplay
             {
                 return false;
             }
-            
-            foreach (var schemaLoot in RequiredLoot)
+
+            bool passes = true;
+            if (hasLootRequirements)
             {
-                var toFind = loot.EquippedMonster.EquippedLoot.Find(l => l.Data == schemaLoot);
-                if (toFind != null)
+                passes = false;
+                foreach (var schemaLoot in RequiredLoot)
                 {
-                    return true;
+                    if (loot.EquippedMonster.EquippedLoot.Contains(loot))
+                    {
+                        passes = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!passes)
+            {
+                return false;
+            }
+            
+            if (hasQuirkRequirements)
+            {
+                foreach (var schemaQuirk in RequiredQuirk)
+                {
+                    if (loot.EquippedMonster.Quirks.Contains(schemaQuirk))
+                    {
+                        return true;
+                    }
+
+                    if (loot.EquippedMonster.Class == schemaQuirk)
+                    {
+                        return true;
+                    }
                 }
             }
 
