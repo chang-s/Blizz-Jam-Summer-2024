@@ -8,12 +8,11 @@ namespace _Scripts.UI
 {
     public class UILootEquipPopup : MonoBehaviour, IWorldInstanceController<Monster>
     {
-        [SerializeField] private UILootEquipEntry m_entryPrefab;
+        [SerializeField] private UILoot m_lootPrefab;
         [SerializeField] private Transform m_entryRoot;
 
         private Monster m_monster;
-
-        private List<UILootEquipEntry> m_entries = new ();
+        private List<UILoot> m_entries = new ();
 
         private void Awake()
         {
@@ -33,7 +32,7 @@ namespace _Scripts.UI
 
         private void UpdateLootItems()
         {
-            var ownedItems = ServiceLocator.Instance.LootManager.Loot.ToList();
+            var ownedItems = ServiceLocator.Instance.LootManager.LootInstances.ToList();
             for (var i = 0; i < ownedItems.Count; i++)
             {
                 var item = ownedItems[i];
@@ -41,12 +40,27 @@ namespace _Scripts.UI
                 // Add an entry if we need to
                 if (i >= m_entries.Count)
                 {
-                    var entry = Instantiate(m_entryPrefab, m_entryRoot);
+                    var entry = Instantiate(m_lootPrefab, m_entryRoot);
                     m_entries.Add(entry);
+                    
+                    entry.Button.onClick.AddListener(() =>
+                    {
+                        if (entry.EquippedMonster != null && entry.EquippedMonster == m_monster)
+                        {
+                            ServiceLocator.Instance.LootManager.UnEquip(entry.Instance, m_monster);
+                        }
+                        else
+                        {
+                            ServiceLocator.Instance.LootManager.Equip(entry.Instance, m_monster);
+                        }
+            
+                        // TODO: Better UX
+                        // for now, close this popup
+                        ServiceLocator.Instance.UIPopupManager.RequestClose();
+                    });
                 }
 
                 m_entries[i].SetInstance(item);
-                m_entries[i].SetInstance(m_monster);
 
                 // Do not show items that are equipped from other monsters
                 if (item.EquippedMonster != null && item.EquippedMonster != m_monster)

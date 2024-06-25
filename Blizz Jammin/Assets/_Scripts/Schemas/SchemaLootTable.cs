@@ -53,7 +53,7 @@ namespace _Scripts.Schemas
         /// <summary>
         /// Helper function for setting up data in edit time.
         /// </summary>
-        [Button("Set Basic Loot Table (Empty)")]
+        [Button("Set Basic LootInstances Table (Empty)")]
         public void SetupBasicLootTable()
         {
             LootTable = new LootTableEntry[] {

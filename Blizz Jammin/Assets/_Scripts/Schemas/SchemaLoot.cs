@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Scripts.Schemas
 {
-    [CreateAssetMenu(menuName = "Schema/Loot")]
+    [CreateAssetMenu(menuName = "Schema/LootInstances")]
     public class SchemaLoot : Schema
     {
         /// <summary>

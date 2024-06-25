@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
@@ -118,11 +117,11 @@ namespace _Scripts.UI
                 
                 // TODO: Better UX indexing items
                 // TODO: better "add item" sprite
-                m_itemImages[i].sprite = equippedLoot ? equippedLoot.Data.Icon : null;
-                m_itemImages[i].gameObject.SetActive(equippedLoot);
+                m_itemImages[i].sprite = equippedLoot?.Data.Icon;
+                m_itemImages[i].gameObject.SetActive(equippedLoot != null);
             }
 
-            // Loot changed, so we must update the stat panel
+            // LootInstances changed, so we must update the stat panel
             if (m_instance != null && m_stats != null)
             {
                 m_stats.SetInstance(m_instance);

@@ -69,8 +69,8 @@ namespace _Scripts.Gameplay
 
         #region Cheats
         
-        [BoxGroup("Loot")]
-        [Button("Grant Random Loot")]
+        [BoxGroup("LootInstances")]
+        [Button("Grant Random LootInstances")]
         private void Cheat_GrantRandomLoot()
         {
             if (!Application.isPlaying)
@@ -81,8 +81,8 @@ namespace _Scripts.Gameplay
             LootManager.GrantLoot(AllLoot[Random.Range(0, AllLoot.Length)]);
         }
         
-        [BoxGroup("Loot")]
-        [Button("Grant All Loot")]
+        [BoxGroup("LootInstances")]
+        [Button("Grant All LootInstances")]
         private void Cheat_GrantAllLoot()
         {
             if (!Application.isPlaying)

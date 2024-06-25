@@ -1,5 +1,6 @@
 using System.Linq;
 using _Scripts.Gameplay;
+using _Scripts.Gameplay.Instances;
 using _Scripts.Schemas;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -46,15 +47,15 @@ namespace _Scripts.UI
             HandleRecruitBadge();
         }
 
-        private void OnLootAdded(Loot _)
+        private void OnLootAdded(InstanceLoot _)
         {
             HandleLootBadge();
         }
         
         private void HandleLootBadge()
         {
-            var items = ServiceLocator.Instance.LootManager.Loot;
-            int newLoot = items.Count(l => l.IsNew);
+            var items = ServiceLocator.Instance.LootManager.LootInstances;
+            int newLoot = items.Count(l => l.State == InstanceLoot.LootState.OwnedNew);
             m_badgeInventory.SetActive(newLoot > 0);
         }
 

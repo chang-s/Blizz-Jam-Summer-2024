@@ -1,4 +1,5 @@
-﻿using _Scripts.Schemas;
+﻿using _Scripts.Gameplay.Instances;
+using _Scripts.Schemas;
 using _Scripts.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -62,7 +63,7 @@ namespace _Scripts.Gameplay
         [BoxGroup("Requirements")] 
         public SchemaLoot[] RequiredQurikParty;
         */
-        public bool Passes(Loot loot)
+        public bool Passes(InstanceLoot loot)
         {
             if (RequiredLoot == null || RequiredLoot.Length == 0)
             {
@@ -76,7 +77,7 @@ namespace _Scripts.Gameplay
             
             foreach (var schemaLoot in RequiredLoot)
             {
-                Loot toFind = loot.EquippedMonster.EquippedLoot.Find(l => l.Data == schemaLoot);
+                var toFind = loot.EquippedMonster.EquippedLoot.Find(l => l.Data == schemaLoot);
                 if (toFind != null)
                 {
                     return true;

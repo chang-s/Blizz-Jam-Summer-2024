@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.Gameplay.Instances;
 using _Scripts.Schemas;
 using _Scripts.UI;
 using TMPro;
@@ -57,7 +58,7 @@ namespace _Scripts.Gameplay
         /// <summary>
         /// TEMP
         /// </summary>
-        public List<Loot> EquippedLoot = new List<Loot>();
+        public List<InstanceLoot> EquippedLoot = new List<InstanceLoot>();
 
         /// <summary>
         /// Read only version of the quirks.

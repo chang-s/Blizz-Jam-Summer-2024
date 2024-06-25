@@ -41,7 +41,7 @@ namespace _Scripts.UI
         [BoxGroup("Mission State")] 
         [SerializeField] private Image m_icon;
         [BoxGroup("Mission State")] 
-        [SerializeField] private Loot m_lootPrefab;
+        [SerializeField] private UILoot m_lootPrefab;
         [BoxGroup("Mission State")] 
         [SerializeField] private Transform m_lootRoot;
         [BoxGroup("Mission State")]
@@ -106,7 +106,7 @@ namespace _Scripts.UI
             m_xp.SetText(data.Xp.ToString());
             m_icon.sprite = data.Icon;
 
-            // Loot
+            // LootInstances
             // Clear whatever is there, then instantiate new ones.
             // TODO: Optimization - We can recycle these via a pool
             foreach(Transform child in m_lootRoot.transform)
@@ -117,7 +117,7 @@ namespace _Scripts.UI
             HashSet<SchemaLoot> loot = data.LootTable.GetAllPossibleLoot();
             foreach (var schemaLoot in loot)
             {
-                Loot instance = Instantiate(m_lootPrefab, m_lootRoot);
+                UILoot instance = Instantiate(m_lootPrefab, m_lootRoot);
                 instance.SetData(schemaLoot);
             }
             
