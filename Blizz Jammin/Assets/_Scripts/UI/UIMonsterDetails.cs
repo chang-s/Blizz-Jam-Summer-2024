@@ -105,7 +105,7 @@ namespace _Scripts.UI
 
         private void UpdateLoot()
         {
-            if (m_itemImages == null)
+            if (m_itemImages == null || m_itemImages.Length == 0)
             {
                 return;
             }
@@ -120,6 +120,12 @@ namespace _Scripts.UI
                 // TODO: better "add item" sprite
                 m_itemImages[i].sprite = equippedLoot ? equippedLoot.Data.Icon : null;
                 m_itemImages[i].gameObject.SetActive(equippedLoot);
+            }
+
+            // Loot changed, so we must update the stat panel
+            if (m_instance != null && m_stats != null)
+            {
+                m_stats.SetInstance(m_instance);
             }
         }
 

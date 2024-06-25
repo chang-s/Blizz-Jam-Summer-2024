@@ -69,8 +69,6 @@ namespace _Scripts.Gameplay
         [SerializeField] private Dictionary<MonsterStatus, GameObject> m_states;
 
         private Dictionary<SchemaStat.Stat, int> m_stats = new();
-        private Dictionary<SchemaStat.Stat, int> m_flatStatBonus = new();
-        private Dictionary<SchemaStat.Stat, float> m_mulltStatBonus = new();
 
         private HashSet<SchemaQuirk> m_quirks = new HashSet<SchemaQuirk>();
 
@@ -84,8 +82,6 @@ namespace _Scripts.Gameplay
             foreach (var (schemaStat, amount) in Data.Stats)
             {
                 m_stats.Add(schemaStat.Type, amount);
-                m_flatStatBonus.Add(schemaStat.Type, 0);
-                m_mulltStatBonus.Add(schemaStat.Type, 0);
             }
 
             UpdateVisuals();
@@ -202,21 +198,69 @@ namespace _Scripts.Gameplay
         public int GetStatValue(SchemaStat.Stat stat)
         {
             int valueScaledToLevel = (int) (m_stats[stat] * Math.Pow(m_gameSettings.StatLevelExponent, Level - 1));
-            int flatBonus = m_flatStatBonus[stat];
-            int totalBeforeMult = valueScaledToLevel + flatBonus;
-            float multBonus = m_mulltStatBonus[stat];
+            var bonusTuple = GetLootStatBonuses(stat);
+            
+            int flat = bonusTuple.Item1;
+            int totalBeforeMult = valueScaledToLevel + flat;
 
-            return totalBeforeMult + (int) (multBonus * totalBeforeMult);
+            float mult = bonusTuple.Item2;
+            int statValueRaw = totalBeforeMult + (int) (mult * totalBeforeMult);
+            
+            // Do not allow stats to go below 0
+            return Math.Max(0, statValueRaw);
         }
 
-        public void DeltaFlatBonus(SchemaStat.Stat stat, int delta)
+        private (int, float) GetLootStatBonuses(SchemaStat.Stat stat)
         {
-            m_flatStatBonus[stat] += delta;
-        }
-        
-        public void DeltaMultBonus(SchemaStat.Stat stat, float delta)
-        {
-            m_mulltStatBonus[stat] += delta;
+            // Get all the buffs from items on you or your team
+            Monster[] monsters = new Monster[1];
+            monsters[0] = this;
+
+            if (CurrentMission != null)
+            {
+                monsters = ServiceLocator.Instance.MonsterManager.GetParty(CurrentMission);
+            }
+            
+            int flat = 0;
+            float mult = 0f;
+            for (var i = 0; i < monsters.Length; i++)
+            {
+                var monster = monsters[i];
+                if (monster == null)
+                {
+                    continue;
+                }
+                
+                foreach (var loot in monster.EquippedLoot)
+                {
+                    foreach (var dataModifier in loot.Data.Modifiers)
+                    {
+                        // Skip this mod, its not of our stat
+                        if (dataModifier.Stat.Type != stat)
+                        {
+                            continue;
+                        }
+                        
+                        // The wearer of the loot does not pass requirements
+                        if (!dataModifier.Passes(loot))
+                        {
+                            continue;
+                        }
+
+                        // The loot is not owned by us and its not an aura, so we do not benefit
+                        if (monster != this && !dataModifier.Aura)
+                        {
+                            continue;
+                        }
+                        
+                        // We benefit from this loot!
+                        flat += dataModifier.FlatAmount;
+                        mult += dataModifier.MultAmount;
+                    }
+                }   
+            }
+
+            return (flat, mult);
         }
 
         /// <summary>
