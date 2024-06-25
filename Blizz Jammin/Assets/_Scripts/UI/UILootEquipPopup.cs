@@ -10,6 +10,7 @@ namespace _Scripts.UI
     {
         [SerializeField] private UILoot m_lootPrefab;
         [SerializeField] private Transform m_entryRoot;
+        [SerializeField] private GameObject m_noItemGroup;
 
         private Monster m_monster;
         private List<UILoot> m_entries = new ();
@@ -32,6 +33,7 @@ namespace _Scripts.UI
 
         private void UpdateLootItems()
         {
+            int shownItems = 0;
             var ownedItems = ServiceLocator.Instance.LootManager.LootInstances.ToList();
             for (var i = 0; i < ownedItems.Count; i++)
             {
@@ -71,6 +73,9 @@ namespace _Scripts.UI
                 {
                     m_entries[i].gameObject.SetActive(true);
                 }
+
+
+                shownItems++;
             }
             
             // Handle leftovers
@@ -81,6 +86,8 @@ namespace _Scripts.UI
                     m_entries[i].gameObject.SetActive(false);
                 }
             }
+            
+            m_noItemGroup.SetActive(shownItems == 0);
         }
     }
 }

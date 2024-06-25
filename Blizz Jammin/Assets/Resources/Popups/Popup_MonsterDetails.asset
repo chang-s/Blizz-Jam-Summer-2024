@@ -23,3 +23,5 @@ MonoBehaviour:
     SerializationNodes: []
   Prefab: {fileID: 7857922156576066777, guid: 94fcdbead9230d84ea73b617e40f34a1, type: 3}
   Type: 0
+  DismissOnBGTap: 0
+  BypassQueue: 0

@@ -52,7 +52,7 @@ namespace _Scripts.UI
             {
                 if (m_shownInstance != null)
                 {
-                    m_shownInstance.MarkSeen();
+                    ServiceLocator.Instance.LootManager.MarkSeen(m_shownInstance);
                     SetInstance(m_shownInstance);
                 }
             };
@@ -61,7 +61,7 @@ namespace _Scripts.UI
         public void SetInstance(InstanceLoot instance)
         {
             m_shownInstance = instance;
-            
+            ServiceLocator.Instance.LootManager.MarkSeen(m_shownInstance);
             m_uiLoot.SetInstance(instance);
             UpdateVisuals();
         }
@@ -142,7 +142,7 @@ namespace _Scripts.UI
             // Add a listener to the button to show that item's details
             loot.Button.onClick.AddListener(() =>
             {
-                instance.MarkSeen();
+                ServiceLocator.Instance.LootManager.MarkSeen(instance);
                 SetInstance(instance);
             });
         }

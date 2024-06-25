@@ -53,6 +53,16 @@ namespace _Scripts.UI
 
                 UpdateStateVisuals();
             };
+            
+            ServiceLocator.Instance.LootManager.OnLootSeen += loot =>
+            {
+                if (loot != Instance)
+                {
+                    return;
+                }
+
+                UpdateStateVisuals();
+            };
         }
 
         public void SetInstance(InstanceLoot instance)

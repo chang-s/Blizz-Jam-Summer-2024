@@ -13,9 +13,9 @@ namespace _Scripts.Gameplay
         [HideInInspector] public Action<InstanceLoot> OnLootSold;
         [HideInInspector] public Action<InstanceLoot> OnLootEquipped;
         [HideInInspector] public Action<InstanceLoot> OnLootUnEquipped;
+        [HideInInspector] public Action<InstanceLoot> OnLootSeen;
 
         public IReadOnlyCollection<InstanceLoot> LootInstances => m_lootInstances;
-
         private List<InstanceLoot> m_lootInstances = new List<InstanceLoot>();
 
         public void GrantLoot(SchemaLoot schema)
@@ -38,6 +38,12 @@ namespace _Scripts.Gameplay
             
             m_lootInstances.Remove(instance);
             OnLootSold?.Invoke(instance);
+        }
+
+        public void MarkSeen(InstanceLoot loot)
+        {
+            loot.MarkSeen();
+            OnLootSeen?.Invoke(loot);
         }
 
         public void Equip(InstanceLoot loot, Monster monster)

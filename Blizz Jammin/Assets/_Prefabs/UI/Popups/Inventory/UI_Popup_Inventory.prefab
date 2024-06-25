@@ -5983,7 +5983,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4853199075360383425, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5684639864767168175, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: serializationData.Prefab
