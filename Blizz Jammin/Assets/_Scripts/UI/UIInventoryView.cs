@@ -104,6 +104,11 @@ namespace _Scripts.UI
                     result += (Math.Abs(modifier.MultAmount) * 100).ToString();
                     result += "% ";
                 }
+                else
+                {
+                    // Special case for Wanted Poster
+                    result += "+0";
+                }
 
                 result += modifier.Aura ? "to Party" : "to Self";
 

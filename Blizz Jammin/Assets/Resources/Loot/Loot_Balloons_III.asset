@@ -21,6 +21,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9e0cd02fe00fd1b4888ffe8d17b0c7cf, type: 2}
     - {fileID: 11400000, guid: 62b4fec89460b7941a23214c6d09edea, type: 2}
     - {fileID: 11400000, guid: dfe5e6b37da6f434e8c0cf470faa24a6, type: 2}
+    - {fileID: 11400000, guid: 83cf9ea79a10ddf4f94c85b990580bed, type: 2}
+    - {fileID: 11400000, guid: 0cb8409e4dcca194fb4275c7f4e8a781, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -31,7 +33,7 @@ MonoBehaviour:
       Data: 0|_Scripts.Gameplay.StatModifier[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 1|_Scripts.Gameplay.StatModifier, Assembly-CSharp
@@ -152,6 +154,51 @@ MonoBehaviour:
     - Name: RequiredLoot
       Entry: 7
       Data: 9|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|_Scripts.Gameplay.StatModifier, Assembly-CSharp
+    - Name: Stat
+      Entry: 10
+      Data: 5
+    - Name: FlatAmount
+      Entry: 3
+      Data: 0
+    - Name: MultAmount
+      Entry: 4
+      Data: 0
+    - Name: Aura
+      Entry: 5
+      Data: false
+    - Name: RequiredQuirk
+      Entry: 7
+      Data: 11|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RequiredLoot
+      Entry: 7
+      Data: 12|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad2da98d9fbaf524085fb3ce586b172f, type: 3}
-  m_Name: Loot_Balloons_II
+  m_Name: Loot_MonsterOfTheMonth_I
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: e8ed13565f2e69945bf0c79c6d421b5c, type: 2}
-    - {fileID: 11400000, guid: 7631b94fef4a06744980a2c6e39b34ad, type: 2}
-    - {fileID: 11400000, guid: 9e0cd02fe00fd1b4888ffe8d17b0c7cf, type: 2}
-    - {fileID: 11400000, guid: 62b4fec89460b7941a23214c6d09edea, type: 2}
-    - {fileID: 11400000, guid: dfe5e6b37da6f434e8c0cf470faa24a6, type: 2}
     - {fileID: 11400000, guid: 83cf9ea79a10ddf4f94c85b990580bed, type: 2}
-    - {fileID: 11400000, guid: 0cb8409e4dcca194fb4275c7f4e8a781, type: 2}
+    - {fileID: 11400000, guid: 106f47a772dcd114fa74626e603b85b6, type: 2}
+    - {fileID: 11400000, guid: 62b4fec89460b7941a23214c6d09edea, type: 2}
+    - {fileID: 11400000, guid: 7631b94fef4a06744980a2c6e39b34ad, type: 2}
+    - {fileID: 11400000, guid: e8ed13565f2e69945bf0c79c6d421b5c, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -33,7 +31,7 @@ MonoBehaviour:
       Data: 0|_Scripts.Gameplay.StatModifier[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
       Data: 1|_Scripts.Gameplay.StatModifier, Assembly-CSharp
@@ -42,13 +40,13 @@ MonoBehaviour:
       Data: 0
     - Name: FlatAmount
       Entry: 3
-      Data: -5
+      Data: 2
     - Name: MultAmount
       Entry: 4
       Data: 0
     - Name: Aura
       Entry: 5
-      Data: false
+      Data: true
     - Name: RequiredQuirk
       Entry: 7
       Data: 2|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
@@ -84,10 +82,10 @@ MonoBehaviour:
       Data: 1
     - Name: FlatAmount
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: MultAmount
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: Aura
       Entry: 5
       Data: true
@@ -96,10 +94,7 @@ MonoBehaviour:
       Data: 5|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 10
-      Data: 2
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -126,13 +121,13 @@ MonoBehaviour:
       Data: 7|_Scripts.Gameplay.StatModifier, Assembly-CSharp
     - Name: Stat
       Entry: 10
-      Data: 3
+      Data: 2
     - Name: FlatAmount
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: MultAmount
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: Aura
       Entry: 5
       Data: true
@@ -141,10 +136,7 @@ MonoBehaviour:
       Data: 8|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 10
-      Data: 4
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -171,25 +163,22 @@ MonoBehaviour:
       Data: 10|_Scripts.Gameplay.StatModifier, Assembly-CSharp
     - Name: Stat
       Entry: 10
-      Data: 5
+      Data: 3
     - Name: FlatAmount
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: MultAmount
       Entry: 4
       Data: 0
     - Name: Aura
       Entry: 5
-      Data: false
+      Data: true
     - Name: RequiredQuirk
       Entry: 7
       Data: 11|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 10
-      Data: 6
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -212,14 +201,56 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 13|_Scripts.Gameplay.StatModifier, Assembly-CSharp
+    - Name: Stat
+      Entry: 10
+      Data: 4
+    - Name: FlatAmount
+      Entry: 3
+      Data: 2
+    - Name: MultAmount
+      Entry: 4
+      Data: 0
+    - Name: Aura
+      Entry: 5
+      Data: true
+    - Name: RequiredQuirk
+      Entry: 7
+      Data: 14|_Scripts.Schemas.SchemaQuirk[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  Name: Balloon Bouqet
-  Description: You stole these and think you're going to jail? Of course not. Not
-    on national Free Balloon Day!
-  StarQuality: 2
-  Icon: {fileID: 21300000, guid: 1162c9faa4b43884f951fff6d050a5d8, type: 3}
-  SellValue: 25
+    - Name: RequiredLoot
+      Entry: 7
+      Data: 15|_Scripts.Schemas.SchemaLoot[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Name: Monster of the Month
+  Description: You're one of the best we've ever seen! Here, have this raise that's
+    less than inflation. You earned it!
+  StarQuality: 1
+  Icon: {fileID: 21300000, guid: 6bb0c5dc5eb6af545aeb3fcdeb907e2c, type: 3}
+  SellValue: 5
