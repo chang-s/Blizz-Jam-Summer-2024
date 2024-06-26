@@ -77,7 +77,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
   Name: Three Leaf Clover
-  Description: << Need Description >>
+  Description: Not as lucky as a four-leaf clover, but hey that's life, you take
+    what you can get.
   StarQuality: 3
   Icon: {fileID: 21300000, guid: f26d4f569ceab6947beec816e9a92df9, type: 3}
   SellValue: 50
