@@ -22,5 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Name: Terror
+  TooltipText: Adds critical strike multiplier. Reudces the time a mission will take.
+    Increases the Infamy from missions.
   Sprite: {fileID: 21300000, guid: 63b6984390a434a999c8b4e117d5eb62, type: 3}
   Type: 4

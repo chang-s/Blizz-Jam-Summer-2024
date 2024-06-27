@@ -22,4 +22,6 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Name: Tactician
+  TooltipText: 'Tactician: Provides less than average combat support, but supports
+    the logistical aspects.'
   Icon: {fileID: 21300000, guid: 63b6984390a434a999c8b4e117d5eb62, type: 3}

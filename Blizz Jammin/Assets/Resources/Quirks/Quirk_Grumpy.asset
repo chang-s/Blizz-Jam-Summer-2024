@@ -22,4 +22,5 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Name: Grumpy
+  TooltipText: 'Quirk: Grumpy'
   Icon: {fileID: 21300000, guid: 889bfc010fb1f4126b24cc89e91f446b, type: 3}

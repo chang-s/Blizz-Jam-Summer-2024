@@ -22,4 +22,6 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Name: Attack
+  TooltipText: Deal this much damage every combat step.
   Sprite: {fileID: 21300000, guid: 0c297f19997334a1facf567850d25b4b, type: 3}
+  Type: 0

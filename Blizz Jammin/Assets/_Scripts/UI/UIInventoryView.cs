@@ -5,6 +5,7 @@ using _Scripts.Gameplay;
 using _Scripts.Gameplay.Instances;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _Scripts.UI
@@ -64,6 +65,16 @@ namespace _Scripts.UI
             ServiceLocator.Instance.LootManager.MarkSeen(m_shownInstance);
             m_uiLoot.SetInstance(instance);
             UpdateVisuals();
+            
+            // HACK: We are relying on Unity's selection state, but it gets cleared when you press "sell"
+            // To remedy this, we should always select the instance that we are set to
+            EventSystem.current.SetSelectedGameObject(GetUILoot(instance));
+        }
+
+        private GameObject GetUILoot(InstanceLoot instance)
+        {
+            var uiLoot = m_loot.Find(l => l.Instance == instance);
+            return uiLoot != null ? uiLoot.gameObject : null;
         }
 
         private void UpdateVisuals()
@@ -158,21 +169,39 @@ namespace _Scripts.UI
             // Since the only time we can sell is when we view an item, we can assume we do not see it anymore
             m_shownInstance = null;
 
-            // Cleanup after this loot item
-            // TODO: Recycle these objects
+            // Find the loot item, if you can
             UILoot uiLoot = m_loot.Find(l => l.Instance == instance);
+            int lootIndex = m_loot.FindIndex(l => l.Instance == instance);
+            if (uiLoot == null)
+            {
+                return;
+            }
+
+            // Cleanup after this loot item
             uiLoot.Button.onClick.RemoveAllListeners();
             m_loot.Remove(uiLoot);
             DestroyImmediate(uiLoot.gameObject);
             
-            // TODO: Try to be smarter and get next/prev instead of first item
-            // Try to auto select the first item
-            var loot = ServiceLocator.Instance.LootManager.LootInstances;
-            m_noItemsPanel.SetActive(loot.Count == 0);
-            if (loot.Count > 0)
+            // Select the item before it in the list
+            var loot = ServiceLocator.Instance.LootManager.LootInstances.ToArray();
+            if (loot.Length == 0)
             {
-                SetInstance(loot.ToArray()[0]);
+                m_noItemsPanel.SetActive(true);
+                return;
             }
+
+            if (loot.Length == 1)
+            {
+                SetInstance(loot[0]);
+                return;
+            }
+
+            int newLootIndex = lootIndex;
+            while (newLootIndex >= loot.Length)
+            {
+                newLootIndex--;
+            }
+            SetInstance(loot[newLootIndex]);
         }
     }
 }

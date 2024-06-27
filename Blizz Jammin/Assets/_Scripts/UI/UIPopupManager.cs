@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
+using _Scripts.UI.Tooltip;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +10,12 @@ namespace _Scripts.UI
 {
     public class UIPopupManager : SerializedMonoBehaviour
     {
+        [SerializeField] private UITooltip m_tooltip;
         [SerializeField] private Button m_sharedBG;
         [SerializeField] private Transform m_root;
 
+        public UITooltip Tooltip => m_tooltip;
+        
         /// <summary>
         /// All the popup instances for the game.
         /// </summary>

@@ -10,6 +10,14 @@ namespace _Scripts.Schemas
         public string Name;
         
         [BoxGroup("Visuals")] 
+        public string TooltipText;
+        
+        [BoxGroup("Visuals")] 
         public Sprite Icon;
+        
+        public override string GetTooltipText()
+        {
+            return TooltipText;
+        }
     }
 }

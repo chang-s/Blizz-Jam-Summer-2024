@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 6734428766799644199}
   - component: {fileID: 7344623982336418196}
   - component: {fileID: 4523403678849977172}
+  - component: {fileID: 2778588245112583460}
   m_Layer: 0
-  m_Name: UI_MissionEffectAdjustment
+  m_Name: UI_Mission_Modifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,10 +37,10 @@ RectTransform:
   - {fileID: 4444138221876437756}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 182.5, y: 33.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7344623982336418196
 MonoBehaviour:
@@ -100,9 +101,31 @@ MonoBehaviour:
   m_buffBackground: {fileID: 3620500864019623790}
   m_debuffBackground: {fileID: 4402885979260388624}
   m_effectLabel: {fileID: 2874682584227058251}
-  m_modVisualRoot: {fileID: 4444138221876437756}
+  m_buffAmountImage: {fileID: 696684114934197572}
   m_buffMod: {fileID: 4953197380917681269, guid: 4a565a9295dca324e824f089b44a400d, type: 3}
   m_debuffMod: {fileID: 4953197380917681269, guid: 9357cce33ce70ad4da2a7fe514a3dafe, type: 3}
+  m_buffIcons:
+  - {fileID: 21300000, guid: a713d2c7036055e4e9c5ee718f8ed1c5, type: 3}
+  - {fileID: 21300000, guid: 0ec047449ed3c2b42929565f669fecd3, type: 3}
+  - {fileID: 21300000, guid: d314060aa808bde4a8ba561ee902f206, type: 3}
+  m_debuffIcons:
+  - {fileID: 0}
+  - {fileID: 21300000, guid: c9e977e50e5507341aa799e20534aa4f, type: 3}
+  - {fileID: 21300000, guid: 7746e2abb41466147b480e98d07cd9cf, type: 3}
+--- !u!114 &2778588245112583460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137672381054350225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f2dc80e466e4f2093b3e0439da212f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_text: Each tick represents 10% stat reduction for monsters with the specified
+    quirk!
 --- !u!1 &3620500864019623790
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,9 +191,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 57472be9b76884362a9b12195aa31c5e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d33ca09d1b75ec44db417d04d7979407, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -243,9 +266,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 50ff874f877df4c24a484b4d30555a59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b2c8037b931998b479c19e2b67c7d03f, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -287,8 +310,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 34.70957, y: 0}
-  m_SizeDelta: {x: 130.5809, y: 50}
+  m_AnchoredPosition: {x: 15.0282, y: 0.2902}
+  m_SizeDelta: {x: 91.0147, y: 25.0632}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3145528407606399439
 CanvasRenderer:
@@ -345,10 +368,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 22.4
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -396,7 +419,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4444138221876437756}
-  - component: {fileID: 4753543937618586264}
+  - component: {fileID: 8780194977624914698}
+  - component: {fileID: 696684114934197572}
   m_Layer: 0
   m_Name: ModAmount
   m_TagString: Untagged
@@ -418,12 +442,20 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6734428766799644199}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 101.458984, y: -0.59996}
-  m_SizeDelta: {x: 22.918, y: 38.8}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 40.6221, y: -0.96992}
+  m_SizeDelta: {x: 22.5558, y: 22.543}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4753543937618586264
+--- !u!222 &8780194977624914698
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7847336943096842426}
+  m_CullTransparentMesh: 1
+--- !u!114 &696684114934197572
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -432,18 +464,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 7847336943096842426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 2
-    m_Bottom: 0
-  m_ChildAlignment: 1
-  m_StartCorner: 0
-  m_StartAxis: 1
-  m_CellSize: {x: 10, y: 10}
-  m_Spacing: {x: 0, y: 2}
-  m_Constraint: 1
-  m_ConstraintCount: 1
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 7746e2abb41466147b480e98d07cd9cf, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1

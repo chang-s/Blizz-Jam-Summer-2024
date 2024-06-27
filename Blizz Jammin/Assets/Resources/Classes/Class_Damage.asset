@@ -22,4 +22,5 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Name: Damage
+  TooltipText: 'Damage: Excels at dealing damage through direct attack.'
   Icon: {fileID: 21300000, guid: 0c297f19997334a1facf567850d25b4b, type: 3}

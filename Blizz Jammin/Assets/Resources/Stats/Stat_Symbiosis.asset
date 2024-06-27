@@ -22,5 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Name: Symbiosis
+  TooltipText: Deal this much damage for each non Exhausted party member every combat
+    step. Gain more XP from missions.
   Sprite: {fileID: 21300000, guid: 6d19db44ad47e4a9c9e57248cfa92d46, type: 3}
   Type: 3

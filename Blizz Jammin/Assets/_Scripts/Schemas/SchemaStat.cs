@@ -16,10 +16,16 @@ namespace _Scripts.Schemas
         }
         
         /// <summary>
-        /// The monster's name to be displayed in UI.
+        /// The stat's name to be displayed in UI.
         /// </summary>
         [BoxGroup("Visuals")]
         public string Name;
+        
+        /// <summary>
+        /// The stat's tooltip to be displayed in UI.
+        /// </summary>
+        [BoxGroup("Visuals")]
+        public string TooltipText;
         
         /// <summary>
         /// The sprite used when shown in the world/UI.
@@ -32,5 +38,10 @@ namespace _Scripts.Schemas
         /// For referencing directly with code.
         /// </summary>
         public Stat Type;
+
+        public override string GetTooltipText()
+        {
+            return TooltipText;
+        }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using _Scripts.Gameplay;
@@ -14,20 +13,11 @@ namespace _Scripts.UI
     // TODO: Major cleanup on monste add flow
     public class UIMissionDetails : MonoBehaviour, ISchemaController<SchemaMission>
     {
-        private const string c_enduranceFormat = "Endurance: {0}";
-        private const string c_timeFormat = "Time: {0}";
-        private const string c_infamyFormat = "Infamy: {0}";
-        private const string c_xpFormat = "XP: {0}";
-        private const string c_difficultyDefault = "Medium";
-        private const string c_quoteDefault = "Wow, is it me or is it kinda hot in here?";
-
         [BoxGroup("Popup")] 
         [SerializeField] private UIPopup m_popup;
         
         [BoxGroup("Mission State")] 
         [SerializeField] private TMP_Text m_name;
-        [BoxGroup("Mission State")]
-        [SerializeField] private TMP_Text m_difficulty;
         [BoxGroup("Mission State")]
         [SerializeField] private TMP_Text m_quote;
         [BoxGroup("Mission State")] 
@@ -45,7 +35,9 @@ namespace _Scripts.UI
         [BoxGroup("Mission State")] 
         [SerializeField] private Transform m_lootRoot;
         [BoxGroup("Mission State")]
-        [SerializeField] private Transform m_quirkEffectRoot;
+        [SerializeField] private Transform m_positiveQuirkRoot;
+        [BoxGroup("Mission State")]
+        [SerializeField] private Transform m_negativeQuirkRoot;
         [BoxGroup("Mission State")]
         [SerializeField] private UIMissionEffect m_effectPrefab;
 
@@ -85,22 +77,9 @@ namespace _Scripts.UI
             
             // Mission details
             m_name.SetText(data.Name);
-            
-            // This is just UX temp. There is no string denoting the difficulty of the mission
-            // What should be shown is the Endurance (or Health, whatever we end up calling it)
-            // If we wanna call it difficulty, sure, but its going to be an Integer
-            /*
-            if (data.Difficulty != string.Empty)
-                m_difficulty.SetText(data.Difficulty);
-            else
-                m_difficulty.SetText(c_difficultyDefault);
-            */
-
-            m_quote.SetText(data.Quote != string.Empty ? data.Quote : c_quoteDefault);
-
-            // TODO: Hook up these two
-            //m_endurance.SetText(string.Format(c_enduranceFormat, data.Endurance));
-            //m_time.SetText(string.Format(c_timeFormat, data.Days));
+            m_endurance.SetText(data.Endurance.ToString());
+            m_quote.SetText(data.Quote);
+            m_time.SetText(ServiceLocator.GetTimeString(data.Days));
             
             m_infamy.SetText(data.Infamy.ToString());
             m_xp.SetText(data.Xp.ToString());
@@ -121,7 +100,12 @@ namespace _Scripts.UI
                 instance.SetData(schemaLoot);
             }
             
-            foreach (Transform child in m_quirkEffectRoot.transform)
+            foreach (Transform child in m_positiveQuirkRoot.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            
+            foreach (Transform child in m_negativeQuirkRoot.transform)
             {
                 Destroy(child.gameObject);
             }
@@ -133,12 +117,14 @@ namespace _Scripts.UI
             
             if (mods != null)
             {
-                foreach (var quirk in mods)
+                foreach (var mod in mods)
                 {
-                    if (quirk.Quirk != null)
+                    if (mod.Quirk != null)
                     {
-                        UIMissionEffect quirkEffect = Instantiate(m_effectPrefab, m_quirkEffectRoot);
-                        quirkEffect.SetData(quirk);
+                        UIMissionEffect quirkEffect = Instantiate(m_effectPrefab,
+                            mod.ModValue > 0 ? m_positiveQuirkRoot : m_negativeQuirkRoot);
+                        
+                        quirkEffect.SetData(mod);
                     }
                 }
             }
@@ -169,6 +155,11 @@ namespace _Scripts.UI
                 });
             }
 
+            foreach(Transform child in m_rosterRoot)
+            {
+                Destroy(child.gameObject);
+            }
+            
             m_sortDropdown.onValueChanged.AddListener(delegate { UpdateRoster(); });
 
             ServiceLocator.Instance.MonsterManager.OnPartyChanged += OnPartyChanged;

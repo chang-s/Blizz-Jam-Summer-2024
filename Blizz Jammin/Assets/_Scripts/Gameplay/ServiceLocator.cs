@@ -65,6 +65,28 @@ namespace _Scripts.Gameplay
         {
             Infamy.Value += amount;
         }
+        
+        // TODO: Make a better Utils class
+        public static string GetTimeString(int totalDays)
+        {
+            int years = totalDays / 365;
+            totalDays %= 365;
+            int months = totalDays / 30;
+            int days = totalDays % 30;
+
+            if (years > 0)
+            {
+                return $"{years}y {months}m {days}d";
+            }
+            else if (months > 0)
+            {
+                return $"{months}m {days}d";
+            }
+            else
+            {
+                return $"{days}d";
+            }
+        }
 
 
         #region Cheats

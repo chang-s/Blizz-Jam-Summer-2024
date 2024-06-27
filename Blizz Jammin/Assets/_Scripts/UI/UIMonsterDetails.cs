@@ -1,9 +1,11 @@
 using System.Linq;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
+using _Scripts.UI.Tooltip;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +32,9 @@ namespace _Scripts.UI
         [SerializeField] [CanBeNull] private TMP_Text m_levelLabel;
         [BoxGroup("XP and Levels")]
         [SerializeField] [CanBeNull] private TMP_Text m_xpLabel;
-
+        [BoxGroup("XP and Levels")]
+        [SerializeField] [CanBeNull] private Slider m_xpSlider;
+        
         [BoxGroup("Stats")]
         [SerializeField] [CanBeNull] private UIMonsterStats m_stats;
 
@@ -80,6 +84,20 @@ namespace _Scripts.UI
             xpString = instance.Level > xpTables.Length 
                 ? c_xpMax
                 : string.Format(xpString, instance.Xp, xpTables[instance.Level - 1]);
+
+            if (m_xpSlider != null)
+            {
+                float xpRatio = 1.0f;
+                m_xpSlider.minValue = 0;
+                m_xpSlider.maxValue = 1;
+                if (instance.Level <= xpTables.Length)
+                {
+                    m_xpSlider.maxValue = xpTables[instance.Level - 1];
+                    xpRatio = (float)instance.Xp / xpTables[instance.Level - 1];
+                }
+                m_xpSlider.normalizedValue = xpRatio;
+            }
+            
             
             m_xpLabel?.SetText(xpString);
             m_levelLabel?.SetText(string.Format(c_levelFormat, instance.Level.ToString()));
@@ -97,6 +115,7 @@ namespace _Scripts.UI
                 
                 m_quirks[i].gameObject.SetActive(true);
                 m_quirks[i].sprite = quirks[i].Icon;
+                m_quirks[i].GetComponent<UITooltipRequesterSchema>().SetSchema(quirks[i]);
             }
 
             UpdateLoot();
@@ -162,6 +181,7 @@ namespace _Scripts.UI
             if (m_class != null)
             {
                 m_class.sprite = data.Class.Icon;
+                m_class.GetComponent<UITooltipRequesterSchema>().SetSchema(data.Class);
             }
         }
     }

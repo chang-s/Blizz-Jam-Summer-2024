@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   LootTable:
   - RequiredMissionRewardScalar: 1
-    Rolls: 2
+    Rolls: 1
     RequiredLoot: []
     PossibleLoot:
     - {fileID: 11400000, guid: 7fe57364fdece024ba80f411d53db2e3, type: 2}

@@ -22,4 +22,6 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Name: Support
+  TooltipText: 'Support: Provides support to party members and does more damage with
+    others!'
   Icon: {fileID: 21300000, guid: d97860f3a97714a9c9471868c02ad0e8, type: 3}
