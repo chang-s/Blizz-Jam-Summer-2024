@@ -22,9 +22,8 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   WorldOrder: 16
-  Name: 5A
+  Name: Cookie Farm
   Icon: {fileID: 21300000, guid: 7e728faa8342a5a44b29098cf02277f4, type: 3}
-  Quote: 
   IsStarter: 0
   PossiblePositiveQuirkCount: 2
   PositiveQuirkMinimumMod: 1
@@ -37,4 +36,4 @@ MonoBehaviour:
   Days: 45
   Infamy: 75
   Xp: 23
-  LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}
+  LootTable: {fileID: 11400000, guid: 45391852a24d7ae4f8466e6b79409950, type: 2}

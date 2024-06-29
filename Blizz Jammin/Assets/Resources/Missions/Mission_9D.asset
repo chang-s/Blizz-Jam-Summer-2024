@@ -22,9 +22,8 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   WorldOrder: 35
-  Name: 9D
+  Name: Taco Castle
   Icon: {fileID: 21300000, guid: 7e728faa8342a5a44b29098cf02277f4, type: 3}
-  Quote: 
   IsStarter: 0
   PossiblePositiveQuirkCount: 3
   PositiveQuirkMinimumMod: 1
@@ -37,4 +36,4 @@ MonoBehaviour:
   Days: 85
   Infamy: 260
   Xp: 66
-  LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}
+  LootTable: {fileID: 11400000, guid: 3264d6dc80958e540bbee24c507a066e, type: 2}

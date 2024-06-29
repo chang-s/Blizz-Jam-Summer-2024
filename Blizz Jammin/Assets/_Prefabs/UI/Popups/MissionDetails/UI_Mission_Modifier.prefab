@@ -109,7 +109,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0ec047449ed3c2b42929565f669fecd3, type: 3}
   - {fileID: 21300000, guid: d314060aa808bde4a8ba561ee902f206, type: 3}
   m_debuffIcons:
-  - {fileID: 0}
+  - {fileID: 21300000, guid: d88006584ba95484e95e1e5fcd3a1ed5, type: 3}
   - {fileID: 21300000, guid: c9e977e50e5507341aa799e20534aa4f, type: 3}
   - {fileID: 21300000, guid: 7746e2abb41466147b480e98d07cd9cf, type: 3}
 --- !u!114 &2778588245112583460

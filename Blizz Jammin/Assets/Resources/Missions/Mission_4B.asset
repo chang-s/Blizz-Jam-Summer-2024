@@ -22,9 +22,8 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   WorldOrder: 13
-  Name: 4B
+  Name: Avocado Village
   Icon: {fileID: 21300000, guid: 7e728faa8342a5a44b29098cf02277f4, type: 3}
-  Quote: 
   IsStarter: 0
   PossiblePositiveQuirkCount: 2
   PositiveQuirkMinimumMod: 1
@@ -37,4 +36,4 @@ MonoBehaviour:
   Days: 30
   Infamy: 45
   Xp: 15
-  LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}
+  LootTable: {fileID: 11400000, guid: dd2f0110d467dd64d8ab10938a8268f4, type: 2}

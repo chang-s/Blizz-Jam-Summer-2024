@@ -22,9 +22,8 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   WorldOrder: 38
-  Name: 10C
+  Name: Hamburger Towers
   Icon: {fileID: 21300000, guid: 7e728faa8342a5a44b29098cf02277f4, type: 3}
-  Quote: 
   IsStarter: 0
   PossiblePositiveQuirkCount: 3
   PositiveQuirkMinimumMod: 2
@@ -37,4 +36,4 @@ MonoBehaviour:
   Days: 90
   Infamy: 285
   Xp: 80
-  LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}
+  LootTable: {fileID: 11400000, guid: a12f36fd746683348904bcfd35890b16, type: 2}

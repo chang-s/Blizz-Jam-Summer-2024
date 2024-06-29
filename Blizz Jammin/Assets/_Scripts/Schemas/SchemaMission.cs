@@ -19,9 +19,11 @@ namespace _Scripts.Schemas
         [PreviewField(100)]
         public Sprite Icon;
         
+        /*
         [BoxGroup("Visuals")]
         public string Quote;
-
+        */
+        
         [BoxGroup("Behavior")] 
         public bool IsStarter;
 

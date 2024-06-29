@@ -78,7 +78,6 @@ namespace _Scripts.UI
             // Mission details
             m_name.SetText(data.Name);
             m_endurance.SetText(data.Endurance.ToString());
-            m_quote.SetText(data.Quote);
             m_time.SetText(ServiceLocator.GetTimeString(data.Days));
             
             m_infamy.SetText(data.Infamy.ToString());

@@ -18,9 +18,7 @@ public class UIMissionEffect : MonoBehaviour
     [SerializeField] private GameObject m_debuffBackground;
     [SerializeField] private TextMeshProUGUI m_effectLabel;
     [SerializeField] private Image m_buffAmountImage;
-    [SerializeField] private Transform m_buffMod;
-    [SerializeField] private Transform m_debuffMod;
-    
+
     [SerializeField] private Sprite[] m_buffIcons;
     [SerializeField] private Sprite[] m_debuffIcons;
     
@@ -28,6 +26,8 @@ public class UIMissionEffect : MonoBehaviour
     {
         // You can assume the buff range is 1-3
         bool isBuff = modValue > 0;
+        modValue = Math.Abs(modValue);
+        
         Sprite[] sprites = isBuff ? m_buffIcons : m_debuffIcons;
         m_buffAmountImage.sprite = sprites[modValue - 1];
         

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff9d8c1b1f80c464baaba30935cdeda3, type: 3}
-  m_Name: LootTable_3
+  m_Name: LootTable_Early_3
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,22 +22,12 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   LootTable:
-  - RequiredMissionRewardScalar: 1
-    Rolls: 1
-    RequiredLoot: []
-    PossibleLoot:
-    - {fileID: 11400000, guid: f6ba1799f84aba74189483b61398f59b, type: 2}
-    - {fileID: 11400000, guid: 26eec834075670942a6645f535c9273e, type: 2}
-    - {fileID: 11400000, guid: 7fe57364fdece024ba80f411d53db2e3, type: 2}
-    - {fileID: 11400000, guid: 342711bc8346ea64988703dd30696b17, type: 2}
   - RequiredMissionRewardScalar: 0.75
     Rolls: 1
     RequiredLoot: []
     PossibleLoot:
-    - {fileID: 11400000, guid: 26eec834075670942a6645f535c9273e, type: 2}
-    - {fileID: 11400000, guid: 7fe57364fdece024ba80f411d53db2e3, type: 2}
-  - RequiredMissionRewardScalar: 0.5
-    Rolls: 1
-    RequiredLoot: []
-    PossibleLoot:
-    - {fileID: 11400000, guid: 7fe57364fdece024ba80f411d53db2e3, type: 2}
+    - {fileID: 11400000, guid: 0410b100fbea51e4f8ed8dc1a8f12c5f, type: 2}
+    - {fileID: 11400000, guid: 2340e14b1f7abb94eba3497fb5dd0b56, type: 2}
+    - {fileID: 11400000, guid: 28579fedd40426e4fa999132178d1ca4, type: 2}
+    - {fileID: 11400000, guid: 2767b3393d6bf51408c299c6a4a396de, type: 2}
+    - {fileID: 11400000, guid: c1edb0117d8aec74f8a9fe08f5db3b94, type: 2}

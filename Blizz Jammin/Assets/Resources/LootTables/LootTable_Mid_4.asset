@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9d8c1b1f80c464baaba30935cdeda3, type: 3}
+  m_Name: LootTable_Mid_4
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  LootTable:
+  - RequiredMissionRewardScalar: 0.75
+    Rolls: 2
+    RequiredLoot: []
+    PossibleLoot:
+    - {fileID: 11400000, guid: 4d5d831b96c0a024e8221a00ed162b7c, type: 2}
+    - {fileID: 11400000, guid: 2bf8549f9450e824688ac5703d8b4eee, type: 2}
+    - {fileID: 11400000, guid: 6621090abf7957d468fa7c7528b6ea76, type: 2}
+    - {fileID: 11400000, guid: 875cbcddd0bcd304ab4ac711aca87dbd, type: 2}
+    - {fileID: 11400000, guid: 398d9a91695b80144b76115f9659363e, type: 2}

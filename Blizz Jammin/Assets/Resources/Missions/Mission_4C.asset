@@ -22,9 +22,8 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   WorldOrder: 14
-  Name: 4C
+  Name: Avocado Towers
   Icon: {fileID: 21300000, guid: 7e728faa8342a5a44b29098cf02277f4, type: 3}
-  Quote: 
   IsStarter: 0
   PossiblePositiveQuirkCount: 2
   PositiveQuirkMinimumMod: 1
@@ -37,4 +36,4 @@ MonoBehaviour:
   Days: 35
   Infamy: 54
   Xp: 18
-  LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}
+  LootTable: {fileID: 11400000, guid: 4a20688319d79af4493ad3cbaf88a8d9, type: 2}

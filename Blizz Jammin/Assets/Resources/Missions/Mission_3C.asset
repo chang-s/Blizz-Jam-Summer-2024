@@ -22,9 +22,8 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   WorldOrder: 10
-  Name: 3C
+  Name: Donut Towers
   Icon: {fileID: 21300000, guid: 7e728faa8342a5a44b29098cf02277f4, type: 3}
-  Quote: 
   IsStarter: 0
   PossiblePositiveQuirkCount: 2
   PositiveQuirkMinimumMod: 1
@@ -37,4 +36,4 @@ MonoBehaviour:
   Days: 20
   Infamy: 25
   Xp: 8
-  LootTable: {fileID: 11400000, guid: 8187084bd1ebefe41b376956b04ac1ea, type: 2}
+  LootTable: {fileID: 11400000, guid: 07ebbac1a1e74ad46a261cd5c9863c58, type: 2}
