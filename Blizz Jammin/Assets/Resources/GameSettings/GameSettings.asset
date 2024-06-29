@@ -27,6 +27,7 @@ MonoBehaviour:
     - Name: XpScalarPerSymbiosis
       Entry: 4
       Data: 0.1
+  InfamyToWin: 9001
   SecondsPerDay: 1
   MissionSpeedTerrorPerDay: 3
   XpForLevel: 0a00000032000000c8000000f4010000

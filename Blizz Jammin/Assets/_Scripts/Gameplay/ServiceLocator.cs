@@ -64,6 +64,13 @@ namespace _Scripts.Gameplay
         public void DeltaInfamy(int amount)
         {
             Infamy.Value += amount;
+
+            // TODO: Better win condition lol
+            if (Infamy.Value >= GameSettings.InfamyToWin)
+            {
+                SoundManager.RequestSfx(SoundManager.Sfx.CombatEnd);
+                UIPopupManager.RequestPopup(SchemaPopup.PopupType.MOTY);
+            }
         }
         
         // TODO: Make a better Utils class

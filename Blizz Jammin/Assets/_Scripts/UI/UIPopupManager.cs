@@ -78,6 +78,7 @@ namespace _Scripts.UI
                 popup.Show();
                 popup.transform.SetAsLastSibling();
                 m_popupStack.Push(popup);
+                m_sharedBG.gameObject.SetActive(true);
                 return;
             }
             

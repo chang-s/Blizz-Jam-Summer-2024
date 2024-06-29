@@ -7,6 +7,11 @@ namespace _Scripts.Schemas
     [CreateAssetMenu(menuName = "Schema/GameSettings")]
     public class SchemaGameSettings : Schema
     {
+        [BoxGroup("Winner")]
+        [Tooltip("Infamy to win")]
+        [MinValue(1)]
+        [SerializeField] public int InfamyToWin;
+        
         [BoxGroup("Timer")]
         [Tooltip("How much real time (in seconds) equals 1 day in the game")]
         [MinValue(1)]

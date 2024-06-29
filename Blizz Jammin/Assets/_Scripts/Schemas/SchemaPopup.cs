@@ -18,6 +18,7 @@ namespace _Scripts.Schemas
             MonsterRecruit,
             Inventory,
             Equip,
+            MOTY,
         }
 
         /// <summary>
