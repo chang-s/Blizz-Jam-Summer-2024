@@ -110,10 +110,10 @@ MonoBehaviour:
   Description: The master of the ocean...and boba?! Don't go swimming in there, she'll
     eat you alive!
   Scale: {x: 1, y: 1, z: 1}
-  Sprite: {fileID: 21300000, guid: 822a06bfabbdf2b4aa066f17de9588b1, type: 3}
+  Sprite: {fileID: 21300000, guid: 35e66a09b83060a429d58cfe73958969, type: 3}
   Class: {fileID: 11400000, guid: 0cb8409e4dcca194fb4275c7f4e8a781, type: 2}
   InitialQuirkCount: 1
   StartStatus: 0
-  Cost: 1500
+  Cost: 1200
   RecruitSfx: 15
   UnlockMission: {fileID: 11400000, guid: 4feb99dd62366b442b8109a8f6cf0748, type: 2}

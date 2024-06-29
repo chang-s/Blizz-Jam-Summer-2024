@@ -106,13 +106,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: MonsterC
-  Description: Sword and Board / Tank Type
+  Name: Crush
+  Description: This is my buddy who just got his shell waxed. Anything you'd like
+    to say? "I like turitles."
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: 35e66a09b83060a429d58cfe73958969, type: 3}
   Class: {fileID: 11400000, guid: 0cb8409e4dcca194fb4275c7f4e8a781, type: 2}
   InitialQuirkCount: 1
   StartStatus: 0
-  Cost: 500
+  Cost: 350
   RecruitSfx: 8
   UnlockMission: {fileID: 11400000, guid: f8c252ba3a0c43c4b99fb23c8c6575e0, type: 2}

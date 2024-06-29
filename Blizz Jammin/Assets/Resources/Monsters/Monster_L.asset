@@ -106,13 +106,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: MonsterL
-  Description: Battalion Drummer Type
+  Name: Metro Gnome
+  Description: I bounce to the beat of my own drum, I'm a wow in a world full of
+    ho-hum!
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: db4c47bc8cb194c4d98f4562a275148e, type: 3}
   Class: {fileID: 11400000, guid: dfe5e6b37da6f434e8c0cf470faa24a6, type: 2}
   InitialQuirkCount: 1
   StartStatus: 0
-  Cost: 1500
+  Cost: 1200
   RecruitSfx: 17
   UnlockMission: {fileID: 11400000, guid: 4feb99dd62366b442b8109a8f6cf0748, type: 2}

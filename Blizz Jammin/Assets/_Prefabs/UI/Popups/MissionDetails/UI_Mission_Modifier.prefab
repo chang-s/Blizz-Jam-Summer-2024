@@ -102,8 +102,6 @@ MonoBehaviour:
   m_debuffBackground: {fileID: 4402885979260388624}
   m_effectLabel: {fileID: 2874682584227058251}
   m_buffAmountImage: {fileID: 696684114934197572}
-  m_buffMod: {fileID: 4953197380917681269, guid: 4a565a9295dca324e824f089b44a400d, type: 3}
-  m_debuffMod: {fileID: 4953197380917681269, guid: 9357cce33ce70ad4da2a7fe514a3dafe, type: 3}
   m_buffIcons:
   - {fileID: 21300000, guid: a713d2c7036055e4e9c5ee718f8ed1c5, type: 3}
   - {fileID: 21300000, guid: 0ec047449ed3c2b42929565f669fecd3, type: 3}
@@ -124,8 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2dc80e466e4f2093b3e0439da212f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_text: Each tick represents 10% stat reduction for monsters with the specified
-    quirk!
+  m_text: Each tick represents 10% damage for monsters with the specified quirk!
 --- !u!1 &3620500864019623790
 GameObject:
   m_ObjectHideFlags: 0

@@ -106,13 +106,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: MonsterF
-  Description: Jack of all Trades type
+  Name: Peter the Anteater
+  Description: Mediocrity is a state of mind. At least that's what he tells himself.
+    He's just trying his hardest. That's all we can really ask of him!
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: 3651a48d588ea51419954793e7af226d, type: 3}
   Class: {fileID: 11400000, guid: 9e0cd02fe00fd1b4888ffe8d17b0c7cf, type: 2}
   InitialQuirkCount: 1
   StartStatus: 0
-  Cost: 500
+  Cost: 350
   RecruitSfx: 11
   UnlockMission: {fileID: 11400000, guid: f8c252ba3a0c43c4b99fb23c8c6575e0, type: 2}

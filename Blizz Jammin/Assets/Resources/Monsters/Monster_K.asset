@@ -106,13 +106,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: MonsterK
-  Description: Monk Type
+  Name: Ol' Three Eyes
+  Description: Don't look directly at the left eye, it will kill you! Or was it the
+    right one? Definitely not the middle one...I think...
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: b7e1148a10ca8354291164a8b7558ca8, type: 3}
   Class: {fileID: 11400000, guid: 9e0cd02fe00fd1b4888ffe8d17b0c7cf, type: 2}
   InitialQuirkCount: 1
   StartStatus: 0
-  Cost: 1500
+  Cost: 1200
   RecruitSfx: 16
   UnlockMission: {fileID: 11400000, guid: 4feb99dd62366b442b8109a8f6cf0748, type: 2}

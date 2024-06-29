@@ -114,6 +114,6 @@ MonoBehaviour:
   Class: {fileID: 11400000, guid: 9e0cd02fe00fd1b4888ffe8d17b0c7cf, type: 2}
   InitialQuirkCount: 1
   StartStatus: 0
-  Cost: 500
+  Cost: 350
   RecruitSfx: 10
   UnlockMission: {fileID: 11400000, guid: 0d7861da76f4a8f44aff6862e9d1a521, type: 2}
