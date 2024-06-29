@@ -2293,7 +2293,7 @@ RectTransform:
   m_GameObject: {fileID: 3420628975629121356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_LocalScale: {x: 1.19724, y: 1.19724, z: 1.19724}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2450884893781908312}
@@ -2304,7 +2304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 251, y: 24.8882}
+  m_AnchoredPosition: {x: 270.71, y: 26.828}
   m_SizeDelta: {x: 800, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3547779717819424156
@@ -2873,7 +2873,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1816221121106253216}
   m_HandleRect: {fileID: 3157489409565549806}
   m_Direction: 2
-  m_Value: 1.0000057
+  m_Value: 1.0000052
   m_Size: 0.8338004
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4657,7 +4657,7 @@ RectTransform:
   m_GameObject: {fileID: 7309818249902302050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_LocalScale: {x: 1.19724, y: 1.19724, z: 1.19724}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4461329973186501813}
@@ -4667,7 +4667,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -415, y: -9.0744}
+  m_AnchoredPosition: {x: -454.15, y: -10.137}
   m_SizeDelta: {x: 400, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7319318776914488755
@@ -5940,23 +5940,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 904663643152337566, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.1
+      value: 1.19724
       objectReference: {fileID: 0}
     - target: {fileID: 904663643152337566, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1
+      value: 1.19724
       objectReference: {fileID: 0}
     - target: {fileID: 904663643152337566, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.1
+      value: 1.19724
       objectReference: {fileID: 0}
     - target: {fileID: 904663643152337566, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 244
+      value: 263.09
       objectReference: {fileID: 0}
     - target: {fileID: 904663643152337566, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -44
+      value: -79.963
       objectReference: {fileID: 0}
     - target: {fileID: 1071703164383357584, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_Colors.m_NormalColor.b

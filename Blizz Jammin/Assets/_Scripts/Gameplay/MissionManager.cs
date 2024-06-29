@@ -45,8 +45,21 @@ namespace _Scripts.Gameplay
             /// The end score result of the mission.
             /// </summary>
             public float m_score;
+
+            /// <summary>
+            /// The XP granted for this mission run
+            /// </summary>
+            public int m_xp;
             
-            // TODO: Cache loot results too?
+            /// <summary>
+            /// The INfamy granted for this mission run
+            /// </summary>
+            public int m_infamy;
+
+            /// <summary>
+            /// Loot that is rewarded
+            /// </summary>
+            public List<SchemaLoot> m_loot = new List<SchemaLoot>();
         }
 
         [BoxGroup("Lair")]
@@ -178,6 +191,8 @@ namespace _Scripts.Gameplay
             missionInfo.m_endStep = endStep;
             missionInfo.m_score = score;
             
+            GenerateRewards(missionInfo);
+            
             OnMissionStatusChanged?.Invoke(missionInfo);
         }
         
@@ -185,47 +200,64 @@ namespace _Scripts.Gameplay
         {
             return m_missions.Count(m => m.m_status == MissionStatus.Complete);
         }
-        
-        public void ClaimRewards(SchemaMission mission)
+
+        private void GenerateRewards(MissionInfo info)
         {
-            var score = GetMissionInfo(mission).m_score;
-            
+            // Clear from before
+            info.m_loot.Clear();
+
+            var mission = info.m_mission.Data;
+            var score = info.m_score;
             var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
-            var validMemberCount = party.Count(member => member != null);
-            
+
             var totalLuck = GetAggregatePartyStatValue(SchemaStat.Stat.Luck, party);
             var totalTerror = GetAggregatePartyStatValue(SchemaStat.Stat.Terror, party);
             var totalSymbiosis = GetAggregatePartyStatValue(SchemaStat.Stat.Symbiosis, party);
             
             // Distribute loot after determining roll count through party luck
-            var lootTableEntry = mission.LootTable.GetLootTableEntry(score);
+            var lootTableEntry = info.m_mission.Data.LootTable.GetLootTableEntry(info.m_score);
             var rolls = lootTableEntry.Rolls + (int)(totalLuck * m_gameSettings.ExtraLootPerLuck);
             
             // TODO: Consider having this off a new event like OnMissionRewardsClaimed
             // Every mission has required loot to be given, add that
             foreach (var schemaLoot in lootTableEntry.RequiredLoot)
             {
-                ServiceLocator.Instance.LootManager.GrantLoot(schemaLoot);
+                info.m_loot.Add(schemaLoot);
             }
             
             // Grant X many loot randomly from the table
             for (int i = 0; i < rolls; i++)
             {
                 int randomLootIndex = Random.Range(0, lootTableEntry.PossibleLoot.Length);
-                ServiceLocator.Instance.LootManager.GrantLoot(lootTableEntry.PossibleLoot[randomLootIndex]);
+                info.m_loot.Add(lootTableEntry.PossibleLoot[randomLootIndex]);
+            }
+            
+            // Cache xp
+            info.m_xp = (int) (score * mission.Xp * (1 + totalSymbiosis * m_gameSettings.XpScalarPerSymbiosis));
+            
+            // Cache infamy
+            info.m_infamy = (int) (score * mission.Infamy * (1 + totalTerror * m_gameSettings.InfamyScalarPerTerror));
+        }
+        
+        public void ClaimRewards(SchemaMission mission)
+        {
+            var missionInfo = GetMissionInfo(mission);
+            foreach (var schemaLoot in missionInfo.m_loot)
+            {
+                ServiceLocator.Instance.LootManager.GrantLoot(schemaLoot);
             }
 
             // Distribute XP evenly to party members, after adding the party bonus from symbiosis
-            int totalXp = (int) (score * mission.Xp * (1 + totalSymbiosis * m_gameSettings.XpScalarPerSymbiosis));
-            int xp = totalXp / validMemberCount;
+            var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
+            var validMemberCount = party.Count(member => member != null);
+            int totalXp = missionInfo.m_xp;
             foreach (var partyMember in party)
             {
-                partyMember?.AddXp(xp);
+                partyMember?.AddXp(totalXp/validMemberCount);
             }
             
             // Add Infamy, after adding the infamy bonus from Terror
-            int totalInfamy = (int) (score * mission.Infamy * (1 + totalTerror * m_gameSettings.InfamyScalarPerTerror));
-            ServiceLocator.Instance.DeltaInfamy(totalInfamy);
+            ServiceLocator.Instance.DeltaInfamy(missionInfo.m_infamy);
 
             // Change the status of the mission back to ready, and then inform all listeners.
             m_missions[mission.WorldOrder].m_status = MissionStatus.Ready;
@@ -233,7 +265,7 @@ namespace _Scripts.Gameplay
             
             // Unlock the next mission if there is one and its locked and the mission was 100% complete
             var nextMission = GetNextMissionInfo(mission);
-            if (score >= 1.0f - Double.Epsilon && 
+            if (missionInfo.m_score >= 1.0f - Double.Epsilon && 
                 nextMission != null && 
                 nextMission.m_status == MissionStatus.Locked
             ) {

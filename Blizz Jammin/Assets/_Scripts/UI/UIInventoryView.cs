@@ -61,8 +61,7 @@ namespace _Scripts.UI
 
         public void SetInstance(InstanceLoot instance)
         {
-            m_shownInstance = instance;
-            ServiceLocator.Instance.LootManager.MarkSeen(m_shownInstance);
+            m_shownInstance = instance; ;
             m_uiLoot.SetInstance(instance);
             UpdateVisuals();
             
@@ -192,6 +191,7 @@ namespace _Scripts.UI
 
             if (loot.Length == 1)
             {
+                ServiceLocator.Instance.LootManager.MarkSeen(loot[0]);
                 SetInstance(loot[0]);
                 return;
             }
@@ -201,6 +201,7 @@ namespace _Scripts.UI
             {
                 newLootIndex--;
             }
+            ServiceLocator.Instance.LootManager.MarkSeen(loot[newLootIndex]);
             SetInstance(loot[newLootIndex]);
         }
     }

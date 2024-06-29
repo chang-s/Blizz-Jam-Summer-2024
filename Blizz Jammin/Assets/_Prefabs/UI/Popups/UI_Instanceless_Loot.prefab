@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 1330430865680060301}
   - component: {fileID: 2397378973924993035}
   m_Layer: 0
-  m_Name: UI_MissionDetails_Loot
+  m_Name: UI_Instanceless_Loot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
