@@ -1,6 +1,7 @@
 using System;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,10 @@ namespace _Scripts.UI
         [SerializeField] private CanvasGroup m_canvasGroup;
         [SerializeField] private RectTransform m_content;
         [SerializeField] private Button[] m_closeButtons;
+        [SerializeField] private float m_fadeTime;
+        [SerializeField] private bool m_doEnterAnimation;
+        [SerializeField] private bool m_doFadeAnimation;
+        
 
         public Action OnShow;
         public Action OnHide;
@@ -21,8 +26,12 @@ namespace _Scripts.UI
         
         public void Show()
         {
-            Showing = true;
             m_canvasGroup.alpha = 1.0f;
+
+            if(!Showing)
+                EnterAnimations();
+
+            Showing = true;
             m_canvasGroup.blocksRaycasts = true;
             OnShow?.Invoke();
             
@@ -31,11 +40,42 @@ namespace _Scripts.UI
 
         public void Hide()
         {
+            m_canvasGroup.alpha = 0.0f;
+
+            if (Showing)
+                ExitAnimations();
 
             Showing = false;
-            m_canvasGroup.alpha = 0.0f;
             m_canvasGroup.blocksRaycasts = false;
             OnHide?.Invoke();
+        }
+
+        private void EnterAnimations()
+        {
+            if (m_doEnterAnimation)
+            {
+                m_content.transform.localPosition = new Vector3(0f, -2000f, 0f);
+                m_content.DOAnchorPos(new Vector2(0f, 0f), m_fadeTime, false).SetEase(Ease.OutElastic);
+            }
+            if(m_doFadeAnimation)
+            {
+                m_canvasGroup.alpha = 0f;
+                m_canvasGroup.DOFade(1f, m_fadeTime);
+            }
+        }
+
+        private void ExitAnimations()
+        {
+            if(m_doEnterAnimation)
+            {
+                m_content.transform.localPosition = Vector3.zero;
+                m_content.DOAnchorPos(new Vector2(0f, -2000f), m_fadeTime).SetEase(Ease.InOutQuint);
+            }
+            if (m_doFadeAnimation)
+            {
+                m_canvasGroup.alpha = 1f;
+                m_canvasGroup.DOFade(1f, m_fadeTime);
+            }
         }
 
         private void Start()

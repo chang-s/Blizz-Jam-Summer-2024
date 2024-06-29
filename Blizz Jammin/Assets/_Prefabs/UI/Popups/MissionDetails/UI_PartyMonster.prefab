@@ -290,7 +290,12 @@ MonoBehaviour:
   m_icon: {fileID: 6128364300448368013}
   m_levelLabel: {fileID: 0}
   m_xpLabel: {fileID: 0}
+  m_xpSlider: {fileID: 0}
   m_stats: {fileID: 0}
+  m_class: {fileID: 0}
+  m_quirks: []
+  m_itemButtons: []
+  m_itemImages: []
 --- !u!1 &4710516060162119194
 GameObject:
   m_ObjectHideFlags: 0

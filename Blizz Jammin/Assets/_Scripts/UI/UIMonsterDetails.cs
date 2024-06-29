@@ -2,6 +2,7 @@ using System.Linq;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
 using _Scripts.UI.Tooltip;
+using DG.Tweening;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using TMPro;

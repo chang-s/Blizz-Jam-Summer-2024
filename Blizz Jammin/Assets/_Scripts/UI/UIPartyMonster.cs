@@ -1,5 +1,6 @@
 using System;
 using _Scripts.Schemas;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;

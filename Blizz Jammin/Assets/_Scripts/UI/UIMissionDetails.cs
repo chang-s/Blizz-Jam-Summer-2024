@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Scripts.Gameplay;
 using _Scripts.Schemas;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -336,9 +337,15 @@ namespace _Scripts.UI
         {
             // Do the sound
             ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
-            
+
             if (m_mode != Mode.AddingMonster ||  !m_currentPartyIndex.HasValue)
             {
+                Sequence sequence = DOTween.Sequence();
+                sequence.Append(monster.transform.DOScaleY(.75f, .05f));
+                sequence.Insert(.05f, monster.transform.DOScaleX(1.1f, .2f));
+                sequence.Insert(.05f, monster.transform.DOScaleZ(1.1f, .2f));
+                sequence.Append(monster.transform.DOScale(1f, .1f));
+
                 return;
             }
             
@@ -360,7 +367,7 @@ namespace _Scripts.UI
             // Add current entry, advance if possible
             else
             {
-                ServiceLocator.Instance.MonsterManager.AddMonsterToParty(
+                    ServiceLocator.Instance.MonsterManager.AddMonsterToParty(
                     monster.MonsterData,
                     m_missionData,
                     oldPartyIndex

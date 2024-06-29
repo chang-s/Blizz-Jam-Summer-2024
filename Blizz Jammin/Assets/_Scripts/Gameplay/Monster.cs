@@ -5,6 +5,7 @@ using _Scripts.Schemas;
 using _Scripts.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace _Scripts.Gameplay
@@ -65,6 +66,8 @@ namespace _Scripts.Gameplay
         /// </summary>
         public IReadOnlyCollection<SchemaQuirk> Quirks => m_quirks;
 
+        [SerializeField] private Image m_ImageRenderer;
+
         [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private TextMeshPro m_nameLabel;
         [SerializeField] private Dictionary<MonsterStatus, GameObject> m_states;
@@ -92,6 +95,7 @@ namespace _Scripts.Gameplay
         {
             m_nameLabel.SetText(Data.Name);
             m_spriteRenderer.transform.localScale = Data.Scale;
+            m_ImageRenderer.sprite = Data.Sprite;
             m_spriteRenderer.sprite = Data.Sprite;
             
             foreach (var (state, group) in m_states)

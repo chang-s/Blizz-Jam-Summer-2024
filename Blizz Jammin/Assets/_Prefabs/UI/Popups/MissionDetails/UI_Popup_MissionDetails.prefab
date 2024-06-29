@@ -5934,6 +5934,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 752222304566768742, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
+      propertyPath: m_fadeTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 752222304566768742, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
+      propertyPath: m_doFadeAnimation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 752222304566768742, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
+      propertyPath: m_doEnterAnimation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 904663643152337566, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 434.1136
@@ -6224,6 +6236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_popup: {fileID: 2209376691707282512}
+  m_fadeTime: 1
   m_name: {fileID: 8652241416911249826}
   m_quote: {fileID: 5110657060207361444}
   m_endurance: {fileID: 7483302561859476547}
