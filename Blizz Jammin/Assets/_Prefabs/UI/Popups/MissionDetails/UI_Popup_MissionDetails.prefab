@@ -2873,8 +2873,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1816221121106253216}
   m_HandleRect: {fileID: 3157489409565549806}
   m_Direction: 2
-  m_Value: 1.0000052
-  m_Size: 0.83380044
+  m_Value: 1.0000151
+  m_Size: 0.93780047
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4176,7 +4176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: df4168bcc5aa615429fa57788ef7dc5d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4ea7c84d972df4640b160296045abfec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4397,7 +4397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4919565592939687137
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7422,7 +7422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7986074732415162694, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -109.073
+      value: -58.633
       objectReference: {fileID: 0}
     - target: {fileID: 7986074732415162694, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7458,7 +7458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7986074732415162694, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -44.53653
+      value: -19.317
       objectReference: {fileID: 0}
     - target: {fileID: 7986074732415162694, guid: 6086cb77142ff0146bd1c914c45bb6e3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
