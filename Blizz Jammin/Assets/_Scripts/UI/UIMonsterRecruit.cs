@@ -117,7 +117,7 @@ namespace _Scripts.UI
         {
             var monsters = ServiceLocator.Instance.MonsterManager.GetMonsters(Monster.MonsterStatus.Purchasable);
             m_shownMonsterIndex++;
-            if (m_shownMonsterIndex >= monsters.Count)
+            if (m_shownMonsterIndex >= monsters.Count || m_shownMonsterIndex >= m_monsterButtons.Length)
             {
                 m_shownMonsterIndex = 0;
             }
@@ -141,6 +141,9 @@ namespace _Scripts.UI
 
         private void OnMonsterButtonClicked(int buttonIndex)
         {
+            // Do the sound
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
+            
             var monsters = ServiceLocator.Instance.MonsterManager.GetMonsters(Monster.MonsterStatus.Purchasable);
             if (buttonIndex >= monsters.Count)
             {
@@ -184,6 +187,9 @@ namespace _Scripts.UI
 
         private void OnRecruitButtonClicked()
         {
+            // Do the sound
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
+            
             // No monster being shown, do nothing
             if (m_shownMonster == null)
             {
@@ -200,8 +206,6 @@ namespace _Scripts.UI
             ServiceLocator.Instance.DeltaInfamy(-cost);
             ServiceLocator.Instance.MonsterManager.Recruit(m_shownMonster);
 
-            // TODO: Pan to the new monster!
-            
             // Close the recruit popup
             ServiceLocator.Instance.UIPopupManager.RequestClose();
         }

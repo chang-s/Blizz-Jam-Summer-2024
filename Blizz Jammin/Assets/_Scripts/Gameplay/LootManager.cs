@@ -36,6 +36,9 @@ namespace _Scripts.Gameplay
                 UnEquip(instance, instance.EquippedMonster);
             }
             
+            // Do the sound
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ItemSold);
+            
             m_lootInstances.Remove(instance);
             OnLootSold?.Invoke(instance);
         }
@@ -58,6 +61,7 @@ namespace _Scripts.Gameplay
                 return;
             }
             
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ItemEquipped);
             OnLootEquipped?.Invoke(loot);
         }
         
@@ -74,6 +78,7 @@ namespace _Scripts.Gameplay
                 return;
             }
             
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ItemUnEquipped);
             OnLootUnEquipped?.Invoke(loot);
         }
     }

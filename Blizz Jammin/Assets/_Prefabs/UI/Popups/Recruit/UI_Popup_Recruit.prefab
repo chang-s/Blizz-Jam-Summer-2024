@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 3149007381836517508}
   - component: {fileID: 4852466968360895386}
   - component: {fileID: 4206344520875045169}
+  - component: {fileID: 7798663911235146382}
   m_Layer: 0
   m_Name: Quirk
   m_TagString: Untagged
@@ -196,6 +197,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7798663911235146382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764377220748700118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198ca93d7f8c4e9cad9349f25f8ec614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_schema: {fileID: 0}
 --- !u!1 &806417782931102949
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +526,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 485.68, y: -50}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2393481561364369501
 MonoBehaviour:
@@ -714,6 +728,7 @@ GameObject:
   - component: {fileID: 2653678118052968843}
   - component: {fileID: 7488312627622348844}
   - component: {fileID: 4825632625400313083}
+  - component: {fileID: 444957990384410504}
   m_Layer: 0
   m_Name: Quirk (1)
   m_TagString: Untagged
@@ -778,6 +793,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &444957990384410504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756477380323597389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198ca93d7f8c4e9cad9349f25f8ec614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_schema: {fileID: 0}
 --- !u!1 &2914598880548005201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1340,7 @@ GameObject:
   - component: {fileID: 815007392598045620}
   - component: {fileID: 6358163415434137709}
   - component: {fileID: 580669494787859314}
+  - component: {fileID: 8326183655864657718}
   m_Layer: 0
   m_Name: Quirk (2)
   m_TagString: Untagged
@@ -1376,6 +1405,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8326183655864657718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6055133406459198048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198ca93d7f8c4e9cad9349f25f8ec614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_schema: {fileID: 0}
 --- !u!1 &6106005457563382350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,6 +1508,7 @@ GameObject:
   - component: {fileID: 8467992772365085452}
   - component: {fileID: 7845875956098804952}
   - component: {fileID: 3786192568526074498}
+  - component: {fileID: 2402133754796696128}
   m_Layer: 0
   m_Name: Class
   m_TagString: Untagged
@@ -1530,6 +1573,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2402133754796696128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319623037822993966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198ca93d7f8c4e9cad9349f25f8ec614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_schema: {fileID: 0}
 --- !u!1 &6554904594412867322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,6 +2489,7 @@ GameObject:
   - component: {fileID: 4348781990468667600}
   - component: {fileID: 5249720260787605317}
   - component: {fileID: 2382861287528236429}
+  - component: {fileID: 2756786401491808319}
   m_Layer: 0
   m_Name: Quirk (3)
   m_TagString: Untagged
@@ -2497,6 +2554,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2756786401491808319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8456026257632093297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198ca93d7f8c4e9cad9349f25f8ec614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_schema: {fileID: 0}
 --- !u!1 &9103844288008190953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,6 +2578,7 @@ GameObject:
   - component: {fileID: 233426349610302926}
   - component: {fileID: 9078710039913287627}
   - component: {fileID: 5402598549054895325}
+  - component: {fileID: 5859175239715841438}
   m_Layer: 0
   m_Name: Quirk (4)
   m_TagString: Untagged
@@ -2572,6 +2643,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5859175239715841438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103844288008190953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198ca93d7f8c4e9cad9349f25f8ec614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_schema: {fileID: 0}
 --- !u!1001 &511249167144696371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4344,6 +4428,7 @@ MonoBehaviour:
   m_icon: {fileID: 3349589340730917932}
   m_levelLabel: {fileID: 6447634644137913209}
   m_xpLabel: {fileID: 0}
+  m_xpSlider: {fileID: 0}
   m_stats: {fileID: 770989749447498654}
   m_class: {fileID: 3786192568526074498}
   m_quirks:

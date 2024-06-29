@@ -231,6 +231,9 @@ namespace _Scripts.UI
 
         private void OnPartyButtonClicked(int partyIndex)
         {
+            // Do the sound
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
+            
             // On reselection, clear the monster
             bool isReSelect = m_currentPartyIndex.HasValue && m_currentPartyIndex == partyIndex;
             if (isReSelect)
@@ -332,6 +335,9 @@ namespace _Scripts.UI
 
         private void OnRosterEntryClicked(UIRosterMonster monster)
         {
+            // Do the sound
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
+            
             if (m_mode != Mode.AddingMonster ||  !m_currentPartyIndex.HasValue)
             {
                 return;

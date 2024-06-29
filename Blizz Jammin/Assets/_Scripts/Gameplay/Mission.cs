@@ -108,6 +108,8 @@ namespace _Scripts.Gameplay
                 return;
             }
             
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
+            
             var missionInfo = ServiceLocator.Instance.MissionManager.GetMissionInfo(Data);
             switch (missionInfo.m_status)
             {
@@ -120,6 +122,8 @@ namespace _Scripts.Gameplay
                     var resultsPopup = popupManager.GetPopup(SchemaPopup.PopupType.MissionResults).GetComponent<UIMissionResults>();
                     resultsPopup.SetData(Data);
                     popupManager.RequestPopup(SchemaPopup.PopupType.MissionResults);
+                    
+                    ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.CombatEnd);
                     break;
 
                 // Otherwise, open the mission details

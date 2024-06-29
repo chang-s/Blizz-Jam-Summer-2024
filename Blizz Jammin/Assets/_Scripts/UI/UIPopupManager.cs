@@ -92,6 +92,9 @@ namespace _Scripts.UI
                 return;
             }
 
+            // Do the sound
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.PopupDismiss);
+            
             // Hide
             m_popupStack.Pop().Hide();
 

@@ -182,6 +182,8 @@ namespace _Scripts.Gameplay
                 return;
             }
             
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.CombatStart);
+            
             var missionInfo = m_missions[mission.WorldOrder];
             missionInfo.m_startStep = ServiceLocator.Instance.TimeManager.Day.Value;
             

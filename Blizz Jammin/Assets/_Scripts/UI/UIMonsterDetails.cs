@@ -158,6 +158,8 @@ namespace _Scripts.UI
             equipPopup.SetInstance(m_instance);
             
             popupManager.RequestPopup(SchemaPopup.PopupType.Equip);
+            
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
         }
         
         public void SetData(SchemaMonster data)
@@ -181,7 +183,7 @@ namespace _Scripts.UI
             if (m_class != null)
             {
                 m_class.sprite = data.Class.Icon;
-                m_class.GetComponent<UITooltipRequesterSchema>().SetSchema(data.Class);
+                m_class.GetComponent<UITooltipRequesterSchema>()?.SetSchema(data.Class);
             }
         }
     }

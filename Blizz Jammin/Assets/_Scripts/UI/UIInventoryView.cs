@@ -158,6 +158,9 @@ namespace _Scripts.UI
             // Add a listener to the button to show that item's details
             loot.Button.onClick.AddListener(() =>
             {
+                // Do the sound
+                ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
+                
                 ServiceLocator.Instance.LootManager.MarkSeen(instance);
                 SetInstance(instance);
             });

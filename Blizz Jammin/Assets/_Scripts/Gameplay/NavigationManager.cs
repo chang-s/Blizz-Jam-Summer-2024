@@ -83,6 +83,8 @@ namespace _Scripts.Gameplay
 
         private void OnRightButtonClicked()
         {
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
+            
             if (IsAnimating())
             {
                 return;
@@ -103,12 +105,15 @@ namespace _Scripts.Gameplay
                 Camera.transform.position + HorizontalOffset,
                 Duration
             ).SetEase(Ease);
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.MenuSwap);
             
             UpdateNavButtons();
         }
 
         private void OnLeftButtonClicked()
         {
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
+            
             if (IsAnimating())
             {
                 return;
@@ -129,6 +134,7 @@ namespace _Scripts.Gameplay
                 Camera.transform.position - HorizontalOffset,
                 Duration
             ).SetEase(Ease);
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.MenuSwap);
             
             UpdateNavButtons();
         }
@@ -139,7 +145,7 @@ namespace _Scripts.Gameplay
             {
                 return;
             }
-
+            
             m_animationTimeRemaining = Duration;
 
             int pages = m_missionPage - m_monsterPage;
@@ -149,6 +155,7 @@ namespace _Scripts.Gameplay
                 Camera.transform.position - VerticalOffset + horizontalOffset,
                 Duration
             ).SetEase(Ease);
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.MenuSwap);
             
             m_showingMonsters = false;
             UpdateNavButtons();
@@ -170,6 +177,7 @@ namespace _Scripts.Gameplay
                 Camera.transform.position + VerticalOffset + horizontalOffset,
                 Duration
             ).SetEase(Ease);
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.MenuSwap);
 
             m_showingMonsters = true;
             UpdateNavButtons();

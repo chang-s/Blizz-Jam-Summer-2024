@@ -67,6 +67,12 @@ namespace _Scripts.Schemas
         public int Cost;
         
         /// <summary>
+        /// Which SFX to request when recruited
+        /// </summary>
+        [BoxGroup("Recruit")] 
+        public SoundManager.Sfx RecruitSfx;
+        
+        /// <summary>
         /// If provided, completing this mission with 100% will unlock the monster in the shop. 
         /// </summary>
         [BoxGroup("Recruit")] 

@@ -114,4 +114,5 @@ MonoBehaviour:
   InitialQuirkCount: 1
   StartStatus: 0
   Cost: 500
+  RecruitSfx: 11
   UnlockMission: {fileID: 11400000, guid: f8c252ba3a0c43c4b99fb23c8c6575e0, type: 2}

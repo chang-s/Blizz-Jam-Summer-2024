@@ -17,6 +17,9 @@ namespace _Scripts.UI
 
         private void OnButtonClicked()
         {
+            // Do the sound
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
+            
             ServiceLocator.Instance.UIPopupManager.RequestPopup(PopupType);
         }
     }

@@ -55,7 +55,7 @@ namespace _Scripts.UI
                         {
                             ServiceLocator.Instance.LootManager.Equip(entry.Instance, m_monster);
                         }
-            
+
                         // TODO: Better UX
                         // for now, close this popup
                         ServiceLocator.Instance.UIPopupManager.RequestClose();

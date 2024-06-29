@@ -110,6 +110,8 @@ namespace _Scripts.Gameplay
             
             PositionMonsters();
 
+            ServiceLocator.Instance.SoundManager.RequestSfx(monster.Data.RecruitSfx);
+            
             OnMonsterRecruited?.Invoke(monster);
         }
         

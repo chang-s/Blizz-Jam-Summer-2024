@@ -307,6 +307,8 @@ namespace _Scripts.Gameplay
                 return;
             }
             
+            ServiceLocator.Instance.SoundManager.RequestSfx(SoundManager.Sfx.ButtonClick);
+
             // If we're locked, open the recruit popup instead of monster details
             if (Status == MonsterStatus.Locked || Status == MonsterStatus.Purchasable)
             {
