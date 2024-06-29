@@ -107,12 +107,13 @@ MonoBehaviour:
       Entry: 8
       Data: 
   Name: Danger Noodle
-  Description: <<Thief Type>>
+  Description: What is that? Whatever it is, it looks like it would be delicious
+    with some garbanzo beans and truffles.
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: -1929497661, guid: a048c3045d12f42a48d155bd131454e4, type: 3}
   Class: {fileID: 11400000, guid: dfe5e6b37da6f434e8c0cf470faa24a6, type: 2}
   InitialQuirkCount: 1
   StartStatus: 0
-  Cost: 500
+  Cost: 350
   RecruitSfx: 14
   UnlockMission: {fileID: 11400000, guid: f8c252ba3a0c43c4b99fb23c8c6575e0, type: 2}

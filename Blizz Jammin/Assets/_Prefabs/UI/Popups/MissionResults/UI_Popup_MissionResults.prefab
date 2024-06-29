@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 6586109883344197458}
   - component: {fileID: 3722287647558689609}
   - component: {fileID: 3964951748817950254}
+  - component: {fileID: 3986723797711508116}
   m_Layer: 0
   m_Name: Rating
   m_TagString: Untagged
@@ -381,6 +382,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3986723797711508116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2920994744572234201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f2dc80e466e4f2093b3e0439da212f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_text: Score 100 to unlock the next mission!
 --- !u!1 &3047449808598312299
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +601,7 @@ GameObject:
   - component: {fileID: 4695499397421354255}
   - component: {fileID: 2681329257763049456}
   - component: {fileID: 7056145197184347052}
+  - component: {fileID: 4490837943991739709}
   m_Layer: 0
   m_Name: XP
   m_TagString: Untagged
@@ -710,6 +725,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4490837943991739709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252018081128027977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f2dc80e466e4f2093b3e0439da212f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_text: Shared amongst all party members. Scales with Symbiosis!
 --- !u!1 &5317088699929857050
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,6 +967,7 @@ GameObject:
   - component: {fileID: 6210584834409588826}
   - component: {fileID: 4224020519741857475}
   - component: {fileID: 4483823570768570861}
+  - component: {fileID: 2892453332306743627}
   m_Layer: 0
   m_Name: Infamy
   m_TagString: Untagged
@@ -1062,6 +1091,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2892453332306743627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6679420157080053390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f2dc80e466e4f2093b3e0439da212f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_text: Scales with Terror!
 --- !u!1 &8165786173666547627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1228,19 +1270,19 @@ PrefabInstance:
       objectReference: {fileID: 4438885258421277373}
     - target: {fileID: 904663643152337566, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2298
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 904663643152337566, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2298
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 904663643152337566, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.2298
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 904663643152337566, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -36.92398
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 1133049116841477828, guid: 69163b45f0bff314da127d5e53c064e9, type: 3}
       propertyPath: m_Name

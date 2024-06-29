@@ -187,7 +187,7 @@ namespace _Scripts.Gameplay
             var missionInfo = m_missions[mission.WorldOrder];
             missionInfo.m_startStep = ServiceLocator.Instance.TimeManager.Day.Value;
             
-            (int endStep, float score) = Simulate(missionInfo.m_startStep, mission);
+            (int endStep, float score) = Simulate(missionInfo.m_startStep, missionInfo.m_mission);
 
             missionInfo.m_status = MissionStatus.InCombat;
             missionInfo.m_endStep = endStep;
@@ -353,20 +353,20 @@ namespace _Scripts.Gameplay
         /// float: The score result (0-1)
         /// TODO: Make a struct for this return pair?
         /// </summary>
-        private (int, float) Simulate(int startStep, SchemaMission mission)
+        private (int, float) Simulate(int startStep, Mission mission)
         {
             // Get the party for the mission
-            var party = ServiceLocator.Instance.MonsterManager.GetParty(mission);
+            var party = ServiceLocator.Instance.MonsterManager.GetParty(mission.Data);
 
             // Calculate the end time of the mission
             // The minimum amount of time a mission can take is 1 day
             int terrorReduction = GetAggregatePartyStatValue(SchemaStat.Stat.Terror, party) /
                                   m_gameSettings.MissionSpeedTerrorPerDay;
-            int endStep = startStep + Math.Max(1, mission.Days - terrorReduction);
+            int endStep = startStep + Math.Max(1, mission.Data.Days - terrorReduction);
             
             // Calculate the damage the party will do. Cast to float so that we can get a ratio
-            float damage = GetAggregatePartyDamage(party);
-            float score = Math.Min(damage / mission.Endurance, 1.0f);
+            float damage = GetAggregatePartyDamage(party, mission.Modifiers.ToArray());
+            float score = Math.Min(damage / mission.Data.Endurance, 1.0f);
 
             return (endStep, score);
         }
@@ -382,14 +382,12 @@ namespace _Scripts.Gameplay
                     continue;
                 }
                 
-                // TODO: Make items add stats for self/party
-                
                 value += monsterInfo.GetStatValue(stat);
             }
             return value;
         }
 
-        private int GetAggregatePartyDamage(Monster[] party)
+        private int GetAggregatePartyDamage(Monster[] party, Mission.Modifier[] mods)
         {
             int GetActiveCombatants(int[] enduranceTrackers)
             {
@@ -440,7 +438,18 @@ namespace _Scripts.Gameplay
                     var critScalar = m_gameSettings.DefaultCritScalar + (terror * m_gameSettings.CritScalarPerTerror) +
                                      (surplusLuck * m_gameSettings.CritScalarPerSurplusLuck);
 
-                    damage += (int) (offensiveValue * (isCrit ? critScalar : 1f));
+                    // Apply mission quirks
+                    var unscaledDamage = (int) (offensiveValue * (isCrit ? critScalar : 1f));
+                    float scalar = 1.0f;
+                    foreach (var modifier in mods)
+                    {
+                        if (monster.Quirks.Contains(modifier.Quirk))
+                        {
+                            scalar += modifier.ModValue * 0.1f;
+                        }
+                    }
+                    
+                    damage += (int)(unscaledDamage * scalar);
                 }
 
                 // Now that everyone has done their step, their endurances have gone down, we can re-calculate how

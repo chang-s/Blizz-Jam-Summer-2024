@@ -106,13 +106,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: MonsterG
-  Description: Frontline Leader Type
+  Name: Guaca Mole
+  Description: We aren't supposed to talk about the bloody mole, but there's a bloody
+    mole winking me in the face. I want to c-u-u-t it off, ch-o-o-p it off, and make
+    guacamole
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: db4c47bc8cb194c4d98f4562a275148e, type: 3}
   Class: {fileID: 11400000, guid: dfe5e6b37da6f434e8c0cf470faa24a6, type: 2}
   InitialQuirkCount: 1
   StartStatus: 2
-  Cost: 500
+  Cost: 350
   RecruitSfx: 12
   UnlockMission: {fileID: 0}

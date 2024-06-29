@@ -106,13 +106,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: MonsterN
-  Description: Zero to Hero type
+  Name: Fluffy
+  Description: Pay this demon no attention... unless it's not alone! It's power grows
+    with those he's surrounded with. That's the power of friendship!
   Scale: {x: 1, y: 1, z: 1}
   Sprite: {fileID: 21300000, guid: b7e1148a10ca8354291164a8b7558ca8, type: 3}
   Class: {fileID: 11400000, guid: 9e0cd02fe00fd1b4888ffe8d17b0c7cf, type: 2}
   InitialQuirkCount: 1
   StartStatus: 0
-  Cost: 3000
+  Cost: 2500
   RecruitSfx: 19
-  UnlockMission: {fileID: 11400000, guid: 37752606096549a4ab36988bf971f749, type: 2}
+  UnlockMission: {fileID: 11400000, guid: 5612e04d09702554db8820fb0d0e4b16, type: 2}
