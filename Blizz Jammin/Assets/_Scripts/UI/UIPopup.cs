@@ -12,7 +12,7 @@ namespace _Scripts.UI
         [SerializeField] private CanvasGroup m_canvasGroup;
         [SerializeField] private RectTransform m_content;
         [SerializeField] private Button[] m_closeButtons;
-        [SerializeField] private float m_fadeTime;
+        [SerializeField] private float m_animationTime;
         [SerializeField] private bool m_doEnterAnimation;
         [SerializeField] private bool m_doFadeAnimation;
         
@@ -55,12 +55,12 @@ namespace _Scripts.UI
             if (m_doEnterAnimation)
             {
                 m_content.transform.localPosition = new Vector3(0f, -2000f, 0f);
-                m_content.DOAnchorPos(new Vector2(0f, 0f), m_fadeTime, false).SetEase(Ease.OutElastic);
+                m_content.DOAnchorPos(new Vector2(0f, 0f), m_animationTime, false).SetEase(Ease.OutElastic);
             }
             if(m_doFadeAnimation)
             {
                 m_canvasGroup.alpha = 0f;
-                m_canvasGroup.DOFade(1f, m_fadeTime);
+                m_canvasGroup.DOFade(1f, m_animationTime);
             }
         }
 
@@ -69,12 +69,12 @@ namespace _Scripts.UI
             if(m_doEnterAnimation)
             {
                 m_content.transform.localPosition = Vector3.zero;
-                m_content.DOAnchorPos(new Vector2(0f, -2000f), m_fadeTime).SetEase(Ease.InOutQuint);
+                m_content.DOAnchorPos(new Vector2(0f, -2000f), m_animationTime).SetEase(Ease.InOutQuint);
             }
             if (m_doFadeAnimation)
             {
                 m_canvasGroup.alpha = 1f;
-                m_canvasGroup.DOFade(1f, m_fadeTime);
+                m_canvasGroup.DOFade(1f, m_animationTime);
             }
         }
 
