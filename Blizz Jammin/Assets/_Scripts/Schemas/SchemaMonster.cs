@@ -86,6 +86,7 @@ namespace _Scripts.Schemas
         public SchemaLoot UnlockLoot;
         */
         
+        /*
         [Button("Add All Stats")]
         public void AddAllStats()
         {
@@ -102,5 +103,7 @@ namespace _Scripts.Schemas
                 Stats.Add(stat, 1);
             }
         }
+        
+        */
     }
 }

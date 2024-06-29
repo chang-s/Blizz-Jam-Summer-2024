@@ -14,6 +14,7 @@ namespace _Scripts.Schemas
         [BoxGroup("Behavior")]
         public Dictionary<SchemaStat, int> Stats = new Dictionary<SchemaStat, int>();
         
+        /*
         [Button("Add All Missing Stats (0)")]
         public void AddAllStats()
         {
@@ -30,5 +31,6 @@ namespace _Scripts.Schemas
                 Stats.Add(stat, 0);
             }
         }
+        */
     }
 }

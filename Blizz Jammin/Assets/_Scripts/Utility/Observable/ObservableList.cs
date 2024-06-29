@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Utility.Observable {
 
     [Serializable]
-    public class ObservableList<T> : Observable, IList<T> {
+    public class ObservableList<T> : _Scripts.Utility.Observable.Observable, IList<T> {
         public event Action<T> ItemAdded;
         public event Action<T> ItemRemoved;
         public override event Action OnChanged;
@@ -23,7 +23,7 @@ namespace Utility.Observable {
 
         List<T> tempList = new List<T>();
 
-        protected override string ValuePropName { get { return "m_list"; } }
+        public override string ValuePropName { get { return "m_list"; } }
 
         #region IList[T] implementation
         public int IndexOf(T value) {
@@ -137,7 +137,7 @@ namespace Utility.Observable {
             return (v1 == null && v2 == null) || v1 != null && v1.Equals(v2);
         }
 
-        protected override void OnBeginGui() {
+        public override void OnBeginGui() {
             syncToPrevList();
         }
 

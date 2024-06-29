@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using _Scripts.Utility.Observable;
 using UnityEngine;
 
 namespace Utility.Observable {
@@ -12,7 +13,7 @@ namespace Utility.Observable {
     }
 
     [Serializable]
-    public class Observable<T> : Observable, IObservable<T>, IEquatable<Observable<T>> {
+    public class Observable<T> : _Scripts.Utility.Observable.Observable, IObservable<T>, IEquatable<Observable<T>> {
 
         [SerializeField]
         T value;
@@ -31,7 +32,7 @@ namespace Utility.Observable {
         /// </summary>
         public event Action<T, T> OnChangedValues;
 
-        protected override string ValuePropName { get { return "value"; } }
+        public override string ValuePropName { get { return "value"; } }
 
         public Observable() {
         }
@@ -89,7 +90,7 @@ namespace Utility.Observable {
             return value.GetHashCode();
         }
 
-        protected override void OnBeginGui() {
+        public override void OnBeginGui() {
             prevValue = value;
             prevValueInitialized = true;
         }
