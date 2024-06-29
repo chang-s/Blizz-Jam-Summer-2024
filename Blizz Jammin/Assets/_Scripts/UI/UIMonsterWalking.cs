@@ -4,14 +4,14 @@ using DG.Tweening;
 public class UIMonsterWalking : MonoBehaviour
 {
     public RectTransform monsterImage;
-    private float minWalkingDistance = 1f;
-    private float maxWalkingDistance = 3f;
-    private float minWalkingDuration = 5f;  
-    private float maxWalkingDuration = 10f;  
+    private float minWalkingDistance = 0.5f;
+    private float maxWalkingDistance = 1f;
+    private float minWalkingDuration = 10f;  
+    private float maxWalkingDuration = 15f;  
     private float minWiggleAngle = 5f;
-    private float maxWiggleAngle = 15f;
-    private float minWiggleDuration = 0.3f;
-    private float maxWiggleDuration = 0.7f;
+    private float maxWiggleAngle = 10f;
+    private float minWiggleDuration = 0.5f;
+    private float maxWiggleDuration = 1f;
 
     void Start()
     {

@@ -101,12 +101,14 @@ namespace _Scripts.Gameplay
             Unlock(monster);
             
             monster.Recruit();
+
+            MoveMonsterToFront(monster);
             
             // Move this new monster to the front of the list
-            int oldIndex = m_monsters.FindIndex(m => m == monster);
-            Monster firstMonster = m_monsters[0];
-            m_monsters[0] = monster;
-            m_monsters[oldIndex] = firstMonster;
+            //int oldIndex = m_monsters.FindIndex(m => m == monster);
+            //Monster firstMonster = m_monsters[0];
+            //m_monsters[0] = monster;
+            //m_monsters[oldIndex] = firstMonster;
             
             PositionMonsters();
 
@@ -121,6 +123,14 @@ namespace _Scripts.Gameplay
         /// </summary>
         private void PositionMonsters()
         {
+            // Sort monsters by the bottom Y position of their RectTransform
+            m_monsters.Sort((m1, m2) =>
+            {
+                Vector3 m1Bottom = m1.transform.position + new Vector3(0, -((RectTransform)(m1.m_ImageRenderer.transform)).rect.height / 2, 0);
+                Vector3 m2Bottom = m2.transform.position + new Vector3(0, -((RectTransform)(m1.m_ImageRenderer.transform)).rect.height / 2, 0);
+                return m1Bottom.y.CompareTo(m2Bottom.y);
+            });
+
             Vector3 offset = Vector3.zero;
             int monsterCount = 0;
             for (var i = 0; i < m_monsters.Count; i++)
@@ -134,12 +144,26 @@ namespace _Scripts.Gameplay
                 monsterCount++;
                 m_monsters[i].transform.SetParent(m_monsterRoot);
                 m_monsters[i].transform.localPosition = offset;
-                
+
+                // Set sibling index based on position in sorted list
+                monster.transform.SetSiblingIndex(i);
+
                 offset += m_gap;
                 if (monsterCount % m_monstersPerPage == 0)
                 {
                     offset =  m_pageGap * monsterCount / m_monstersPerPage;
                 }
+            }
+        }
+
+        private void MoveMonsterToFront(Monster monster)
+        {
+            int index = m_monsters.IndexOf(monster);
+            if (index > 0)
+            {
+                m_monsters.RemoveAt(index);
+                m_monsters.Insert(0, monster);
+                PositionMonsters();
             }
         }
 

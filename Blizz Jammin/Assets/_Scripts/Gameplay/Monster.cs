@@ -66,7 +66,7 @@ namespace _Scripts.Gameplay
         /// </summary>
         public IReadOnlyCollection<SchemaQuirk> Quirks => m_quirks;
 
-        [SerializeField] private Image m_ImageRenderer;
+        public Image m_ImageRenderer;
 
         [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private TextMeshPro m_nameLabel;
