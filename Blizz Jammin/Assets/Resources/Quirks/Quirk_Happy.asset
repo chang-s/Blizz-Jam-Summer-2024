@@ -23,4 +23,4 @@ MonoBehaviour:
     SerializationNodes: []
   Name: Happy
   TooltipText: 'Quirk: Happy'
-  Icon: {fileID: 21300000, guid: 889bfc010fb1f4126b24cc89e91f446b, type: 3}
+  Icon: {fileID: 21300000, guid: 3902be19df51a40a28c47f05dc043ddf, type: 3}
