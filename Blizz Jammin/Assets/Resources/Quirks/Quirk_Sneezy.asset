@@ -23,4 +23,4 @@ MonoBehaviour:
     SerializationNodes: []
   Name: Sneezy
   TooltipText: 'Quirk: Sneezy'
-  Icon: {fileID: 21300000, guid: 889bfc010fb1f4126b24cc89e91f446b, type: 3}
+  Icon: {fileID: 21300000, guid: e9a5276ad5e49454e9f8ee1a84f51382, type: 3}

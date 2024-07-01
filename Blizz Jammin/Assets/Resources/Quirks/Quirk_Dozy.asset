@@ -23,4 +23,4 @@ MonoBehaviour:
     SerializationNodes: []
   Name: Dozy
   TooltipText: 'Quirk: Dozy'
-  Icon: {fileID: 21300000, guid: 889bfc010fb1f4126b24cc89e91f446b, type: 3}
+  Icon: {fileID: 21300000, guid: e39177ce5a9904528a45e310c977394d, type: 3}
